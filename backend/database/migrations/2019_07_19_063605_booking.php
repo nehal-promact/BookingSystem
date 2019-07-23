@@ -15,11 +15,11 @@ class Booking extends Migration
     {
         Schema::create('booking', function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->timestamps('date_time');
-            $table->time('from')
-            $table->to('to')
-            $table->int('space_id')
-            $table->int('user_id');
+            $table->timestamp('date_time');
+            $table->timestamp('from');
+            $table->timestamp('to');
+            $table->integer('space_id');
+            $table->integer('user_id');
             $table->string('booking_title');
             $table->timestamps();
         });
