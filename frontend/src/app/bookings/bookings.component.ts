@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpResponse,HttpHeaders  } from '@angular/common/http';
-import { SpacesService } from '../shared/spaces/spaces.service';
-import { Spaces } from '../shared/spaces/spaces';
+import { SpacesService } from '../spaces/spaces.service';
+import { Spaces } from '../spaces/spaces';
 
 @Component({
   selector: 'app-bookings',

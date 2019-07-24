@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpResponse,HttpHeaders  } from '@angular/common/http';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { EnvironmentService } from '../environment/environment.service';
+import { AuthenticationService } from '../shared/authentication/authentication.service';
+import { EnvironmentService } from '../shared/environment/environment.service';
 import {Observable} from 'rxjs/Rx';
 import { Spaces } from './spaces';
 
