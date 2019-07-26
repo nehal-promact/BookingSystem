@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,4 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('getSpaces','API\SpacesController@index');
+Route::apiResource('space', 'API\SpacesController');
+//Route::get('getSpaces','API\SpacesController@index');
+//Route::post('addSpace', 'API\SpacesController@create');
