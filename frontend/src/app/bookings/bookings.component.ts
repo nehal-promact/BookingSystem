@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpResponse,HttpHeaders  } from '@angular/common/http';
 import { SpacesService } from '../spaces/spaces.service';
 import { Spaces } from '../spaces/spaces';
+import { TIMES } from './time';
 
 @Component({
   selector: 'app-bookings',
@@ -13,9 +14,11 @@ import { Spaces } from '../spaces/spaces';
 export class BookingsComponent implements OnInit {
 
     spaces : Spaces;
+    times = TIMES;
+    
     constructor(
       private http: HttpClient,
-      private spaceservice: SpacesService
+      private spaceservice: SpacesService,
     ) { }
 
     ngOnInit() {

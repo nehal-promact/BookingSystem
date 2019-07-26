@@ -2,69 +2,38 @@
 <div class="btn-group d-none d-xl-inline-flex" role="group">
     <button class="btn btn-g300 px-3 scheduler-header-nav-button-bold active" type="button">DAY</button>
     <button class="btn btn-g300 px-3 scheduler-header-nav-button-bold " type="button">MONTH</button>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/space">Create another space</a>
+        </div>
+    </div>
 </div>
 <div class="scheduler-header-spaces-wrapper">
     <div class="ember-view">
         <div class="bg-white scheduler-spaces-header-padding-top">
-            <table class="table table-layout-fixed table-bordered table-sm m-0 scheduler-header-spaces-table">
-              <tbody>
-              <tr class="text-center">
-                <td class="scheduler-time-column"></td>
-                  <td>Meeting Room - 1st Floor</td>
-                  <td>Meeting Room - 2nd Floor</td>
-                  <td>Meeting Room - 3rd Floor</td>
-              </tr>
-              </tbody>
+            <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table" *ngIf="spaces">
+                <tr>
+                    <th class="scheduler-time-column"></th>
+                    <th class="center" *ngFor="let space of spaces.data">{{space.space_name}}</th>
+                </tr>
+            </table>
+            <table class="day-mode-table ember-view" *ngIf="spaces">
+                <tbody *ngFor="let time of times">
+                    <tr class="time-unavailable">
+                        <td class="scheduler-time-column" rowspan="2">
+                            <div class="text-truncate">
+                              <small>{{time.data}}</small>
+                            </div>
+                        </td>
+                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id"></td>
+                    </tr>
+                    <tr class="time-unavailable">
+                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id"></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="scheduler-day-mode-wrapper">
-      <table id="scheduler-table" class="day-mode-table ember-view"><tbody>
-  <tr class="time-unavailable">
-      <td class="scheduler-time-column" rowspan="2">
-        <div class="text-truncate">
-          <small>12:00 AM</small>
-        </div>
-      </td>
-      <td role="button" data-ember-action="" data-ember-action-5154="5154" data-ember-action-5155="5155" data-ember-action-5156="5156">
-<!---->      </td>
-      <td role="button" data-ember-action="" data-ember-action-5157="5157" data-ember-action-5158="5158" data-ember-action-5159="5159">
-<!---->      </td>
-      <td role="button" data-ember-action="" data-ember-action-5160="5160" data-ember-action-5161="5161" data-ember-action-5162="5162">
-<!---->      </td>
-  </tr>
-  <tr class="time-unavailable">
-<!---->      <td role="button" class="   " data-ember-action="" data-ember-action-5163="5163" data-ember-action-5164="5164" data-ember-action-5165="5165">
-<!---->      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5166="5166" data-ember-action-5167="5167" data-ember-action-5168="5168">
-<!---->      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5169="5169" data-ember-action-5170="5170" data-ember-action-5171="5171">
-<!---->      </td>
-  </tr>
-  <tr class="time-unavailable">
-      <td class="scheduler-time-column" rowspan="2">
-        <div class="text-truncate">
-          <small>1:00 AM</small>
-        </div>
-      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5172="5172" data-ember-action-5173="5173" data-ember-action-5174="5174">
-<!---->      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5175="5175" data-ember-action-5176="5176" data-ember-action-5177="5177">
-<!---->      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5178="5178" data-ember-action-5179="5179" data-ember-action-5180="5180">
-<!---->      </td>
-  </tr>
-  <tr class="time-unavailable">
-<!---->      <td role="button" class="   " data-ember-action="" data-ember-action-5181="5181" data-ember-action-5182="5182" data-ember-action-5183="5183">
-<!---->      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5184="5184" data-ember-action-5185="5185" data-ember-action-5186="5186">
-<!---->      </td>
-      <td role="button" class="   " data-ember-action="" data-ember-action-5187="5187" data-ember-action-5188="5188" data-ember-action-5189="5189">
-<!---->      </td>
-  </tr>
-</tbody></table>
-
-    </div>
-
 </div>

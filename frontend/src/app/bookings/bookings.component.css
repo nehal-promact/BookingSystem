@@ -22,3 +22,6 @@
 .scheduler-time-column {
     width: 80px;
 }
+.table-layout-fixed {
+    table-layout: fixed;
+}

@@ -16,12 +16,42 @@ export class SpacesService {
     private environmentService: EnvironmentService,
   ) { }
   
-  getSpaces(): Observable<Spaces>{
+    getSpaces(): Observable<Spaces>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
         
         let url = this.environmentService.setApiService('getSpaces')
         return this.http.get<Spaces>(url, {headers});
     }
-  
+    
+    getSpaceById(id:number): Observable<Spaces> {
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();
+        let url = this.environmentService.setApiService('getSpaceById')+'/'+id;
+        return this.http.get<Spaces>(url, {headers});
+    }
+        
+    addSpace(space: Spaces): Observable<HttpResponse<Spaces>>{
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();   
+        let url = this.environmentService.setApiService('addSpace')
+        return this.http.post<Spaces>(url, space,
+            {
+              headers: headers,
+              observe: 'response'
+            }
+        );     
+    }
+    
+    editSpace(space: Spaces, id: number): Observable<HttpResponse<Spaces>>{
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();
+        let url = this.environmentService.setApiService('editSpace')+'/'+id;
+        return this.http.post<Spaces>(url, space,
+            {
+              headers: headers,
+              observe: 'response'
+            }
+        ); 
+    }
 }
