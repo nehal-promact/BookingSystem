@@ -18,7 +18,7 @@ class SpacesController extends APIBaseController
         $spaces = Spaces::all();
         $response = array();
         foreach($spaces as $space){
-            $Response[] = array(
+            $response[] = array(
                 'id' => $space->id,
                 'space_name'=>$space->space_name
             );
@@ -40,34 +40,21 @@ class SpacesController extends APIBaseController
     }
 
     public function show($id){
-        $request->validate([
-            'id' =>'required',
-        ]);
-        
         $space = Spaces::find($id);
         return $this->sendResponse($space, 'Spaces found');
     }
 
-    public function update($id){
-        $request->validate([
-            'id' =>'required',
-        ]);
-
-        $space = Space::find($id);
-        $space->space_name = Input::get('space_name');
-
-        return $this->sendResponse($space, 'Spaces updated successfully.'); 
+    public function update($id, Request $request){
+       $space = Spaces::find($id);
+       $space->space_name = Input::get('space_name');
+       $space->save();
+       return $this->sendResponse($space, 'Spaces updated successfully.');
     }   
 
     public function destroy($id){
-        $request->validate([
-            'id' =>'required',
-        ]);
-
-        $space  = Space::find($id);
-        $space->delete();
-
-        return $this->sendResponse('Spaces deleted successfully.');
+       $space  = Spaces::find($id);
+       $space->delete();
+       return $this->sendResponse('Spaces deleted successfully.');
     }
 
 }

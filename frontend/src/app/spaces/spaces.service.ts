@@ -20,21 +20,21 @@ export class SpacesService {
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
         
-        let url = this.environmentService.setApiService('getSpaces')
+        let url = this.environmentService.setApiService('space')
         return this.http.get<Spaces>(url, {headers});
     }
     
     getSpaceById(id:number): Observable<Spaces> {
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
-        let url = this.environmentService.setApiService('getSpaceById')+'/'+id;
+        let url = this.environmentService.setApiService('space')+'/'+id;
         return this.http.get<Spaces>(url, {headers});
     }
         
     addSpace(space: Spaces): Observable<HttpResponse<Spaces>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();   
-        let url = this.environmentService.setApiService('addSpace')
+        let url = this.environmentService.setApiService('space')
         return this.http.post<Spaces>(url, space,
             {
               headers: headers,
@@ -46,8 +46,8 @@ export class SpacesService {
     editSpace(space: Spaces, id: number): Observable<HttpResponse<Spaces>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
-        let url = this.environmentService.setApiService('editSpace')+'/'+id;
-        return this.http.post<Spaces>(url, space,
+        let url = this.environmentService.setApiService('space')+'/'+id;
+        return this.http.put<Spaces>(url, space,
             {
               headers: headers,
               observe: 'response'

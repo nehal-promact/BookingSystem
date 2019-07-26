@@ -7,7 +7,7 @@ import { Spaces } from './spaces';
   templateUrl: './spaces.component.html',
   styleUrls: ['./spaces.component.css']
 })
-export class SpacesComponent implements OnInit {tttt
+export class SpacesComponent implements OnInit {
 
     submitted = false; 
     model : Spaces;
@@ -28,7 +28,7 @@ export class SpacesComponent implements OnInit {tttt
             let id = this.route.snapshot.paramMap.get('id');
             this.spaceId = id;
             this.flag = 'edit';
-            this.getSpaceById(id);
+            this.getSpaceById(parseInt(id));
         }else{
             this.flag = 'add';
         }
@@ -53,26 +53,28 @@ export class SpacesComponent implements OnInit {tttt
     }
     
     onSubmit() { 
-        console.log(this.model);
-        this.spaceservice.addSpace(this.model).subscribe(res => { 
-            this.response = res.body;
-            this.submitted = true; 
-          },
-          err => {
-            console.log(err);
-          }
-        );
+        if(this.flag=='add'){
+            console.log(this.model);
+            this.spaceservice.addSpace(this.model).subscribe(res => { 
+                this.response = res.body;
+                this.submitted = true; 
+              },
+              err => {
+                console.log(err);
+              }
+            );
+        }else if(this.flag=='edit'){
+            console.log(this.spaceId);
+            console.log(this.model);
+            this.spaceservice.editSpace(this.model,this.spaceId).subscribe(res => { 
+                this.response = res.body;
+              },
+              err => {
+                console.log(err);
+              }
+            );
+        }
     }
     
-    editSpace(id:number){
-        console.log(id);
-        console.log(this.model);
-        this.spaceservice.editSpace(this.model).subscribe(res => { 
-            this.response = res.body;
-          },
-          err => {
-            console.log(err);
-          }
-        );
-    }  
+    
 }
