@@ -54,7 +54,7 @@ class SpacesController extends APIBaseController
     public function destroy($id){
        $space  = Spaces::find($id);
        $space->delete();
-       return $this->sendResponse('Spaces deleted successfully.');
+       return $this->sendResponse(true,'Spaces deleted successfully.');
     }
 
 }

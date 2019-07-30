@@ -8,19 +8,25 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { SharedModule } from './shared/shared.module';
 import { TokenStorage } from './shared/authentication/token-storage.service';
 import { SpacesComponent } from './spaces/spaces.component';
+import { ToastGlobalComponent } from './toast-global/toast-global.component';
+import { ToastsContainer } from './toast-global/toast-container.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap' ;
 
 @NgModule({
   declarations: [
     AppComponent,
     BookingsComponent,
-    SpacesComponent
+    SpacesComponent,
+    ToastGlobalComponent,
+    ToastsContainer
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
   ],
   providers: [TokenStorage],
   bootstrap: [AppComponent]

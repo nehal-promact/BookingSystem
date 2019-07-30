@@ -26,10 +26,10 @@
                               <small>{{time.data}}</small>
                             </div>
                         </td>
-                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id"></td>
+                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
                     </tr>
                     <tr class="time-unavailable">
-                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id"></td>
+                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
                     </tr>
                 </tbody>
             </table>
