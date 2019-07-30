@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('space', 'API\SpacesController');
+Route::apiResource('space', 'API\SpacesController')->except([
+    'create', 'edit'
+]);
+
+Route::apiResource('booking', 'API\BookingController');
 //Route::get('getSpaces','API\SpacesController@index');
 //Route::post('addSpace', 'API\SpacesController@create');
