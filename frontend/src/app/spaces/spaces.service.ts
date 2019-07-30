@@ -54,4 +54,11 @@ export class SpacesService {
             }
         ); 
     }
+    
+    deleteSpace(id: number): Observable<{}>{
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();
+        let url = this.environmentService.setApiService('space')+'/'+id;
+        return this.http.delete(url, {headers});
+    }
 }

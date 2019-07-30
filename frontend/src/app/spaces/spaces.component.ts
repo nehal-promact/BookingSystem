@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ToastService } from '../toast-global/toast.service';
+import { ToastsContainer } from '../toast-global/toast-container.component';
 import { SpacesService } from './spaces.service';
 import { Spaces } from './spaces';
 @Component({
@@ -19,6 +21,8 @@ export class SpacesComponent implements OnInit {
   constructor(
     private spaceservice: SpacesService,
     private route: ActivatedRoute,
+    private router: Router,
+    public toastService: ToastService,
   ) { }
 
     ngOnInit() {
@@ -26,7 +30,7 @@ export class SpacesComponent implements OnInit {
         this.getSpaces();
         if(this.route.snapshot.paramMap.get('id')!=null){
             let id = this.route.snapshot.paramMap.get('id');
-            this.spaceId = id;
+            this.spaceId = parseInt(id);
             this.flag = 'edit';
             this.getSpaceById(parseInt(id));
         }else{
@@ -55,26 +59,42 @@ export class SpacesComponent implements OnInit {
     onSubmit() { 
         if(this.flag=='add'){
             console.log(this.model);
-            this.spaceservice.addSpace(this.model).subscribe(res => { 
+            this.spaceservice.addSpace(this.model).subscribe((res:any) => { 
                 this.response = res.body;
-                this.submitted = true; 
+                this.submitted = true;
+                this.toastService.show(res.body.message);
+                window.location.reload();
+                //this.router.navigateByUrl('space'); 
               },
               err => {
-                console.log(err);
+                this.toastService.show("Error");
               }
             );
         }else if(this.flag=='edit'){
             console.log(this.spaceId);
             console.log(this.model);
-            this.spaceservice.editSpace(this.model,this.spaceId).subscribe(res => { 
+            this.spaceservice.editSpace(this.model,this.spaceId).subscribe((res:any) => { 
+                console.log(res.body.message);
                 this.response = res.body;
+                this.toastService.show(res.body.message);
               },
               err => {
-                console.log(err);
+                this.toastService.show("Error");
               }
             );
         }
     }
     
-    
+    deleteSpace(): void {
+        console.log(this.spaceId);
+        this.spaceservice.deleteSpace(this.spaceId).subscribe((res:any) => { 
+            console.log(res);
+            this.router.navigateByUrl('space');
+            this.toastService.show(res.body.message);
+            },
+            err => {
+                this.toastService.show("Error");
+            }
+        );
+    }  
 }
