@@ -1,7 +1,7 @@
 <div class="container">
 <div class="btn-group d-none d-xl-inline-flex" role="group">
-    <button class="btn btn-g300 px-3 scheduler-header-nav-button-bold active" type="button">DAY</button>
-    <button class="btn btn-g300 px-3 scheduler-header-nav-button-bold " type="button">MONTH</button>
+    <a href="/booking?viewType=1" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
+    <a href="/booking?viewType=2" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -9,31 +9,53 @@
         </div>
     </div>
 </div>
-<div class="scheduler-header-spaces-wrapper">
-    <div class="ember-view">
-        <div class="bg-white scheduler-spaces-header-padding-top">
-            <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table" *ngIf="spaces">
-                <tr>
-                    <th class="scheduler-time-column"></th>
-                    <th class="center" *ngFor="let space of spaces.data">{{space.space_name}}</th>
-                </tr>
-            </table>
-            <table class="day-mode-table ember-view" *ngIf="spaces">
-                <tbody *ngFor="let time of times">
-                    <tr class="time-unavailable">
-                        <td class="scheduler-time-column" rowspan="2">
-                            <div class="text-truncate">
-                              <small>{{time.data}}</small>
-                            </div>
-                        </td>
-                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+    <div class="scheduler-header-spaces-wrapper" *ngIf="viewType==1">
+        <div class="ember-view">
+            <div class="bg-white scheduler-spaces-header-padding-top">
+                <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table" *ngIf="spaces">
+                    <tr>
+                        <th class="scheduler-time-column"></th>
+                        <th class="center" *ngFor="let space of spaces.data">{{space.space_name}}</th>
                     </tr>
-                    <tr class="time-unavailable">
-                        <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
-                    </tr>
-                </tbody>
-            </table>
+                </table>
+                <table class="day-mode-table ember-view" *ngIf="spaces">
+                    <tbody *ngFor="let time of times">
+                        <tr class="time-unavailable">
+                            <td class="scheduler-time-column" rowspan="2">
+                                <div class="text-truncate">
+                                  <small>{{time.data}}</small>
+                                </div>
+                            </td>
+                            <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+                        </tr>
+                        <tr class="time-unavailable">
+                            <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+    <div class="scheduler-header-spaces-wrapper" *ngIf="viewType==2">
+        <div class="ember-view">
+            <div class="bg-white scheduler-spaces-header-padding-top">
+                <h3 class="card-header" id="monthAndYear"></h3>
+                <table class="table table-bordered table-responsive-sm" id="calendar">
+                    <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
