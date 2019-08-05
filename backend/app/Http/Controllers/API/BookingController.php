@@ -43,16 +43,21 @@ class BookingController extends Controller
             'date_time'     => 'required|date',
             'form'          => 'required',
             'to'            => 'required',
-            'space_id'      => 'requird|integer',
-            'user_id'       => 'requird|integer',
-            'booking_title' => 'requird|string', 
+            'space_id'      => 'required|integer',
+            'user_id'       => 'required|integer',
+            'booking_title' => 'required|string', 
         ]);
 
-        $booking             = new Booking;
-        $space->space_name = Input::get('space_name');
-        $space->save();
+        $booking                = new Booking;
+        $booking->date_time     = Input::get('date_time');
+        $booking->form          = Input::get('form');
+        $booking->to            = Input::get('to');
+        $booking->space_id      = Input::get('space_id');
+        $booking->user_id       = Input::get('user_id');
+        $booking->booking_title = Input::get('booking_title');
+        $booking->save();
 
-        return $this->sendResponse($space, 'Space created successfully.');
+        return $this->sendResponse($booking, 'Space created successfully.');
     }
 
     /**
@@ -63,7 +68,8 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
+        $booking = Booking::find($booking);
+        return $this->sendResponse($booking, 'Spaces found');
     }
 
     /**
@@ -86,7 +92,26 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $booking = Booking::find($booking);
+        $request->validate([
+            'date_time'     => 'required|date',
+            'form'          => 'required',
+            'to'            => 'required',
+            'space_id'      => 'required|integer',
+            'user_id'       => 'required|integer',
+            'booking_title' => 'required|string', 
+        ]);
+
+        $booking->date_time     = Input::get('date_time');
+        $booking->form          = Input::get('form');
+        $booking->to            = Input::get('to');
+        $booking->space_id      = Input::get('space_id');
+        $booking->user_id       = Input::get('user_id');
+        $booking->booking_title = Input::get('booking_title');
+        $booking->save();
+
+        return $this->sendResponse($booking, 'Booking updated successfully.');
+           
     }
 
     /**
@@ -97,6 +122,8 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+       $booking = Booking::find($booking);
+        $booking->delete();
+      return $this->sendResponse(true,'Booking deleted successfully.');
     }
 }
