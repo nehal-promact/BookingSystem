@@ -5,6 +5,7 @@ import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SpacesService } from '../spaces/spaces.service';
 import { Spaces } from '../spaces/spaces';
+import { Booking } from './booking';
 import { TIMES } from './time';
 
 @Component({
@@ -57,7 +58,7 @@ export class BookingsComponent implements OnInit {
     
     openDialog(time,space_id): void {
         const dialogConfig = new MatDialogConfig();
-console.log(time);
+        console.log(time);
         dialogConfig.data = {
                 width: '400px',
                 height: '600px',
@@ -106,7 +107,6 @@ console.log(time);
                 else if (date > this.daysInMonth(month, year)) {
                     break;
                 }
-
                 else {
                     let cell = document.createElement("td");
                     let cellText = document.createTextNode(date.toString());

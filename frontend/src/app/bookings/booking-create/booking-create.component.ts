@@ -45,6 +45,7 @@ export class BookingCreateComponent implements OnInit {
     
     onSubmit() {
         this.model.user_id = 1;
+        this.model.space_id = parseInt(this.model.space_id);
         console.log(this.model);
     }
     
