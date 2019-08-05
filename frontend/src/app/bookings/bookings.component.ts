@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpResponse,HttpHeaders  } from '@angular/common/http';
+import {MatDialog, MatDialogRef,MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
+import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SpacesService } from '../spaces/spaces.service';
 import { Spaces } from '../spaces/spaces';
@@ -15,6 +17,7 @@ import { TIMES } from './time';
 export class BookingsComponent implements OnInit {
 
     spaces : Spaces;
+    model : Booking;
     times = TIMES;
     viewType = 1;
     
@@ -23,6 +26,7 @@ export class BookingsComponent implements OnInit {
       private spaceservice: SpacesService,
       private route: ActivatedRoute,
       private router: Router,
+      public dialog: MatDialog,
     ) { }
 
     ngOnInit() {
@@ -51,9 +55,28 @@ export class BookingsComponent implements OnInit {
         );
     }
     
+    openDialog(time,space_id): void {
+        const dialogConfig = new MatDialogConfig();
+console.log(time);
+        dialogConfig.data = {
+                width: '400px',
+                height: '600px',
+                from_time: parseInt(time),
+                to_time: parseInt(time)+1
+            };
+        const dialogRef = this.dialog.open(DialogboxComponent,dialogConfig);
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+    }
+  
     booking($event){
         let time = $event.target.getAttribute('data-time');
         let space_id = $event.target.getAttribute('data-spaceid');
+        this.openDialog(time,space_id);
+        console.log("time : "+time);
+        console.log("space_id : "+space_id);
     }
     
     showCalendar(monthAndYear, today, month, year) {
@@ -86,7 +109,7 @@ export class BookingsComponent implements OnInit {
 
                 else {
                     let cell = document.createElement("td");
-                    let cellText = document.createTextNode(date);
+                    let cellText = document.createTextNode(date.toString());
                     if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                         cell.classList.add("bg-info");
                     } // color today's date

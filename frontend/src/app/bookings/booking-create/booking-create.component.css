@@ -1,0 +1,7 @@
+.pl-2{
+    padding-left: 2.5rem!important;
+}
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}

@@ -20,7 +20,7 @@
                 </table>
                 <table class="day-mode-table ember-view" *ngIf="spaces">
                     <tbody *ngFor="let time of times">
-                        <tr class="time-unavailable">
+                        <tr class="time-unavailable" *ngIf = "time.id%2!=0">
                             <td class="scheduler-time-column" rowspan="2">
                                 <div class="text-truncate">
                                   <small>{{time.data}}</small>
@@ -28,8 +28,8 @@
                             </td>
                             <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
                         </tr>
-                        <tr class="time-unavailable">
-                            <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+                        <tr class="time-unavailable" *ngIf = "time.id%2!=0">
+                            <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id+1" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -58,4 +58,5 @@
             </div>
         </div>
     </div>
+    <i class="material-icons add-icon" (click)="openDialog(1,2)">add_circle</i>
 </div>

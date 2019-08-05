@@ -7,6 +7,7 @@
 }
 .day-mode-table td:not(.scheduler-time-column) {
     height: 25px;
+    cursor: pointer;
 }
 .day-mode-table tr td:not(.scheduler-time-column) {
     border-color: #e9ecef;
@@ -24,4 +25,11 @@
 }
 .table-layout-fixed {
     table-layout: fixed;
+}
+.add-icon{
+    font-size: 65px;
+    position: fixed;
+    right: 45px;
+    bottom: 10px;
+    cursor: pointer;
 }
