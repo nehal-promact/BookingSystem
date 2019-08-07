@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef,MatDialogConfig, MAT_DIALOG_DATA} from '@angular
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SpacesService } from '../spaces/spaces.service';
+import { BookingsService } from './bookings.service';
 import { Spaces } from '../spaces/spaces';
 import { Booking } from './booking';
 import { TIMES } from './time';
@@ -12,19 +13,20 @@ import { TIMES } from './time';
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.css'],
-  providers: [SpacesService]
+  providers: [SpacesService,BookingsService]
 })
 
 export class BookingsComponent implements OnInit {
 
-    spaces : Spaces;
-    model : Booking;
+    spaces = Array();
+    BookingModel = Array();
     times = TIMES;
     viewType = 1;
     
     constructor(
       private http: HttpClient,
       private spaceservice: SpacesService,
+      private bookingservice: BookingsService,
       private route: ActivatedRoute,
       private router: Router,
       public dialog: MatDialog,
@@ -32,7 +34,6 @@ export class BookingsComponent implements OnInit {
 
     ngOnInit() {
         this.getSpaces();
-       
         this.viewType = parseInt(this.route.snapshot.queryParamMap.get('viewType'));
     }
     
@@ -48,12 +49,46 @@ export class BookingsComponent implements OnInit {
     }
     
     getSpaces(): void {
-        this.spaceservice.getSpaces().subscribe(
-        data => { 
-                this.spaces = data;
-                console.log(data);
-            }
-        );
+        let spacesArr = Array();
+        let timesArr = Array();
+        timesArr = this.times;
+        this.spaceservice.getSpaces().subscribe((spaceres:any) => {
+            this.bookingservice.getBookings().subscribe((res:any) => { 
+                this.spaces = spaceres.data;
+                
+                let spaceresponse = JSON.parse(JSON.stringify(spaceres.data));
+                let bookingresponse = JSON.parse(JSON.stringify(res.data));
+                
+                bookingresponse.forEach(function(booking){
+                    timesArr.forEach(function(time){
+                        //console.log(time.id);
+                        //console.log(booking);
+                        if(booking.from == time.id){
+                            let currentdate = new Date();
+                            let date = new Date(booking.date_time);
+                            if(currentdate.getDate() == date.getDate() &&
+                               currentdate.getMonth() == date.getMonth() &&
+                               currentdate.getFullYear() == date.getFullYear()){
+                                
+                                spaceresponse.forEach(function(space){
+                                   space['booked'] = false;
+                                    if(booking.space_id == space.id){
+                                        space.booked = true;
+                                        spacesArr.push(space);
+                                    }
+                                });
+                    
+                                //console.log(space);
+                                //console.log(booking);
+                            }
+                        }
+                    });
+                });
+                        
+                    
+                    console.log(spacesArr);
+            });
+        });
     }
     
     openDialog(time,space_id): void {
@@ -78,6 +113,27 @@ export class BookingsComponent implements OnInit {
         this.openDialog(time,space_id);
         console.log("time : "+time);
         console.log("space_id : "+space_id);
+    }
+    
+    getBookings(){
+        this.bookingservice.getBookings().subscribe(
+        (res:any) => { 
+                this.BookingModel = res.data;
+                
+//                let t = document.getElementById("dayviewtable");
+//                let trs = t.getElementsByTagName("tr");
+//                for (let i=0; i<trs.length; i++)
+//                {
+//                    let tds = trs[i].getElementsByTagName("td");
+//                    for (var n=0; n<tds.length;n++)
+//                    {
+//                        if(tds[n].hasAttribute("data-spaceid"))
+//                        //tds[n].onclick=function() { alert(this.id); }
+//                            console.log(tds[n]);
+//                    }
+//                }
+            }
+        );
     }
     
     showCalendar(monthAndYear, today, month, year) {

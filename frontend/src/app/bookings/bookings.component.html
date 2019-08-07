@@ -15,10 +15,10 @@
                 <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table" *ngIf="spaces">
                     <tr>
                         <th class="scheduler-time-column"></th>
-                        <th class="center" *ngFor="let space of spaces.data">{{space.space_name}}</th>
+                        <th class="center" *ngFor="let space of spaces">{{space.space_name}}</th>
                     </tr>
                 </table>
-                <table class="day-mode-table ember-view" *ngIf="spaces">
+                <table class="day-mode-table ember-view" id="dayviewtable" *ngIf="spaces">
                     <tbody *ngFor="let time of times">
                         <tr class="time-unavailable" *ngIf = "time.id%2!=0">
                             <td class="scheduler-time-column" rowspan="2">
@@ -26,10 +26,10 @@
                                   <small>{{time.data}}</small>
                                 </div>
                             </td>
-                            <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+                            <td role="button" *ngFor="let space of spaces" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
                         </tr>
                         <tr class="time-unavailable" *ngIf = "time.id%2!=0">
-                            <td role="button" *ngFor="let space of spaces.data" [attr.data-time]="time.id+1" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+                            <td role="button" *ngFor="let space of spaces" [attr.data-time]="time.id+1" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
                         </tr>
                     </tbody>
                 </table>

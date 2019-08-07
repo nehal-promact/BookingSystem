@@ -23,4 +23,16 @@ export class BookingsService {
         let url = this.environmentService.setApiService('booking')
         return this.http.get<Booking>(url, {headers});
     }
+    
+    addBooking(booking: Booking): Observable<HttpResponse<Booking>>{
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();   
+        let url = this.environmentService.setApiService('booking')
+        return this.http.post<Booking>(url, booking,
+            {
+              headers: headers,
+              observe: 'response'
+            }
+        );     
+    }
 }
