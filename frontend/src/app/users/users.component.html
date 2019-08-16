@@ -1,1 +1,31 @@
-<p>users works!</p>
+<label>USERS</label>
+&nbsp;&nbsp;<a href="/create-user" class="btn btn-sm btn-success text-white" (click)="AddUser(null,service.formData.order_id)"><i class="fa fa-user-plus" aria-hidden="true"></i>  Add User</a>
+<table class="table table-borderless">
+  <thead class="thead-light">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Telephone</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="userservice.users==0" [class.text-danger]="!isValid && userservice.users==0">
+        <td body="font-italic text-center" colspan="5">
+          No users have registered yet.
+        </td>
+      </tr>
+    <tr>
+      <td>Name</td>
+      <td>Surname</td>
+      <td>Email</td>
+      <td>+919876543210</td>
+      <td>
+         <a class="btn btn-sm btn-info text-white" (click)="AddOrEditOrderItem(i,service.formData.order_id)"><i class="fa fa-pencil"></i>&nbsp;Edit User</a>
+         <a class="btn btn-sm btn-success text-white ml-1" (click)="onDeleteOrderItem(item.order_item_id,i)"><i class="fa fa-trash"></i>&nbsp;Show Bookings</a>
+         <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.order_item_id,i)"><i class="fa fa-trash"></i>&nbsp;Remove User</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
