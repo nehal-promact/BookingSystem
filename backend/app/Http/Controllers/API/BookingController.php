@@ -40,7 +40,7 @@ class BookingController extends APIBaseController
     public function store(Request $request)
     {
         //echo "<pre>"; print_r(Input::get('from_time')); exit;
-        $request->validate([
+        $validator = Validator::make($input,[
             'date_time'     => 'required|date',
             'from_time'     => 'required',
             'to_time'       => 'required',
@@ -48,6 +48,10 @@ class BookingController extends APIBaseController
             'user_id'       => 'required|integer',
             'booking_title' => 'required|string', 
         ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
 
         $booking                = new Booking;
         $booking->date_time     = Input::get('date_time');
