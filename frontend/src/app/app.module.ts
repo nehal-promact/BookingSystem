@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material/material.module';
 import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserComponent } from './user/user/user.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToastGlobalComponent,
     ToastsContainer,
     DialogboxComponent,
-    BookingCreateComponent
+    BookingCreateComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
