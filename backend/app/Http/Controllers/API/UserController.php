@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\APIBaseController as APIBaseController;
 use Illuminate\Support\Facades\Input;
 use App\Notifications\SignupActivate;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use Validator;
 
@@ -53,7 +54,6 @@ class UserController extends APIBaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        //echo "aa"; exit;
         $user = new User([
             'first_name'       => $request->first_name,
             'last_name'        => $request->last_name,
@@ -65,7 +65,6 @@ class UserController extends APIBaseController
         ]);
         $user->save();
 
-        //$user->notify(new SignupActivate($user));
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
@@ -119,5 +118,17 @@ class UserController extends APIBaseController
     public function destroy($id)
     {
         //
+    }
+
+    public function login(){ 
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
+            $user             = Auth::user(); 
+
+            $success['token'] = $user->createToken('MyApp')-> accessToken;
+            return response()->json(['success' => $success], 200); 
+        } 
+        else{ 
+            return response()->json(['error'=>'Unauthorised'], 401); 
+        } 
     }
 }
