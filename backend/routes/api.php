@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('space', 'API\SpacesController')->except([
     'create', 'edit'
 ]);
-
+Route::apiResource('user', 'API\UserController');
 Route::apiResource('booking', 'API\BookingController');
 //Route::get('getSpaces','API\SpacesController@index');
 //Route::post('addSpace', 'API\SpacesController@create');
