@@ -55,13 +55,13 @@ class UserController extends APIBaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
         $user = new User([
-            'first_name'       => $request->first_name,
-            'last_name'        => $request->last_name,
-            'email'            => $request->email,
-            'password'         => bcrypt($request->password),
-            'contact_number'   => $request->contact_number,
-            'role_id'          => 1, //$request->role_id,  
-            'activation_token' => str_random(60)
+            'first_name'     => $request->first_name,
+            'last_name'      => $request->last_name,
+            'email'          => $request->email,
+            'password'       => bcrypt($request->password),
+            'contact_number' => $request->contact_number,
+            'role_id'        => 1, //$request->role_id,  
+            'remember_token' => str_random(60)
         ]);
         $user->save();
 
