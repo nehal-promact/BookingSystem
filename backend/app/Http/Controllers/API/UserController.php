@@ -60,7 +60,7 @@ class UserController extends APIBaseController
             'email'            => $request->email,
             'password'         => bcrypt($request->password),
             'contact_number'   => $request->contact_number,
-            'role_id'          => $request->role_id,  
+            'role_id'          => 1, //$request->role_id,  
             'activation_token' => str_random(60)
         ]);
         $user->save();
@@ -117,7 +117,9 @@ class UserController extends APIBaseController
      */
     public function destroy($id)
     {
-        //
+        $user  = User::find($id);
+        $user->delete();
+        return $this->sendResponse(true,'Users deleted successfully.');
     }
 
     public function login(){ 
