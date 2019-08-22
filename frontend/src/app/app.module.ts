@@ -42,6 +42,6 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
   ],
   providers: [TokenStorage],
   bootstrap: [AppComponent],
-  entryComponents: [DialogboxComponent],
+  entryComponents: [DialogboxComponent,UserCreateComponent],
 })
 export class AppModule { }
