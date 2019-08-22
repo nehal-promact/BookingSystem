@@ -48,7 +48,7 @@ class UserController extends APIBaseController
             'email'          => 'required|string|email|unique:users',
             'password'       => 'required|string|confirmed',
             'contact_number' => 'required|numeric',
-            'role_id'        => 'required|numeric'
+            //'role_id'        => 'required|numeric'
         ]);
 
         if($validator->fails()){
