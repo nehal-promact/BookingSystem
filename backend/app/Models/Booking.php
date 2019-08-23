@@ -12,4 +12,6 @@ class Booking extends Model
      * @var string
      */
     protected $table = 'booking';
+
+    
 }

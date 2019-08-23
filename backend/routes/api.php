@@ -17,12 +17,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
    return $request->user();
    Route::apiResource('booking', 'API\BookingController');
-    Route::apiResource('space', 'API\SpacesController')->except([
-       'create', 'edit'
-    ]);    
 });
 Route::post('login', 'API\UserController@login');    
 Route::apiResource('user', 'API\UserController');
-
+Route::post('UserWiseBooking', 'API\UserController@UserWiseBooking');
+Route::apiResource('space', 'API\SpacesController')->except(['create', 'edit']);
 //Route::get('getSpaces','API\SpacesController@index');
 //Route::post('addSpace', 'API\SpacesController@create');
