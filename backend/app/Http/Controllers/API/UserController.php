@@ -122,10 +122,10 @@ class UserController extends APIBaseController
         return $this->sendResponse(true,'Users deleted successfully.');
     }
 
-    public function login(){ 
+    public function login()
+    { 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user             = Auth::user(); 
-
+            $user             = Auth::user();
             $success['token'] = $user->createToken('MyApp')-> accessToken;
             return response()->json(['success' => $success], 200); 
         } 
@@ -133,4 +133,12 @@ class UserController extends APIBaseController
             return response()->json(['error'=>'Unauthorised'], 401); 
         } 
     }
+
+    public function UserWiseBooking()
+    {
+        $user = User::find(request('userid'));
+        $user->booking;
+        return response()->json(['success' => $user], 200);
+    }
+
 }
