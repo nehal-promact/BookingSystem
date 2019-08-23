@@ -3,5 +3,7 @@ export class Users {
     first_name: string;
     last_name: string;
     email:string;
-    contact_number:number;
+    contact_number:string;
+    password:string;
+    password_confirmation:string;
 }

@@ -10,18 +10,21 @@ import { Users } from './users';
 })
 export class UsersService {
 
+    formData:Users;
+    userDetails:Users[];
+
     constructor(
       private http: HttpClient,
       private authService: AuthenticationService,
       private environmentService: EnvironmentService,
     ) { }
 
-    getUsers(): Observable<Users>{
+    getUsers(): Observable<Array<Users>>{
           let headers = new HttpHeaders();
           headers = this.authService.createHeader();
           
           let url = this.environmentService.setApiService('user')
-          return this.http.get<Users>(url, {headers});
+          return this.http.get<Array<Users>>(url, {headers});
       }
 
     getUserById(id:number): Observable<Users> {
@@ -31,6 +34,13 @@ export class UsersService {
         return this.http.get<Users>(url, {headers});
     }
         
+    UserWiseBooking(userid:number): Observable<Users> {
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();
+        let url = this.environmentService.setApiService('UserWiseBooking')+'/'+userid;
+        return this.http.get<Users>(url, {headers});
+    }
+
     addUser(user: Users): Observable<HttpResponse<Users>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();   

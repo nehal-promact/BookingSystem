@@ -1,4 +1,4 @@
-<h4>ADD A USER</h4>
+<h4>UPDATE A USER</h4>
 <hr>
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit()">
     <div class="form-group">
@@ -26,20 +26,8 @@
         <input name="contact_number" placeholder="Enter Contact Number" #contact_number="ngModel" [(ngModel)]="formData.contact_number" class="form-control" [class.is-invalid]="!isValid">
         </div>    
   </div>
-  <div class="form-group">
-        <label>Password</label>
-         <div class="input-group">
-        <input name="password" placeholder="Enter password" #password="ngModel" [(ngModel)]="formData.password" class="form-control" [class.is-invalid]="!isValid" required>
-        </div>    
-  </div>
-  <div class="form-group">
-        <label>Confirm Password</label>
-         <div class="input-group">
-        <input name="password_confirmation" placeholder="Comfirm Your Password" #password_confirmation="ngModel" [(ngModel)]="formData.password_confirmation" class="form-control" [class.is-invalid]="!isValid" required>
-        </div>    
-  </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-add"><i class="fa fa-user-plus" aria-hidden="true"></i> Add User</button>
+        <button type="submit" class="btn btn-add"><i class="fa fa-user-plus" aria-hidden="true"></i> Update User</button>
         <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
       </div>
 </form>

@@ -17,6 +17,8 @@ import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './users/users.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserBookingsComponent } from './users/user-bookings/user-bookings.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
     DialogboxComponent,
     BookingCreateComponent,
     UsersComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    UserEditComponent,
+    UserBookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,10 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
   ],
   providers: [TokenStorage],
   bootstrap: [AppComponent],
-  entryComponents: [DialogboxComponent,UserCreateComponent],
+  entryComponents: [
+    DialogboxComponent,
+    UserCreateComponent,
+    UserEditComponent,
+    UserBookingsComponent],
 })
 export class AppModule { }
