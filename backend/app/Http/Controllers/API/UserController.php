@@ -137,6 +137,7 @@ class UserController extends APIBaseController
     public function UserWiseBooking()
     {
         $user = User::find(request('userid'));
+        $user->booking;
         return response()->json(['success' => $user], 200);
     }
 
