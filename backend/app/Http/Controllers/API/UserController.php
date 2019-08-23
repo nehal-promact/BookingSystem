@@ -20,7 +20,7 @@ class UserController extends APIBaseController
     public function index()
     {
         $user = User::all();
-        return $this->sendResponse($user, 'Spaces retrieved successfully.');
+        return $this->sendResponse($user, 'Users retrieved successfully.');
     }
 
     /**
