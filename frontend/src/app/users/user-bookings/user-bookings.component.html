@@ -1,12 +1,20 @@
 <label>SPACE REGISTERED</label>
- <div class="col-12 col-lg-4">
-    <ul class="nav flex-column nav-pills font-weight-semi-bold" *ngFor="let space of spaces">
-        <li class="nav-item space-item">
-            <div class="d-flex">
-                <div class="flex-grow-1">
-                    <span>{{space.space_name}}</span>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+<table class="table table-borderless">
+  <thead class="thead-light">
+    <tr>
+      <th>Booking Name</th>
+      <th>Space Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="spaces.length==0" [class.text-danger]="!isValid && spaces.length==0">
+        <td body="font-italic text-center" colspan="5">
+          No bookings done yet.
+        </td>
+      </tr>
+    <tr *ngFor="let space of spaces;let i=index;">
+      <td>{{space.booking_title}}</td>
+      <td>{{space.last_name}}</td>
+    </tr>
+  </tbody>
+</table><button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
