@@ -1,5 +1,11 @@
-<label>USERS</label>
-&nbsp;&nbsp;<a class="btn btn-sm btn-success text-white" (click)="AddUser()"><i class="fa fa-user-plus" aria-hidden="true"></i>  Add User</a>
+<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>USERS</label>
+&nbsp;
+<hr>
+<!-- Search form -->
+<a class="btn btn-sm btn-success text-white" (click)="AddUser()"><i class="fa fa-user-plus" aria-hidden="true"></i>  Add User</a>
+&nbsp;
+<input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Name">
+&nbsp;
 <table class="table table-borderless">
   <thead class="thead-light">
     <tr>
@@ -22,8 +28,8 @@
       <td>{{user.email}}</td>
       <td>{{user.contact_number}}</td>
       <td>
-         <a class="btn btn-sm btn-info text-white" (click)="EditUser()"><i class="fa fa-pencil"></i>&nbsp;Edit User</a>
-         <a class="btn btn-sm btn-success text-white ml-1" (click)="ShowBookings(user.id)"><i class="fa fa-list-ol"></i>&nbsp;Show Bookings</a>
+         <a class="btn btn-sm btn-warning text-white" (click)="EditUser(user)"><i class="fa fa-pencil"></i>&nbsp;Edit User</a>
+         <a class="btn btn-sm btn-info text-white ml-1" (click)="ShowBookings(user.id)"><i class="fa fa-list-ol"></i>&nbsp;Show Bookings</a>
          <a class="btn btn-sm btn-danger text-white ml-1" (click)="DeleteUser(user.id)"><i class="fa fa-trash"></i>&nbsp;Remove User</a>
       </td>
     </tr>

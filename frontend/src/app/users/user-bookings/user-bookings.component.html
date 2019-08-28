@@ -1,4 +1,4 @@
-<label>SPACE REGISTERED</label>
+<h3>SPACE REGISTERED BY ME</h3>
 <table class="table table-borderless">
   <thead class="thead-light">
     <tr>
@@ -7,14 +7,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngIf="spaces.length==0" [class.text-danger]="!isValid && spaces.length==0">
+    <tr *ngIf="userwisebooking.length==0" [class.text-danger]="!isValid && userwisebooking.length==0">
         <td body="font-italic text-center" colspan="5">
           No bookings done yet.
         </td>
       </tr>
-    <tr *ngFor="let space of spaces;let i=index;">
-      <td>{{space.booking_title}}</td>
-      <td>{{space.last_name}}</td>
+    <tr *ngFor="let userbooking of userwisebooking;let i=index;">
+      <td>{{userbooking.booking_title}}</td>
+      <td>{{userbooking.space.space_name}}</td>
     </tr>
   </tbody>
-</table><button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
+</table>
+<button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ToastService } from '../toast-global/toast.service';
-import { ToastsContainer } from '../toast-global/toast-container.component';
+import { ToastrService } from 'ngx-toastr';
 import { SpacesService } from '../spaces/spaces.service';
 import { UsersService } from './users.service';
 import { Users } from './users';
@@ -9,12 +8,16 @@ import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
+import { Pipe, PipeTransform } from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+@Pipe({ name: 'searchByName' })
+
 export class UsersComponent implements OnInit {
 
   submitted = false; 
@@ -22,7 +25,6 @@ export class UsersComponent implements OnInit {
   response;
   users: Array<Users> = new Array<Users>();
   userId;
-  flag;
 
   constructor(
     private userservice: UsersService,
@@ -30,11 +32,10 @@ export class UsersComponent implements OnInit {
     private dialog:MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    public toastService: ToastService,
+    private toastService:ToastrService,
   ) { }
 
   ngOnInit() {
-        this.model = new Users();
         this.getUsers();     
     }
 
@@ -64,39 +65,52 @@ export class UsersComponent implements OnInit {
     //     );
     // }
 
-    ShowBookings(id:number): void {
+    ShowBookings(id:number):void{
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
       dialogConfig.width = "40%";
-      this.dialog.open(UserBookingsComponent,dialogConfig);
+      dialogConfig.data = id;
+      let MatDialogRef = this.dialog.open(UserBookingsComponent,dialogConfig);
+      MatDialogRef.afterClosed().subscribe(res =>{
+          this.getUsers();
+      });
     }
     
     AddUser(){
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
-      dialogConfig.width = "40%";
-      this.dialog.open(UserCreateComponent,dialogConfig);
+      dialogConfig.width = "65%";         
+      let MatDialogRef = this.dialog.open(UserCreateComponent,dialogConfig);
+      MatDialogRef.afterClosed().subscribe(res =>{
+          this.getUsers();
+      });
     }
 
-    EditUser(){
+    EditUser(user){
         const dialogConfig =  new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
-        dialogConfig.width = "40%";
-        this.dialog.open(UserEditComponent,dialogConfig);
+        dialogConfig.width = "50%";
+        dialogConfig.data = {user}
+        let MatDialogRef = this.dialog.open(UserEditComponent,dialogConfig);
+        MatDialogRef.afterClosed().subscribe(res =>{
+            this.getUsers();
+        });
     }
 
-    DeleteUser(id):void{
-         this.userservice.deleteUser(id).subscribe((res: any)=>{
-         console.log(res);
-         this.router.navigateByUrl('user');
-            this.toastService.show(res.body.message);
-            },
-            err => {
-                this.toastService.show("Error");
-            }
-        );
+    populateForm(user : Users){
+        this.userservice.formData = Object.assign({},user);
     }
+
+    DeleteUser(id:number):void{
+            if(confirm('Are You Sure To Delete This User?')){
+            this.userservice.deleteUser(id).subscribe(res=>{
+                this.getUsers();
+                this.toastService.warning("User Deleted Successfully");
+            });
+        }
+    }   
+
 }

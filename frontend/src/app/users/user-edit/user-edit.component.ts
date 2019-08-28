@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NG_VALIDATORS,NgForm } from '@angular/forms';
 import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { UsersService } from '../../users/users.service';
@@ -12,9 +12,11 @@ import {Users} from '../users'
 })
 export class UserEditComponent implements OnInit {
  formData:Users = new Users();
-  constructor() { }
+  constructor(
+    private userservice: UsersService,
+  ) { }
 
   ngOnInit() {
   }
-
+  
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import {UsersService } from '../../users/users.service';
-import {Spaces} from '../../spaces/spaces';
+import {UserWiseBooking} from '../UserWiseBooking';
 
 @Component({
   selector: 'app-user-bookings',
@@ -11,23 +11,22 @@ import {Spaces} from '../../spaces/spaces';
 })
 export class UserBookingsComponent implements OnInit {
 
-  spaces: Array<Spaces> = new Array<Spaces>();
+  userwisebooking: Array<UserWiseBooking> = new Array<UserWiseBooking>();
   id ; 
 
   constructor( @Inject(MAT_DIALOG_DATA) public data,
       private dialogRef:MatDialogRef<UserBookingsComponent>,
-      private userservice: UsersService,) { }
+      private userservice: UsersService) { 
+          this.id = data;
+      }
 
   ngOnInit() {
     this.UserWiseBooking(this.id);
   }
 
 UserWiseBooking(id){
-    this.userservice.UserWiseBooking(id).subscribe(
-         (data: any) => { 
-                 this.spaces = data.data;
-                 console.log(data);
-             }
-        );
-}
+      this.userservice.userWiseBooking(this.id).subscribe((res:any) => {
+        this.userwisebooking = res.success.booking;
+    });
+  }
 }

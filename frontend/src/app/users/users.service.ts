@@ -10,8 +10,8 @@ import { Users } from './users';
 })
 export class UsersService {
 
-    formData:Users;
-    userDetails:Users[];
+    formData : Users;
+    list :Users[];
 
     constructor(
       private http: HttpClient,
@@ -34,18 +34,18 @@ export class UsersService {
         return this.http.get<Users>(url, {headers});
     }
         
-    UserWiseBooking(userid:number): Observable<Users> {
+    userWiseBooking(id:number): Observable<Users> {
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
-        let url = this.environmentService.setApiService('UserWiseBooking')+'/'+userid;
+        let url = this.environmentService.setApiService('UserWiseBooking')+'/'+id;
         return this.http.get<Users>(url, {headers});
     }
 
-    addUser(user: Users): Observable<HttpResponse<Users>>{
+    addUser(formData : Users): Observable<HttpResponse<Users>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();   
         let url = this.environmentService.setApiService('user')
-        return this.http.post<Users>(url, user,
+        return this.http.post<Users>(url, formData,
             {
               headers: headers,
               observe: 'response'
@@ -53,11 +53,11 @@ export class UsersService {
         );     
     }
     
-    editUser(user: Users, id: number): Observable<HttpResponse<Users>>{
+    editUser(formData : Users): Observable<HttpResponse<Users>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
-        let url = this.environmentService.setApiService('user')+'/'+id;
-        return this.http.put<Users>(url, user,
+        let url = this.environmentService.setApiService('user')+'/'+ formData.id;
+        return this.http.put<Users>(url, formData,
             {
               headers: headers,
               observe: 'response'

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { BookingCreateComponent } from './bookings/booking-create/booking-create.component';
@@ -15,10 +15,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material/material.module';
 import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule} from 'ngx-toastr';
 import { UsersComponent } from './users/users.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserBookingsComponent } from './users/user-bookings/user-bookings.component';
+import { MustMatchDirective } from './validator/must-match.directive';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { UserBookingsComponent } from './users/user-bookings/user-bookings.compo
     UsersComponent,
     UserCreateComponent,
     UserEditComponent,
-    UserBookingsComponent
+    UserBookingsComponent,
+    MustMatchDirective
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { UserBookingsComponent } from './users/user-bookings/user-bookings.compo
     FormsModule,
     NgbModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule ,
+    ToastrModule.forRoot(),
   ],
   providers: [TokenStorage],
   bootstrap: [AppComponent],

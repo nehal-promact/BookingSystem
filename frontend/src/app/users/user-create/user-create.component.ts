@@ -1,9 +1,10 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NG_VALIDATORS,NgForm } from '@angular/forms';
 import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { UsersService } from '../../users/users.service';
 import {Users} from '../users';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-create',
@@ -13,48 +14,53 @@ import {Users} from '../users';
 export class UserCreateComponent implements OnInit {
   formData:Users = new Users();
   usersList: Users[];
-  isValid:boolean = true;
+  response;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
       private dialogRef:MatDialogRef<UserCreateComponent>,
-      private userservice:UsersService) { }
+      private userservice:UsersService,
+      private toastService:ToastrService) { }
 
   ngOnInit() {
-    this.formData = {
-      id:0,
-      first_name:'',
-      last_name:'',
-      email:'',
-      contact_number:'',
-      password:'',
-      password_confirmation:''
-    }
+    this.resetForm();
   }
 
-onSubmit(){
-  if(this.validateForm(FormData)){
-    this.userservice.addUser(this.formData).subscribe(result =>{console.log(result)},
-    error =>{console.log(error)});
-    this.dialogRef.close();
+  resetForm(form? : NgForm){
+    if(form!=null)
+      form.resetForm();
+      this.userservice.formData = {
+        id:null,
+        first_name:'',
+        last_name:'',
+        email:'',
+        contact_number:'',
+        password:'',
+        password_confirmation:''
+      }
   }
+
+onSubmit(form : NgForm){
+  if(form.value.id == null)
+  this.insertUserRecord(form);
+  else
+  this.updateUserRecord(form); 
 }
 
-validateForm(formData){
-  this.isValid = true;
-  if(formData.email=='')
-    this.isValid = false;
-  else if(formData.first_name=='')
-    this.isValid = false;
-  else if(formData.last_name=='')
-    this.isValid = false;
-  else if(formData.contact_number=='')
-    this.isValid = false;
-  else if(formData.password=='')
-   this.isValid = false;
-  else if(formData.password_confirmation=='')
-    this.isValid = false;
-  return this.isValid;
+insertUserRecord(form : NgForm){
+  this.userservice.addUser(form.value).subscribe((res:any) => {
+    this.toastService.success("User Create Successfully");
+    this.resetForm(form);
+    this.userservice.getUsers();
+  });
+}
+
+updateUserRecord(form : NgForm){
+  this.userservice.editUser(form.value).subscribe((res:any) => {
+    this.toastService.info("Updated Successfully");
+    this.resetForm(form);
+    this.userservice.getUsers();
+  });
 }
 
 }
