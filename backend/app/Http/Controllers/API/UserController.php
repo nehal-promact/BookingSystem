@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Notifications\SignupActivate;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Models\Booking;
 use Validator;
 
 class UserController extends APIBaseController
@@ -137,7 +138,14 @@ class UserController extends APIBaseController
     public function UserWiseBooking()
     {
         $user = User::find(request('userid'));
-        $user->booking;
+        $data = $user->booking;
+        $i = 0;
+        $space = array();
+        foreach($data as $data)
+        {
+           $user['booking'][$i]['space'] = Booking::find($data->id)->space;
+           $i++; 
+        }
         return response()->json(['success' => $user], 200);
     }
 

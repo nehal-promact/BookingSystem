@@ -13,5 +13,10 @@ class Booking extends Model
      */
     protected $table = 'booking';
 
+    public function space()
+    {
+        return $this->hasOne('App\Models\Spaces',  'id', 'space_id');
+    }
+
     
 }
