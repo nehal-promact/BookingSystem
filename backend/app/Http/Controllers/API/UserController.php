@@ -135,9 +135,10 @@ class UserController extends APIBaseController
         } 
     }
 
-    public function UserWiseBooking()
+    public function UserWiseBooking($id)
     {
-        $user = User::find(request('userid'));
+        //echo "aaa".$id; exit;
+        $user = User::find($id);
         $data = $user->booking;
         $i = 0;
         $space = array();

@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('login', 'API\UserController@login');
 Route::apiResource('user', 'API\UserController');
-Route::post('UserWiseBooking', 'API\UserController@UserWiseBooking');
+Route::get('UserWiseBooking/{id}', 'API\UserController@UserWiseBooking');
 Route::apiResource('space', 'API\SpacesController')->except(['create', 'edit']);
