@@ -16,12 +16,27 @@ export class DialogboxComponent implements OnInit {
     DialogTitle: string;
     from_time: number;
     to_time: number;
+    booking_id: number;
     
   constructor(public dialogRef: MatDialogRef<DialogboxComponent>,
         @Inject(MAT_DIALOG_DATA) data) {
-            if(data){
+            if(data.DialogType == 'createBooking') {
+                this.DialogTitle = 'NEW BOOKING';
+                this.DialogType = data.DialogType;
                 this.from_time = data.from_time;
                 this.to_time = data.to_time;
+            }
+            else if(data.DialogType == 'editBooking') {
+                this.DialogTitle = 'EDIT USER BOOKING';
+                this.DialogType = data.DialogType;
+                this.from_time = data.from_time;
+                this.to_time = data.to_time;
+                this.booking_id = data.booking_id;
+            }
+            else if(data.DialogType == 'deleteBooking') {
+                this.DialogTitle = 'DELETE BOOKING';
+                this.DialogType = data.DialogType;
+                this.booking_id = data.booking_id;
             }
         }
 

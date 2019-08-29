@@ -34,3 +34,13 @@
     cursor: pointer;
 }
 .highlight { background-color: red; }
+.disabled{pointer-events:none;background-color:rgba(0,0,0,0.4)}
+#tooltip{
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 8px 6px -6px black;
+    background-color: #FFFFFF; 
+    height: 100px;
+    width: 200px;
+    display: none;
+}

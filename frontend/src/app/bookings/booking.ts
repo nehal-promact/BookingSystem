@@ -1,4 +1,5 @@
 export class Booking {
+    id: number;
     date_time: string;
     from_time: number;
     to_time: number;

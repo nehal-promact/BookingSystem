@@ -23,5 +23,6 @@ Route::apiResource('space', 'API\SpacesController')->except([
 ]);
 
 Route::apiResource('booking', 'API\BookingController');
-//Route::get('getSpaces','API\SpacesController@index');
+Route::get('getBookingsForDayView','API\BookingController@getBookingsForDayView');
+Route::get('getBookingsForMonthView','API\BookingController@getBookingsForMonthView');
 //Route::post('addSpace', 'API\SpacesController@create');

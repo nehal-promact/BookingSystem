@@ -18,18 +18,15 @@
                         <th class="center" *ngFor="let space of spaces">{{space.space_name}}</th>
                     </tr>
                 </table>
-                <table class="day-mode-table ember-view" id="dayviewtable" *ngIf="spaces">
-                    <tbody *ngFor="let time of times">
-                        <tr class="time-unavailable" *ngIf = "time.id%2!=0">
-                            <td class="scheduler-time-column" rowspan="2">
+                <table class="day-mode-table ember-view" id="dayviewtable" style="position: relative;" *ngIf="bookingfordayview">
+                    <tbody *ngFor="let row of bookingfordayview">
+                        <tr class="time-unavailable">
+                            <td class="scheduler-time-column">
                                 <div class="text-truncate">
-                                  <small>{{time.data}}</small>
+                                  <small>{{row.Time.data}}</small>
                                 </div>
                             </td>
-                            <td role="button" *ngFor="let space of spaces" [attr.data-time]="time.id" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
-                        </tr>
-                        <tr class="time-unavailable" *ngIf = "time.id%2!=0">
-                            <td role="button" *ngFor="let space of spaces" [attr.data-time]="time.id+1" [attr.data-spaceid]="space.id" (click)="booking($event)"></td>
+                            <td role="button" [ngClass]="{'disabled': row.Time.isDisabled }" *ngFor="let space of row.SpaceType" [attr.data-rows]="space.rows" [attr.data-time]="row.Time.id" [attr.data-spaceid]="space.id" [attr.data-booked]="space.booked" (click)="booking($event)"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -40,7 +37,8 @@
         <div class="ember-view">
             <div class="bg-white scheduler-spaces-header-padding-top">
                 <h3 class="card-header" id="monthAndYear"></h3>
-                <table class="table table-bordered table-responsive-sm" id="calendar">
+                <div id="tooltip" class="content"></div>
+                <table class="table table-bordered table-responsive-sm" id="monthviewtable">
                     <thead>
                     <tr>
                         <th>Sun</th>
@@ -52,11 +50,11 @@
                         <th>Sat</th>
                     </tr>
                     </thead>
-
-                    <tbody id="calendar-body"></tbody>
+                    <tbody id="calendar-body">
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <i class="material-icons add-icon" (click)="openDialog(1,2)">add_circle</i>
+    <i class="material-icons add-icon" (click)="openDialog(1,1,'createBooking')">add_circle</i>
 </div>
