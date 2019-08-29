@@ -56,7 +56,7 @@ export class UsersService {
     editUser(formData : Users): Observable<HttpResponse<Users>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
-        let url = this.environmentService.setApiService('user')+'/'+ formData.id;
+        let url = this.environmentService.setApiService('user')+'/'+formData.id;
         return this.http.put<Users>(url, formData,
             {
               headers: headers,

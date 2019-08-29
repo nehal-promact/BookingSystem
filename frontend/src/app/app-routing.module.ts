@@ -9,9 +9,7 @@ const routes: Routes = [
     { path: 'booking', component: BookingsComponent },
     { path: 'space', component: SpacesComponent },
     { path: 'space/:id', component: SpacesComponent },
-    { path: 'venueuser', component:UsersComponent},		
-    { path: 'venueuser/:id', component:UserCreateComponent},		
-    { path: 'create-user',component:UserCreateComponent}
+    { path: 'venueuser', component:UsersComponent},			
 ];
 
 @NgModule({

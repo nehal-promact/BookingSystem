@@ -4,6 +4,8 @@
     <tr>
       <th>Booking Name</th>
       <th>Space Name</th>
+      <th>Booked For Date</th>
+      <th>Booked For Time</th>
     </tr>
   </thead>
   <tbody>
@@ -12,9 +14,11 @@
           No bookings done yet.
         </td>
       </tr>
-    <tr *ngFor="let userbooking of userwisebooking;let i=index;">
+    <tr *ngFor="let userbooking of userwisebooking;let i=index;let j=index;">
       <td>{{userbooking.booking_title}}</td>
       <td>{{userbooking.space.space_name}}</td>
+      <td>{{userbooking.date_time}}</td>
+      <td>{{from_time[i]}}-{{to_time[j]}}</td>
     </tr>
   </tbody>
 </table>

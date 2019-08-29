@@ -36,7 +36,7 @@ import { MustMatchDirective } from './validator/must-match.directive';
     UserCreateComponent,
     UserEditComponent,
     UserBookingsComponent,
-    MustMatchDirective
+    MustMatchDirective,
   ],
   imports: [
     BrowserModule,

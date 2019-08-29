@@ -43,7 +43,6 @@ export class UsersComponent implements OnInit {
         this.userservice.getUsers().subscribe(
         (data: any) => { 
                 this.users = data.data;
-                console.log(data);
             }
         );
     }
@@ -56,20 +55,11 @@ export class UsersComponent implements OnInit {
         );
     }
 
-    // UserWiseBooking((id:number){
-    //     this.userservice.UserWiseBooking(id).subscribe(
-    //     (data: any) => { 
-    //             this.users = data.data;
-    //             console.log(data);
-    //         }
-    //     );
-    // }
-
     ShowBookings(id:number):void{
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
-      dialogConfig.width = "40%";
+      dialogConfig.width = "50%";
       dialogConfig.data = id;
       let MatDialogRef = this.dialog.open(UserBookingsComponent,dialogConfig);
       MatDialogRef.afterClosed().subscribe(res =>{
@@ -93,15 +83,11 @@ export class UsersComponent implements OnInit {
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
         dialogConfig.width = "50%";
-        dialogConfig.data = {user}
+        dialogConfig.data = {user};
         let MatDialogRef = this.dialog.open(UserEditComponent,dialogConfig);
         MatDialogRef.afterClosed().subscribe(res =>{
-            this.getUsers();
-        });
-    }
-
-    populateForm(user : Users){
-        this.userservice.formData = Object.assign({},user);
+          this.getUsers();
+      });
     }
 
     DeleteUser(id:number):void{

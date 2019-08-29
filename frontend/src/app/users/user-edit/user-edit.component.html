@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <h3>ADD A USER</h3>
-                <form name="form" (ngSubmit)="form.valid && onSubmit()" #form="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
+                <form name="form" (ngSubmit)="form.valid" #form="ngForm" novalidate>
+                   <input type="hidden" name="id" [(ngModel)]="formData.id" #id="ngModel">
                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" class="form-control" name="email" [(ngModel)]="formData.email" #email="ngModel" placeholder="Enter Email" [ngClass]="{ 'is-invalid': form.submitted && form.invalid }" required email />
@@ -39,7 +40,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>Update User</button>
+                        <button type="submit" class="btn btn-primary" (click)="updateUserRecord(form)"><i class="fa fa-user-plus" aria-hidden="true"></i> Update User</button>
                         <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
                     </div>
                 </form>
