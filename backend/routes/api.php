@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
     Route::apiResource('booking', 'API\BookingController');
 });
+Route::apiResource('booking', 'API\BookingController');
 Route::get('getBookingsForDayView','API\BookingController@getBookingsForDayView');
 Route::get('getBookingsForMonthView','API\BookingController@getBookingsForMonthView');
 Route::apiResource('user', 'API\UserController');
