@@ -1,0 +1,76 @@
+<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>USER PROFILE</label>
+&nbsp;
+<!-- main app container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h3>LOGIN</h3>
+                <form name="form" (ngSubmit)="form.valid" #form="ngForm" novalidate>
+                   <input type="hidden" name="id" [(ngModel)]="formData.id" #id="ngModel">
+                   <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" name="email" [(ngModel)]="formData.email" #email="ngModel" placeholder="Enter Email" [ngClass]="{ 'is-invalid': form.submitted && form.invalid }" required email readonly />
+                        <div class="input-group-append">
+                            <button class="btn btn-input" type="button" (click)="EditUser(form)">Change</button>
+                        </div>
+                        <div *ngIf="form.submitted && form.invalid" class="invalid-feedback">
+                            <div *ngIf="email.errors.required">Email is required</div>
+                            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reset Password</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/space">Go To Login-Reset Page</a>
+                        </div>
+                    </div>
+                    </form>
+                    <hr>
+                    <h3>CONTACT</h3>
+                    <form name="form" (ngSubmit)="form.valid" #form="ngForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" name="first_name" [(ngModel)]="formData.first_name" #first_name="ngModel" placeholder="Enter First Name" [ngClass]="{ 'is-invalid': form.submitted && form.invalid }" required />
+                            <div *ngIf="form.submitted && form.invalid" class="invalid-feedback">
+                                <div *ngIf="first_name.errors.required">First Name is required</div>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group col-md-5">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" [(ngModel)]="formData.last_name" #last_name="ngModel" placeholder="Enter Last Name" [ngClass]="{ 'is-invalid': form.submitted && form.invalid }" required />
+                            <div *ngIf="form.submitted && form.invalid" class="invalid-feedback">
+                                <div *ngIf="last_name.errors.required">Last Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="last_name">Contact Number</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+91</div>
+                                </div>
+                                <input type="text" class="form-control" name="contact_number" [(ngModel)]="formData.contact_number" #contact_number="ngModel" placeholder="Enter Contact Number">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="last_name">Organization</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">PROMACT INFOTECH PVT. LTD.</div>
+                                </div>
+                                <input type="text" class="form-control" name="contact_number" [(ngModel)]="formData.contact_number" #contact_number="ngModel" readonly>
+                            </div>
+                        </div>
+                    </div>
+                <hr>
+                <h3>SAVE CHANGES</h3>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" (click)="updateUserRecord(form)">Save All Changes</button>
+                </div>
+               </form>
+            </div>
+        </div>
+    </div>
