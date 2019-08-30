@@ -1,33 +1,31 @@
-<div class="container">
+<div class="container" *ngIf="DialogType == 'createBooking' || DialogType == 'editBooking'">
     <form (ngSubmit)="onSubmit()">
         <div class="row">
-            <div><label>DATE & TIME </label></div>
-            <div class="row">
+            <div><label>DATE & TIME </label><span class="required">*</span></div>
                 <div class="col-12 col-lg-5 form-group">
                     <input type="date" name="date_time" [(ngModel)]="model.date_time">
                 </div>
-            </div>
         </div>
         <div class="row">
-            <div><label>FROM </label></div>
+            <div><label>FROM </label><span class="required">*</span></div>
             <div class="col-12 col-lg-5 form-group">
-                <select name="from_time" [(ngModel)]="model.from_time">
-                    <option *ngFor="let time of times" [value]="time.id">{{time.data}}</option>
+                <select name="from_time" [(ngModel)]="model.from_time" (ngModelChange)="onFromTimeChange($event)">
+                    <option *ngFor="let time of times" [ngValue]="time.id">{{time.data}}</option>
                 </select>
             </div>
-            <div><label>TO </label></div>
+            <div><label>TO </label><span class="required">*</span></div>
             <div class="col-6 col-lg-3 form-group pl-2">
                 <select name="to_time" [(ngModel)]="model.to_time">
-                    <option *ngFor="let time of times" [value]="time.id">{{time.data}}</option>
+                    <option *ngFor="let time of times" [ngValue]="time.id">{{time.data}}</option>
                 </select>
             </div>
         </div>
         <div class="ember-view">
             <div class="row">
                 <div class="col-12 form-group">
-                    <label class="input-label required" for="booking-modal-space">SPACE(S)</label>
+                    <label class="input-label" for="booking-modal-space">SPACE(S)</label><span class="required">*</span>
                     <select class="form-control ember-view" *ngIf="spaces" [(ngModel)]="model.space_id" name="space_id">
-                        <option *ngFor="let space of spaces.data" [value]="space.id">{{space.space_name}}</option>
+                        <option *ngFor="let space of spaces.data" [ngValue]="space.id">{{space.space_name}}</option>
                     </select>
                     <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
                 </div>
@@ -36,15 +34,32 @@
         <div class="ember-view">
             <div class="row">
                 <div class="col-12 form-group">
-                  <label class="input-label" for="booking-modal-title">BOOKING TITLE</label>
+                  <label class="input-label" for="booking-modal-title">BOOKING TITLE</label><span class="required">*</span>
                   <input placeholder="booking title" maxlength="255" id="booking_title" name="booking_title" class="form-control ember-text-field ember-view" type="text" [(ngModel)]="model.booking_title">
                   <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
                 </div>
             </div>
+            <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div>
+            <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="DialogType == 'createBooking'">
             <div><button class="btn btn-success">Confirm Booking</button>
             <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel Booking</button></div>
         </div>
+        <div class="form-group" *ngIf="DialogType == 'editBooking'">
+            <div><button class="btn btn-success">Edit Booking</button>
+            <button class="btn btn-danger ml-2" (click)="openDialog('deleteBooking')">Delete Booking</button></div>
+        </div>
     </form>
+</div>
+<div class="container" *ngIf="DialogType == 'deleteBooking'">
+    <form (ngSubmit)="onDeleteSubmit()" #bookingForm="ngForm">
+    <div>Do you want to delete this booking</div>   
+    <div class="form-group">
+        <button type="submit" class="btn btn-light center">YES</button>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-light center" (click)="onNoClick()">NO</button>
+    </div>
+   </form>
 </div>

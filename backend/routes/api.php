@@ -15,10 +15,11 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-  return $request->user();
-  Route::apiResource('booking', 'API\BookingController');
+    return $request->user();
+    Route::apiResource('booking', 'API\BookingController');
 });
-Route::post('login', 'API\UserController@login');
+Route::get('getBookingsForDayView','API\BookingController@getBookingsForDayView');
+Route::get('getBookingsForMonthView','API\BookingController@getBookingsForMonthView');
 Route::apiResource('user', 'API\UserController');
 Route::get('UserWiseBooking/{id}', 'API\UserController@UserWiseBooking');
-Route::apiResource('space', 'API\SpacesController')->except(['create', 'edit']);
+Route::post('login', 'API\UserController@login');

@@ -1,6 +1,12 @@
 <div class="container">
-    <h4 mat-dialog-title>NEW BOOKING <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
+    <h4 mat-dialog-title>{{DialogTitle}} <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
 </div>
-<div>
-    <app-booking-create [from_time]="from_time" [to_time]="to_time"></app-booking-create>
+<div *ngIf="DialogType == 'createBooking'">
+    <app-booking-create [from_time]="from_time" [to_time]="to_time" [DialogType]="'createBooking'"></app-booking-create>
+</div>
+<div *ngIf="DialogType == 'editBooking'">
+    <app-booking-create [from_time]="from_time" [to_time]="to_time" [DialogType]="'editBooking'" [booking_id]="booking_id"></app-booking-create>
+</div>
+<div *ngIf="DialogType == 'deleteBooking'">
+    <app-booking-create [DialogType]="'deleteBooking'" [booking_id]="booking_id"></app-booking-create>
 </div>

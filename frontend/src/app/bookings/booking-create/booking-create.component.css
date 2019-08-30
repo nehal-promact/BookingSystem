@@ -5,3 +5,6 @@
   content:"*";
   color:red;
 }
+.required{
+      color:red;
+}
