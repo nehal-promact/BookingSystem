@@ -1,25 +1,9 @@
-<h3>SPACE REGISTERED BY ME</h3>
-<table class="table table-borderless">
-  <thead class="thead-light">
-    <tr>
-      <th>Booking Name</th>
-      <th>Space Name</th>
-      <th>Booked For Date</th>
-      <th>Booked For Time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngIf="userwisebooking.length==0" [class.text-danger]="!isValid && userwisebooking.length==0">
-        <td body="font-italic text-center" colspan="5">
-          No bookings done yet.
-        </td>
-      </tr>
-    <tr *ngFor="let userbooking of userwisebooking;let i=index;let j=index;">
-      <td>{{userbooking.booking_title}}</td>
-      <td>{{userbooking.space.space_name}}</td>
-      <td>{{userbooking.date_time}}</td>
-      <td>{{from_time[i]}}-{{to_time[j]}}</td>
-    </tr>
-  </tbody>
-</table>
-<button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
+<button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
+<h3 style="text-align: center;">SPACE REGISTERED BY ME</h3>
+  <p body="font-italic text-center" *ngIf="userwisebooking.length==0" [class.text-danger]="!isValid && userwisebooking.length==0">
+    No bookings done yet.
+  </p>
+<ul *ngFor="let userbooking of userwisebooking;let i=index;let j=index;">
+<strong>{{userbooking.date_time | date:'fullDate'}}</strong>
+<li>{{from_time[i]}}-{{to_time[j]}} for <b>{{userbooking.space.space_name}}</b> has booking name as <b>{{userbooking.booking_title}}</b></li>
+</ul>

@@ -34,7 +34,6 @@ export class UserEditComponent implements OnInit {
 
   EditUser(formData){
     this.userservice.editUser(this.formData).subscribe((res:any) => {
-      this.toastService.success("User Create Successfully");
       this.userservice.getUsers();
     });
   }

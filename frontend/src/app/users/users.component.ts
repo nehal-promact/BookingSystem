@@ -8,15 +8,13 @@ import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
-import { Pipe, PipeTransform } from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef,Sort} from '@angular/material';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-@Pipe({ name: 'searchByName' })
 
 export class UsersComponent implements OnInit {
 
@@ -47,14 +45,6 @@ export class UsersComponent implements OnInit {
         );
     }
 
-    getUserById(id:number): void {
-        this.userservice.getUserById(id).subscribe(
-            (data:any) => { 
-                this.model = data.data;
-            }
-        );
-    }
-
     ShowBookings(id:number):void{
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
@@ -71,7 +61,7 @@ export class UsersComponent implements OnInit {
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
-      dialogConfig.width = "65%";         
+      dialogConfig.width = "50%";         
       let MatDialogRef = this.dialog.open(UserCreateComponent,dialogConfig);
       MatDialogRef.afterClosed().subscribe(res =>{
           this.getUsers();
@@ -99,4 +89,24 @@ export class UsersComponent implements OnInit {
         }
     }   
 
+    sortName(sort: Sort) {
+        const data = this.users;
+        if (!sort.active || sort.direction === '') {
+            this.users = data;
+            return;
+        }
+        this.users = data.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            switch (sort.active) {
+                case 'first_name': return compare(a.first_name, b.first_name, isAsc);
+                case 'last_name': return compare(a.last_name, b.last_name, isAsc);
+                case 'email': return compare(a.email,b.email,isAsc);
+                default: return 0;
+            } 
+        });
+    }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
