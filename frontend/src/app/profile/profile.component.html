@@ -11,7 +11,7 @@
                         <label for="email">Email</label>
                         <input type="text" class="form-control" name="email" [(ngModel)]="formData.email" #email="ngModel" placeholder="Enter Email" [ngClass]="{ 'is-invalid': form.submitted && form.invalid }" required email readonly />
                         <div class="input-group-append">
-                            <button class="btn btn-input" type="button" (click)="EditUser(form)">Change</button>
+                            <button class="btn btn-input" type="button" (click)="ChangeEmail()">Change</button>
                         </div>
                         <div *ngIf="form.submitted && form.invalid" class="invalid-feedback">
                             <div *ngIf="email.errors.required">Email is required</div>
@@ -61,7 +61,6 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">PROMACT INFOTECH PVT. LTD.</div>
                                 </div>
-                                <input type="text" class="form-control" name="contact_number" [(ngModel)]="formData.contact_number" #contact_number="ngModel" readonly>
                             </div>
                         </div>
                     </div>

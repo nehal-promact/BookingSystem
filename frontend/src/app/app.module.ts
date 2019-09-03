@@ -13,6 +13,7 @@ import { ToastGlobalComponent } from './toast-global/toast-global.component';
 import { ToastsContainer } from './toast-global/toast-container.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material/material.module';
+import {MatSortModule} from '@angular/material';
 import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule} from 'ngx-toastr';
@@ -22,6 +23,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserBookingsComponent } from './users/user-bookings/user-bookings.component';
 import { MustMatchDirective } from './validator/must-match.directive';
 import { ProfileComponent } from './profile/profile.component';
+import { ChangeEmailComponent } from './profile/change-email/change-email.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
     UserBookingsComponent,
     MustMatchDirective,
     ProfileComponent,
+    ChangeEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     NgbModule,
     MaterialModule,
+    MatSortModule,
     BrowserAnimationsModule,
     ReactiveFormsModule ,
     ToastrModule.forRoot(),
@@ -57,6 +61,7 @@ import { ProfileComponent } from './profile/profile.component';
     DialogboxComponent,
     UserCreateComponent,
     UserEditComponent,
-    UserBookingsComponent],
+    UserBookingsComponent,
+    ChangeEmailComponent],
 })
 export class AppModule { }

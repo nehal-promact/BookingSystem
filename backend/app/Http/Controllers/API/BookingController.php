@@ -42,7 +42,7 @@ class BookingController extends APIBaseController
     public function store(Request $request)
     {
         //echo "<pre>"; print_r(Input::get('from_time')); exit;        
-       $validator = Validator::make($input,[
+       $validator = Validator::make($request->all(),[
             'date_time'     => 'required|date',
             'from_time'     => 'required',
             'to_time'       => 'required',

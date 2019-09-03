@@ -80,7 +80,7 @@ class UserController extends APIBaseController
     public function show($id)
     {
         $user = User::find($id);
-        return $this->sendResponse($user, 'Spaces found');
+        return $this->sendResponse($user, 'Users found');
     }
 
     /**
@@ -107,7 +107,7 @@ class UserController extends APIBaseController
        $user->first_name     = Input::get('first_name');
        $user->last_name      = Input::get('last_name');
        $user->save();
-       return $this->sendResponse($user, 'Spaces updated successfully.');
+       return $this->sendResponse($user, 'User details updated successfully.');
     }
 
     /**

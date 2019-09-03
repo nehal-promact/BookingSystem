@@ -26,3 +26,6 @@
 }
 
 
+.mat-sort-header-container .mat-sort-header-arrow{
+  opacity: 1 !important;
+}
