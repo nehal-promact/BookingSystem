@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::apiResource('booking', 'API\BookingController');
 });
 Route::apiResource('booking', 'API\BookingController');
-Route::get('getBookingsForDayView','API\BookingController@getBookingsForDayView');
+Route::get('getBookingsForDayView/{SelectedDate}','API\BookingController@getBookingsForDayView');
 Route::get('getBookingsForMonthView','API\BookingController@getBookingsForMonthView');
 Route::apiResource('user', 'API\UserController');
 Route::apiResource('space', 'API\SpacesController');

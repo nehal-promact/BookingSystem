@@ -1,11 +1,44 @@
-<div class="container">
-<div class="btn-group d-none d-xl-inline-flex" role="group">
-    <a href="/booking?viewType=1" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
-    <a href="/booking?viewType=2" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/space">Create another space</a>
+<div id="scheduler-header-nav">
+    <div class="scheduler-header-nav-container-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-g100">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <div>
+                            <div class="btn-group d-none d-xl-inline-flex" role="group" style="z-index: 2;">
+                                <a href="/booking?viewType=1" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
+                                <a href="/booking?viewType=2" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="btn-group ml-2 d-inline-flex">
+                                <div class="viewdate-picker dropdown-date scheduler-header-nav-button-bold pr-sm-3 text-truncate text-uppercase">
+                                    <span class="d-flex ember-view">
+                                        <span class="flex-grow-1 text-truncate">
+                                        </span>
+                                        <span class="pl-2 pr-2">
+                                            <input class="form-control"
+                                         name="selectdate" [(ngModel)]="selectdate.date" ngbDatepicker #d="ngbDatepicker" style="display:inline;" (ngModelChange)="valuechange($event)" (ngModelChange)="selectdate.date = $event">
+                                         <i style="display: inline;cursor: pointer;" class="material-icons" (click)="d.toggle()" >expand_more</i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1"></div>
+                        <div>
+                            <div class="d-inline-block ember-view">
+                                <div class="dropdown d-inline-block">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="/space">Create another space</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -13,20 +46,20 @@
         <div class="ember-view">
             <div class="bg-white scheduler-spaces-header-padding-top">
                 <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table" *ngIf="spaces">
-                    <tr>
+                        <tr>
                         <th class="scheduler-time-column"></th>
                         <th class="center" *ngFor="let space of spaces">{{space.space_name}}</th>
-                    </tr>
+                        </tr>
                 </table>
-                <table class="day-mode-table ember-view" id="dayviewtable" style="position: relative;" *ngIf="bookingfordayview">
-                    <tbody *ngFor="let row of bookingfordayview">
-                        <tr class="time-unavailable">
+                <table class="day-mode-table ember-view" id="dayviewtable" style="position: relative;margin-top: 11px;" *ngIf="bookingfordayview">
+                    <tbody>
+                        <tr class="time-unavailable" *ngFor="let row of bookingfordayview">
                             <td class="scheduler-time-column">
                                 <div class="text-truncate">
                                   <small>{{row.Time.data}}</small>
                                 </div>
                             </td>
-                            <td role="button" [ngClass]="{'disabled': row.Time.isDisabled }" *ngFor="let space of row.SpaceType" [attr.data-rows]="space.rows" [attr.data-time]="row.Time.id" [attr.data-spaceid]="space.id" [attr.data-booked]="space.booked" (click)="booking($event)"></td>
+                            <td role="button" [ngClass]="{'disabled': row.Time.isDisabled }" *ngFor="let space of row.SpaceType" [attr.data-rows]="space.rows" [attr.data-time]="row.Time.id" [attr.data-spaceid]="space.id" [attr.data-booked]="space.booked" (click)="booking($event)" [style.width.%]="100 / spaces.length"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -57,4 +90,3 @@
         </div>
     </div>
     <i class="material-icons add-icon" (click)="openDialog(1,1,'createBooking')">add_circle</i>
-</div>

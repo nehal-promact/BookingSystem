@@ -38,11 +38,11 @@ export class BookingsService {
         );     
     }
     
-    getBookingsForDayView(): Observable<BookingDayView>{
+    getBookingsForDayView(selectedDate:string): Observable<BookingDayView>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
         
-        let url = this.environmentService.setApiService('getBookingsForDayView')
+        let url = this.environmentService.setApiService('getBookingsForDayView')+'/'+selectedDate;
         return this.http.get<BookingDayView>(url, {headers});
     }
     
