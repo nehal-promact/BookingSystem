@@ -13,6 +13,8 @@ import { ToastGlobalComponent } from './toast-global/toast-global.component';
 import { ToastsContainer } from './toast-global/toast-container.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material/material.module';
+import { MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule} from 'ngx-toastr';
@@ -23,7 +25,6 @@ import { UserBookingsComponent } from './users/user-bookings/user-bookings.compo
 import { MustMatchDirective } from './validator/must-match.directive';
 import { ChangeEmailComponent } from './profile/change-email/change-email.component';
 import { ProfileComponent } from './profile/profile.component';
-
 
 @NgModule({
   declarations: [
@@ -52,6 +53,8 @@ import { ProfileComponent } from './profile/profile.component';
     MaterialModule,
     BrowserAnimationsModule,
     ReactiveFormsModule ,
+    MatMenuModule,
+    MatButtonModule,
     ToastrModule.forRoot(),
   ],
   providers: [TokenStorage],

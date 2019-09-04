@@ -3,7 +3,11 @@
     <div class="sidenav">
         <a href="/booking?viewType=1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
         <a href="/venueuser"><i class="fa fa-users" aria-hidden="true"></i></a>
-        <a href="/profile"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+        <a mat-button [matMenuTriggerFor] = "menu" class="profile"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+        <mat-menu #menu = "matMenu">
+            <a href="/profile" style="text-decoration:none; color:inherit;" class="menu-font" mat-menu-item><i class="fa fa-user-o" style="color:#4E8EF0;" aria-hidden="true"></i> My Profile</a>
+            <a href="#" style="text-decoration:none; color:inherit;" class="menu-font" mat-menu-item><i class="fa fa-sign-out" style="color:#4E8EF0;" aria-hidden="true"></i> LogOut</a>
+        </mat-menu>
     </div>
     <div style="width: calc(100% - 65px);margin-left:65px;">
         <router-outlet></router-outlet>

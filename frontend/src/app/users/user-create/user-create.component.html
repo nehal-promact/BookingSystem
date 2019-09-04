@@ -1,6 +1,6 @@
 <!-- main app container -->
 <div class="container">
-    <button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
+    <button type="button" class="ml-1 float-right material-icons close" style="cursor:pointer;" [mat-dialog-close]><i class="fa fa-times"></i></button>
     <h3 style="text-align: center;">ADD A USER</h3>
     <form name="form" autocomplete="off" (ngSubmit)="form.valid && onSubmit(form)" #form="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
         <input type="hidden" name="id" [(ngModel)]="formData.id" #id="ngModel">

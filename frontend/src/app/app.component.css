@@ -7,4 +7,14 @@ and open the template in the editor.
     Created on : 26 Jul, 2019, 2:22:26 PM
     Author     : nehal
 */
+.profile{
+  padding: 6px 80px 6px 16px;
+  text-decoration: none;
+  font-size: 30px;
+  color: #483D8B;
+  display: block;
+}
 
+.menu-font{
+  font-family:  "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
