@@ -6,12 +6,12 @@
 &nbsp;
 <input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Name">
 &nbsp;
-<table class="table table-borderless">
+<table matSort (matSortChange) = "sortName($event)" class="table table-borderless">
   <thead class="thead-light">
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
+      <th mat-sort-header = "first_name">First Name</th>
+      <th mat-sort-header = "last_name">Last Name</th>
+      <th mat-sort-header = "email">Email</th>
       <th>Telephone</th>
       <th></th>
     </tr>
