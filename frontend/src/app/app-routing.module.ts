@@ -4,12 +4,14 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { SpacesComponent } from './spaces/spaces.component';
 import { UsersComponent } from './users/users.component';		
 import { UserCreateComponent } from './users/user-create/user-create.component';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
     { path: 'booking', component: BookingsComponent },
     { path: 'space', component: SpacesComponent },
     { path: 'space/:id', component: SpacesComponent },
     { path: 'venueuser', component:UsersComponent},			
+    { path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

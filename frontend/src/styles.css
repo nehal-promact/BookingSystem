@@ -37,6 +37,7 @@
   font-size: initial !important;
   border: initial !important;
   backdrop-filter: blur(0) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
 }
 .toast-success {
   background-color: #51A351 !important;

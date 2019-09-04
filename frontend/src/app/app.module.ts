@@ -21,6 +21,8 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserBookingsComponent } from './users/user-bookings/user-bookings.component';
 import { MustMatchDirective } from './validator/must-match.directive';
+import { ChangeEmailComponent } from './profile/change-email/change-email.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { MustMatchDirective } from './validator/must-match.directive';
     UserEditComponent,
     UserBookingsComponent,
     MustMatchDirective,
+    ChangeEmailComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +60,7 @@ import { MustMatchDirective } from './validator/must-match.directive';
     DialogboxComponent,
     UserCreateComponent,
     UserEditComponent,
-    UserBookingsComponent],
+    UserBookingsComponent,
+    ChangeEmailComponent],
 })
 export class AppModule { }

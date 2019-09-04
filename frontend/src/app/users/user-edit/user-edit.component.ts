@@ -27,7 +27,7 @@ export class UserEditComponent implements OnInit {
 
   updateUserRecord(form : NgForm){
     this.userservice.editUser(form.value).subscribe((res:any) => {
-      this.toastService.info("Updated Successfully");
+        this.toastService.info("Updated Successfully");
       this.userservice.getUsers();
     });
   }

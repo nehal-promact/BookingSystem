@@ -41,23 +41,12 @@ export class UserCreateComponent implements OnInit {
   }
 
 onSubmit(form : NgForm){
-  if(form.value.id == null)
   this.insertUserRecord(form);
-  else
-  this.updateUserRecord(form); 
 }
 
 insertUserRecord(form : NgForm){
   this.userservice.addUser(form.value).subscribe((res:any) => {
-    this.toastService.success("User Create Successfully");
-    this.resetForm(form);
-    this.userservice.getUsers();
-  });
-}
-
-updateUserRecord(form : NgForm){
-  this.userservice.editUser(form.value).subscribe((res:any) => {
-    this.toastService.info("Updated Successfully");
+    this.toastService.success("User Created Successfully");
     this.resetForm(form);
     this.userservice.getUsers();
   });
