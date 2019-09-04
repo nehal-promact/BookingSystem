@@ -151,10 +151,9 @@ class BookingController extends APIBaseController
       return $this->sendResponse(true,'Booking deleted successfully.');
     }
     
-    public function getBookingsForDayView() {
-
+    public function getBookingsForDayView($SelectedDate) {
         $response = array();
-        $bookings = Booking::where('date_time',date('Y-m-d'))->get();
+        $bookings = Booking::where('date_time',$SelectedDate)->get();
         $spaces = Spaces::all();
           
         $strJsonFileContents = file_get_contents(resource_path("\\json\\time.json"));
@@ -205,7 +204,7 @@ class BookingController extends APIBaseController
                  
         foreach ($bookings as $b) {
                 $tempArr[] = array(
-                     'day'=>date('d', strtotime($b->date_time)),
+                     'day'=>date('j', strtotime($b->date_time)),
                      'booking_id'=> $b->booking_id,
                      'date_time'=> $b->date_time,
                      'to_time'=> $this->getTime($b->to_time),
@@ -261,19 +260,11 @@ class BookingController extends APIBaseController
         if($request['date_time'] == date('Y-m-d', strtotime($booking->date_time))) {
             $bookings = Booking::where('date_time',date('Y-m-d', strtotime($request['date_time'])))->get();
             foreach($bookings as $book) {
-                if( ($request['to_time'] == $book->to || $request['from_time'] == $book->from) &&  $request['space_id'] == $book->space_id) {
+                if( ($request['to_time'] == $book->to || $request['from_time'] == $book->from || $request['from_time']>= $book->from) &&  $request['space_id'] == $book->space_id && $request['id']!=$book->id) {
                     $error[] = 'Booking already exist on same time.';
                     return $error;
                 }
             }
         }
-        
-        //$bookings = Booking::where('date_time',date('Y-m-d'))->get();
-        /*$bookings = Booking::with('spaces')
-        ->select('booking.id as booking_id','booking.date_time','booking.to as to_time','booking.from as from_time','booking.booking_title','booking.space_id','booking.created_at','booking.updated_at','spaces.space_name')
-        ->join('spaces', 'spaces.id', '=', 'booking.space_id')
-        ->where('booking.id',$id);*/
-        //print_r($booking);
-       // print_r($bookings);exit;
     }
 }

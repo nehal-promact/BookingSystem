@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { HttpClient,HttpResponse,HttpHeaders  } from '@angular/common/http';
 import {MatDialog, MatDialogRef,MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
@@ -11,11 +12,21 @@ import { BookingDayView } from './booking-day-view';
 import { BookingMonthView } from './booking-month-view';
 import { TIMES } from './time';
 
+export class SelectedDateType {
+    year:number;
+    month:number;
+    day:number;
+}
+
+export class SelectedDate {
+    date: SelectedDateType;
+}
+
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.css'],
-  providers: [SpacesService,BookingsService]
+  providers: [SpacesService,BookingsService,DatePipe]
 })
 
 export class BookingsComponent implements OnInit {
@@ -23,8 +34,9 @@ export class BookingsComponent implements OnInit {
     spaces = Array();
     bookingfordayview: BookingDayView;
     bookingformonthview: BookingMonthView;
-    times = TIMES;
+    selectdate: SelectedDate;
     viewType = 1;
+    today: number = Date.now();
     
     constructor(
       private http: HttpClient,
@@ -33,10 +45,21 @@ export class BookingsComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       public dialog: MatDialog,
-      private elementRef:ElementRef
-    ) { }
+      private elementRef:ElementRef, 
+      private datePipe: DatePipe,
+    ) {}
 
     ngOnInit() {
+        let today = new Date();
+        let currentMonth = today.getMonth()+1;
+        let currentYear = today.getFullYear();
+        let currentDay = today.getDay()+1;
+        this.selectdate = new SelectedDate();
+        this.selectdate.date = new SelectedDateType();
+        this.selectdate.date.year = currentYear;
+        this.selectdate.date.month = currentMonth;
+        this.selectdate.date.day = currentDay;
+        console.log(this.selectdate.date);
         this.viewType = parseInt(this.route.snapshot.queryParamMap.get('viewType'));
         this.getSpaces();
         this.getBookings();
@@ -47,11 +70,8 @@ export class BookingsComponent implements OnInit {
             let today = new Date();
             let currentMonth = today.getMonth();
             let currentYear = today.getFullYear();
-
             let monthAndYear = document.getElementById("monthAndYear");
             this.showCalendar(monthAndYear,today,currentMonth, currentYear);
-            
-
         }
     }
 
@@ -64,11 +84,13 @@ export class BookingsComponent implements OnInit {
     openDialog(time, space_id, Type, booking_id): void {
         const dialogConfig = new MatDialogConfig();
         if(Type == 'createBooking'){
+            console.log(this.selectdate.date.year+"-"+this.selectdate.date.month+"-"+this.selectdate.date.day);
             dialogConfig.data = {
                 width: '400px',
                 height: '600px',
                 from_time: parseInt(time),
                 to_time: parseInt(time)+1,
+                date_time:this.datePipe.transform(new Date(this.selectdate.date.year, this.selectdate.date.month - 1, this.selectdate.date.day), "yyyy-MM-dd"),
                 DialogType: Type
             };
         }else if(Type == 'editBooking'){
@@ -77,6 +99,13 @@ export class BookingsComponent implements OnInit {
                 height: '600px',
                 from_time: parseInt(time),
                 to_time: parseInt(time)+1,
+                DialogType: Type,
+                booking_id: parseInt(booking_id)
+            };
+        }else if(Type == 'deleteBooking'){
+            dialogConfig.data = {
+                width: '400px',
+                height: '600px',
                 DialogType: Type,
                 booking_id: parseInt(booking_id)
             };
@@ -96,7 +125,8 @@ export class BookingsComponent implements OnInit {
     
     getBookings():void {
         if(this.viewType == 1){
-            this.bookingservice.getBookingsForDayView().subscribe(
+            let date_str = this.selectdate.date.year+"-"+this.selectdate.date.month+"-"+this.selectdate.date.day;
+            this.bookingservice.getBookingsForDayView(date_str).subscribe(
             (res:any) => {
                     this.bookingfordayview = res.data;
                      setTimeout(() => {
@@ -193,12 +223,14 @@ export class BookingsComponent implements OnInit {
                         }
                         let BookingTitle;
                         let BookingId;
+                        let BookingDateTime;
                         for (var bookings in this.bookingfordayview) {
                             if(DateTime == this.bookingfordayview[bookings].Time.id){
                                 for(var booking in this.bookingfordayview[bookings].Booking){
                                     if(SpaceId == this.bookingfordayview[bookings].Booking[booking].space_id){
                                         BookingTitle = this.bookingfordayview[bookings].Booking[booking].booking_title;
                                         BookingId = this.bookingfordayview[bookings].Booking[booking].id;
+                                        BookingDateTime = this.bookingfordayview[bookings].Booking[booking].date_time;
                                         break;
                                     }
                                 }
@@ -206,17 +238,7 @@ export class BookingsComponent implements OnInit {
                         }
         
                         let div = document.createElement("div");
-                        let itag = document.createElement("i");
-                        itag.style.cssFloat = "right";
-                        itag.style.cursor = "pointer";
-                        itag.classList.add("material-icons");
-                        itag.setAttribute('data-datetime',DateTime);
-                        itag.setAttribute('data-spaceid',SpaceId);
-                        itag.innerHTML = "edit";
-                        itag.addEventListener('click',()=>{
-                            this.openDialog(DateTime,SpaceId,'editBooking',BookingId);
-                        });
-
+                        div.classList.add("booking-slot");
                         div.style.height = (tds[n].getBoundingClientRect().height*parseInt(tds[n].getAttribute('data-rows')))+"px";
                         div.style.width = tds[n].getBoundingClientRect().width+"px";
                         div.style.left = tds[n].offsetLeft+"px";
@@ -225,7 +247,35 @@ export class BookingsComponent implements OnInit {
                         div.style.position = 'absolute';
                         div.style.backgroundColor = "rgba(" + [37,197,37,0.5] +")";
                         div.innerHTML = BookingTitle;
-                        div.appendChild(itag);
+                        //previous bookings can't edit
+                        if(BookingDateTime >= this.datePipe.transform(Date.now(),"yyyy-MM-dd")){
+                            //delete icon
+                            let itagd = document.createElement("i");
+                            itagd.style.cssFloat = "right";
+                            itagd.style.cursor = "pointer";
+                            itagd.classList.add("material-icons");
+                            itagd.setAttribute('data-datetime',DateTime);
+                            itagd.setAttribute('data-spaceid',SpaceId);
+                            itagd.innerHTML = "delete";
+                            itagd.addEventListener('click',()=>{
+                                this.openDialog(DateTime,SpaceId,'deleteBooking',BookingId);
+                            });
+                            div.appendChild(itagd);
+                            
+                            //edit icon
+                            let itage = document.createElement("i");
+                            itage.style.cssFloat = "right";
+                            itage.style.cursor = "pointer";
+                            itage.classList.add("material-icons");
+                            itage.setAttribute('data-datetime',DateTime);
+                            itage.setAttribute('data-spaceid',SpaceId);
+                            itage.innerHTML = "edit";
+                            itage.addEventListener('click',()=>{
+                                this.openDialog(DateTime,SpaceId,'editBooking',BookingId);
+                            });
+                            div.appendChild(itage);
+
+                        }
                         table.appendChild(div); 
                     }
                 }
@@ -292,5 +342,20 @@ export class BookingsComponent implements OnInit {
               div.innerHTML= "";
           });
       });
+    }
+    
+    valuechange(newValue) {
+        console.log(newValue);
+        this.selectdate.date.year = newValue.year;
+        this.selectdate.date.month = newValue.month;
+        this.selectdate.date.day = newValue.day;
+        console.log(this.selectdate.date);
+        //remove previous bookings
+        let booking_slots = document.getElementsByClassName('booking-slot');
+        while (booking_slots.length > 0){
+             booking_slots[0].remove();
+        }
+        //get selected date bookings
+        this.getBookings();
     }
 }

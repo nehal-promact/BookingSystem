@@ -24,6 +24,7 @@ export class BookingCreateComponent implements OnInit {
     times = TIMES;
     @Input('from_time') from_time: number;
     @Input('to_time') to_time: number;
+    @Input('date_time') date_time: string;
     @Input('DialogType') DialogType: string;
     @Input('booking_id') booking_id: number;
     response;
@@ -44,9 +45,12 @@ export class BookingCreateComponent implements OnInit {
     ngOnInit() {
         this.model = new Booking();
         if(this.DialogType == 'createBooking'){
+            console.log(this.date_time);
+            console.log(this.datePipe.transform(new Date(),"yyyy-MM-dd"));
             this.model.from_time = this.from_time;
             this.model.to_time = this.to_time;
-            this.model.date_time = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+            //this.model.date_time = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+            this.model.date_time = this.date_time;
             this.model.space_id = 1;
         }else if(this.DialogType == 'editBooking'){
             this.getBookingById(this.booking_id);

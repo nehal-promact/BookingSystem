@@ -17,6 +17,7 @@ export class DialogboxComponent implements OnInit {
     from_time: number;
     to_time: number;
     booking_id: number;
+    date_time: number;
     
   constructor(public dialogRef: MatDialogRef<DialogboxComponent>,
         @Inject(MAT_DIALOG_DATA) data) {
@@ -25,6 +26,7 @@ export class DialogboxComponent implements OnInit {
                 this.DialogType = data.DialogType;
                 this.from_time = data.from_time;
                 this.to_time = data.to_time;
+                this.date_time = data.date_time;
             }
             else if(data.DialogType == 'editBooking') {
                 this.DialogTitle = 'EDIT USER BOOKING';
