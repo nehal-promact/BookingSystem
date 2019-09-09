@@ -1,0 +1,73 @@
+.scheduler-header-spaces-wrapper{
+    position: sticky!important;
+    z-index: 995;
+    padding-top:60px;
+}
+.scheduler-spaces-header-padding-top {
+    padding-top: 1rem;
+}
+.day-mode-table, .month-mode-table {
+    background-color: #f9fbff;
+    table-layout: fixed;
+}
+.day-mode-table td:not(.scheduler-time-column) {
+    height: 25px;
+    cursor: pointer;
+}
+.day-mode-table tr td:not(.scheduler-time-column) {
+    border-color: #e9ecef;
+}
+.day-mode-table, .day-mode-table td, .day-mode-table th, .grid-mode-table, .grid-mode-table td, .grid-mode-table th, .month-mode-table, .month-mode-table td, .month-mode-table th, .table-bordered, .table-bordered td, .table-bordered th {
+    border: 1px solid #dee2e6;
+}
+.day-mode-table,.month-mode-table, .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+.scheduler-time-column {
+    width: 80px;
+}
+.table-layout-fixed {
+    table-layout: fixed;
+}
+.add-icon{
+    font-size: 65px;
+    position: fixed;
+    right: 45px;
+    bottom: 10px;
+    cursor: pointer;
+}
+.highlight { background-color: red; }
+.disabled{pointer-events:none;background-color:rgba(0,0,0,0.4)}
+#tooltip{
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 8px 6px -6px black;
+    background-color: #FFFFFF; 
+    height: 100px;
+    width: 200px;
+    display: none;
+}
+#scheduler-header-nav {
+    left: 0;
+    z-index: 998;
+    position: fixed!important;
+    width: 100%!important;
+}
+.scheduler-header-nav-container-wrapper{
+    position: absolute;
+    top: 0;
+    width: calc(100% - 60px);
+    background-color: #fff;
+    left: 60px;
+}
+.scheduler-header-spaces-table{
+    margin: 0;
+    position: fixed;
+    top: 38px;
+    left: 65px;
+    width: calc(100% - 62px);
+    z-index: 1000;
+    background-color: #fff;
+}

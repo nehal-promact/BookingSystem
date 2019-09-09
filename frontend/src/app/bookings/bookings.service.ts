@@ -4,8 +4,8 @@ import { AuthenticationService } from '../shared/authentication/authentication.s
 import { EnvironmentService } from '../shared/environment/environment.service';
 import { Observable } from 'rxjs/Rx';
 import { Booking } from './booking';
-import { BookingDayView } from './booking-day-view';
-import { BookingMonthView } from './booking-month-view';
+import { DayView } from './day-view/day-view';
+import { MonthView } from './month-view/month-view';
 
 @Injectable({
   providedIn: 'root'
@@ -36,22 +36,6 @@ export class BookingsService {
               observe: 'response'
             }
         );     
-    }
-    
-    getBookingsForDayView(selectedDate:string): Observable<BookingDayView>{
-        let headers = new HttpHeaders();
-        headers = this.authService.createHeader();
-        
-        let url = this.environmentService.setApiService('getBookingsForDayView')+'/'+selectedDate;
-        return this.http.get<BookingDayView>(url, {headers});
-    }
-    
-    getBookingsForMonthView(): Observable<BookingMonthView>{
-        let headers = new HttpHeaders();
-        headers = this.authService.createHeader();
-        
-        let url = this.environmentService.setApiService('getBookingsForMonthView')
-        return this.http.get<BookingMonthView>(url, {headers});
     }
     
     getBookingById(id:number): Observable<Booking> {

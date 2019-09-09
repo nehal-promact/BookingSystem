@@ -1,0 +1,67 @@
+<div id="scheduler-header-nav">
+    <div class="scheduler-header-nav-container-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-g100">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <div>
+                            <div class="btn-group d-none d-xl-inline-flex" role="group" style="z-index: 2;">
+                                <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
+                                <a href="/booking/monthview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="btn-group ml-2 d-inline-flex">
+                                <div class="viewdate-picker dropdown-date scheduler-header-nav-button-bold pr-sm-3 text-truncate text-uppercase">
+                                    <span class="d-flex ember-view">
+                                        <span class="flex-grow-1 text-truncate">
+                                        </span>
+                                        <span class="pl-2 pr-2">
+                                            <input class="form-control"
+                                         name="selectdate" [(ngModel)]="selectdate.date" ngbDatepicker #d="ngbDatepicker" style="display:inline;" (ngModelChange)="dateValueChange($event)" (ngModelChange)="selectdate.date = $event">
+                                         <i style="display: inline;cursor: pointer;" class="material-icons" (click)="d.toggle()" >expand_more</i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1"></div>
+                        <div>
+                            <div class="d-inline-block ember-view">
+                                <div class="dropdown d-inline-block">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="/space">Create another space</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scheduler-header-spaces-wrapper">
+    <div class="ember-view">
+        <div class="bg-white scheduler-spaces-header-padding-top">
+            <h3 class="card-header" id="monthAndYear"></h3>
+            <div id="tooltip" class="content"></div>
+            <table class="table table-bordered table-responsive-sm" id="monthviewtable">
+                <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+                </thead>
+                <tbody id="calendar-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

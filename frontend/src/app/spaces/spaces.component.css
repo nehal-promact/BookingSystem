@@ -1,3 +1,18 @@
 .space-item{
     margin: 5px;
 }   
+ .example-viewport{
+     height: 250px;
+     width: 75%;
+     margin-left: 50px;
+     display: flex;
+    }
+    .list{
+     height: 50px;
+     justify-content: center;
+     align-items: center;
+    }
+    h2{
+     margin-left: 40px;
+    }
+  

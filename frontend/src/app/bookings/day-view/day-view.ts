@@ -1,6 +1,5 @@
-export class BookingDayView {
+export class DayView {
     Time: object;
     Booking: object;
     SpaceType: object; 
 }
-

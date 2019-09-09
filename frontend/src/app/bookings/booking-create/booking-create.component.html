@@ -1,43 +1,57 @@
 <div class="container" *ngIf="DialogType == 'createBooking' || DialogType == 'editBooking'">
     <form (ngSubmit)="onSubmit()">
         <div class="row">
-            <div><label>DATE & TIME </label><span class="required">*</span></div>
-                <div class="col-12 col-lg-5 form-group">
-                    <input type="date" name="date_time" [(ngModel)]="model.date_time">
-                </div>
+            <mat-form-field>
+                <div><mat-label>DATE & TIME </mat-label><span class="required">*</span></div>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date_time" [(ngModel)]="model.date_time">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
         </div>
         <div class="row">
-            <div><label>FROM </label><span class="required">*</span></div>
-            <div class="col-12 col-lg-5 form-group">
-                <select name="from_time" [(ngModel)]="model.from_time" (ngModelChange)="onFromTimeChange($event)">
-                    <option *ngFor="let time of times" [ngValue]="time.id">{{time.data}}</option>
-                </select>
+            <mat-form-field>
+            <div><mat-label>FROM</mat-label><span class="required">*</span></div>
+            <div class="col-12 form-group">
+                <mat-select [(ngModel)]="model.from_time" name="from_time" (ngModelChange)="onTimeChange($event)">
+                  <mat-option *ngFor="let time of fromTimes" [value]="time.id">
+                    {{time.data}}
+                  </mat-option>
+                </mat-select>
             </div>
-            <div><label>TO </label><span class="required">*</span></div>
-            <div class="col-6 col-lg-3 form-group pl-2">
-                <select name="to_time" [(ngModel)]="model.to_time">
-                    <option *ngFor="let time of times" [ngValue]="time.id">{{time.data}}</option>
-                </select>
+            </mat-form-field>
+            <mat-form-field>
+            <div><mat-label>TO</mat-label><span class="required">*</span></div>
+            <div class="col-12 form-group">
+                <mat-select [(ngModel)]="model.to_time" name="from_time" (ngModelChange)="onTimeChange($event)">
+                  <mat-option *ngFor="let time of toTimes" [value]="time.id">
+                    {{time.data}}
+                  </mat-option>
+                </mat-select>
             </div>
+            </mat-form-field>
         </div>
         <div class="ember-view">
             <div class="row">
+                <mat-form-field *ngIf="spaces">
                 <div class="col-12 form-group">
-                    <label class="input-label" for="booking-modal-space">SPACE(S)</label><span class="required">*</span>
-                    <select class="form-control ember-view" *ngIf="spaces" [(ngModel)]="model.space_id" name="space_id">
-                        <option *ngFor="let space of spaces.data" [ngValue]="space.id">{{space.space_name}}</option>
-                    </select>
+                    <mat-label class="input-label" for="booking-modal-space">SPACE(S)</mat-label><span class="required">*</span>
+                    <mat-select class="form-control ember-view" [(ngModel)]="model.space_id" name="space_id">
+                        <mat-option *ngFor="let space of spaces.data" [value]="space.id">{{space.space_name}}</mat-option>
+                    </mat-select>
                     <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
                 </div>
+                </mat-form-field>
             </div>
         </div>
         <div class="ember-view">
             <div class="row">
-                <div class="col-12 form-group">
-                  <label class="input-label" for="booking-modal-title">BOOKING TITLE</label><span class="required">*</span>
-                  <input placeholder="booking title" maxlength="255" id="booking_title" name="booking_title" class="form-control ember-text-field ember-view" type="text" [(ngModel)]="model.booking_title">
-                  <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
-                </div>
+                <mat-form-field>
+                    <div class="col-12 form-group">
+                      <mat-label class="input-label" for="booking-modal-title">BOOKING TITLE</mat-label><span class="required">*</span>
+                      <input matInput placeholder="booking title" maxlength="255" id="booking_title" name="booking_title" class="form-control ember-text-field ember-view" type="text" [(ngModel)]="model.booking_title">
+                      <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
+                    </div>
+                </mat-form-field>
             </div>
             <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div>
             <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>

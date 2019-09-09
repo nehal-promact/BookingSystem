@@ -1,4 +1,4 @@
-export class BookingMonthView {
+export class MonthView {
     booking_id: number;
     date_time: string;
     to_time: string;

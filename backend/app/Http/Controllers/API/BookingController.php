@@ -192,10 +192,10 @@ class BookingController extends APIBaseController
         return $booking->to - $booking->from;
     }
     
-    public function getBookingsForMonthView() {
+    public function getBookingsForMonthView($SelectedDate) {
         
         $response = array();
-        $month = date('m');
+        $month = date('m', strtotime($SelectedDate));
         $bookings = Booking::with('spaces')
         ->select('booking.id as booking_id','booking.date_time','booking.to as to_time','booking.from as from_time','booking.booking_title','booking.space_id','booking.created_at','booking.updated_at','spaces.space_name')
         ->join('spaces', 'spaces.id', '=', 'booking.space_id')

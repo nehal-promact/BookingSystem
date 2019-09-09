@@ -21,7 +21,8 @@ export class BookingCreateComponent implements OnInit {
 
     spaces : Spaces;
     model : Booking;
-    times = TIMES;
+    toTimes = [];
+    fromTimes = [];
     @Input('from_time') from_time: number;
     @Input('to_time') to_time: number;
     @Input('date_time') date_time: string;
@@ -43,13 +44,22 @@ export class BookingCreateComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        let tempTimes = TIMES;
+        for (var time in tempTimes) {
+            if(tempTimes[time].id>16 && tempTimes[time].id<41){
+                this.fromTimes.push(tempTimes[time]);
+            }
+            if(tempTimes[time].id>17 && tempTimes[time].id<42){
+                this.toTimes.push(tempTimes[time]);
+            }
+        }
+        
         this.model = new Booking();
         if(this.DialogType == 'createBooking'){
             console.log(this.date_time);
             console.log(this.datePipe.transform(new Date(),"yyyy-MM-dd"));
             this.model.from_time = this.from_time;
             this.model.to_time = this.to_time;
-            //this.model.date_time = this.datePipe.transform(new Date(),"yyyy-MM-dd");
             this.model.date_time = this.date_time;
             this.model.space_id = 1;
         }else if(this.DialogType == 'editBooking'){
@@ -154,8 +164,13 @@ export class BookingCreateComponent implements OnInit {
       this.dialogRef.close();
     }
     
-    onFromTimeChange(fromTimeValue){
-        console.log(fromTimeValue);
+    onTimeChange(timeValue){
+        this.isValidField = true;
+        this.error={isError:false,errorMessage:''};
+        if(this.model.to_time < this.model.from_time){
+            this.error={isError:true,errorMessage:'To time should be grater then from time.'};
+            this.isValidField = false;
+        }
     }
     
     validatesField(from_time:number,to_time:number,booking_title:string){

@@ -6,6 +6,8 @@ import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { BookingCreateComponent } from './bookings/booking-create/booking-create.component';
+import { DayViewComponent } from './bookings/day-view/day-view.component';
+import { MonthViewComponent } from './bookings/month-view/month-view.component';
 import { SharedModule } from './shared/shared.module';
 import { TokenStorage } from './shared/authentication/token-storage.service';
 import { SpacesComponent } from './spaces/spaces.component';
@@ -23,7 +25,7 @@ import { UserBookingsComponent } from './users/user-bookings/user-bookings.compo
 import { MustMatchDirective } from './validator/must-match.directive';
 import { ChangeEmailComponent } from './profile/change-email/change-email.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { ScrollingModule } from '@angular/cdk/scrolling'
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { ProfileComponent } from './profile/profile.component';
     ToastsContainer,
     DialogboxComponent,
     BookingCreateComponent,
+    DayViewComponent,
+    MonthViewComponent,
     UsersComponent,
     UserCreateComponent,
     UserEditComponent,
@@ -51,7 +55,8 @@ import { ProfileComponent } from './profile/profile.component';
     NgbModule,
     MaterialModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
+    ScrollingModule,
     ToastrModule.forRoot(),
   ],
   providers: [TokenStorage],

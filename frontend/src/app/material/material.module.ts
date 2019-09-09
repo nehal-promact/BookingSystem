@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatDialogModule} from '@angular/material/dialog';
-import { MatNativeDateModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule } from '@angular/material';
+import { MatNativeDateModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule, MatListModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    ScrollingModule,
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [
     FormsModule, 
@@ -19,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatRadioModule,
     MatSelectModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatListModule
     ]
 })
 export class MaterialModule { }

@@ -6,8 +6,8 @@
                     <div class="d-flex">
                         <div>
                             <div class="btn-group d-none d-xl-inline-flex" role="group" style="z-index: 2;">
-                                <a href="/booking?viewType=1" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
-                                <a href="/booking?viewType=2" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
+                                <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
+                                <a href="/booking/monthview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
                             </div>
                         </div>
                         <div>
@@ -18,7 +18,7 @@
                                         </span>
                                         <span class="pl-2 pr-2">
                                             <input class="form-control"
-                                         name="selectdate" [(ngModel)]="selectdate.date" ngbDatepicker #d="ngbDatepicker" style="display:inline;" (ngModelChange)="valuechange($event)" (ngModelChange)="selectdate.date = $event">
+                                         name="selectdate" [(ngModel)]="selectdate.date" ngbDatepicker #d="ngbDatepicker" style="display:inline;pointer-events:none;" (ngModelChange)="dateValueChange($event)" (ngModelChange)="selectdate.date = $event">
                                          <i style="display: inline;cursor: pointer;" class="material-icons" (click)="d.toggle()" >expand_more</i>
                                         </span>
                                     </span>
@@ -42,7 +42,7 @@
         </div>
     </div>
 </div>
-    <div class="scheduler-header-spaces-wrapper" *ngIf="viewType==1">
+    <div class="scheduler-header-spaces-wrapper">
         <div class="ember-view">
             <div class="bg-white scheduler-spaces-header-padding-top">
                 <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table" *ngIf="spaces">
@@ -65,28 +65,6 @@
                 </table>
             </div>
         </div>
+        <i class="material-icons add-icon" (click)="openDialog(17,18,'createBooking')">add_circle</i>
     </div>
-    <div class="scheduler-header-spaces-wrapper" *ngIf="viewType==2">
-        <div class="ember-view">
-            <div class="bg-white scheduler-spaces-header-padding-top">
-                <h3 class="card-header" id="monthAndYear"></h3>
-                <div id="tooltip" class="content"></div>
-                <table class="table table-bordered table-responsive-sm" id="monthviewtable">
-                    <thead>
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                    </thead>
-                    <tbody id="calendar-body">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <i class="material-icons add-icon" (click)="openDialog(1,1,'createBooking')">add_circle</i>
+    
