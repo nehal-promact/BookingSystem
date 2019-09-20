@@ -18,10 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
     Route::apiResource('booking', 'API\BookingController');
 });
+Route::post('login', 'API\UserController@login');
+Route::group(['middleware' => ['cors','auth:api']], function(){
+  Route::get('getUser', 'API\UserController@getUser');
+  Route::post('logout','API\UserController@logout');
+  Route::get('isAdmin/{id}','API\UserController@isAdmin');
+ });
+
 Route::apiResource('booking', 'API\BookingController');
 Route::get('getBookingsForDayView/{SelectedDate}','API\BookingController@getBookingsForDayView');
 Route::get('getBookingsForMonthView/{SelectedDate}','API\BookingController@getBookingsForMonthView');
 Route::apiResource('user', 'API\UserController');
 Route::apiResource('space', 'API\SpacesController');
 Route::get('UserWiseBooking/{id}', 'API\UserController@UserWiseBooking');
-Route::post('login', 'API\UserController@login');

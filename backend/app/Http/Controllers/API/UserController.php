@@ -125,29 +125,66 @@ class UserController extends APIBaseController
 
     public function login()
     { 
+        $success = array();
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user             = Auth::user();
-            $success['token'] = $user->createToken('MyApp')-> accessToken;
-            return response()->json(['success' => $success], 200); 
-        } 
-        else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            $user = Auth::user(); 
+            $success['token'] =  $user->createToken('api_token')->accessToken; 
+            $user->api_token = $success['token'];
+            $user->save();
+             return $this->sendResponse($success,'login successfully'); 
+        } else{ 
+            return $this->sendError('error',['error'=>'Unauthorised'], 401);
         } 
     }
-
+    
+    public function logout() {
+        if (Auth::check()) {
+            Auth::user()->AauthAcessToken()->delete();
+        }
+        $response = 'You have been succesfully logged out!';
+        return $this->sendResponse($response, 200);
+    }
+    
+    public function getUser() {
+        $user = Auth::user();
+        return $this->sendResponse($user, "user retrive successfully."); 
+    }
+    
     public function UserWiseBooking($id)
     {
-        //echo "aaa".$id; exit;
         $user = User::find($id);
         $data = $user->booking;
         $i = 0;
-        $space = array();
+        
         foreach($data as $data)
         {
+           $data->from = $this->getTime($data->from);
+           $data->to = $this->getTime($data->to);
            $user['booking'][$i]['space'] = Booking::find($data->id)->space;
            $i++; 
         }
-        return response()->json(['success' => $user], 200);
+        return $this->sendResponse($user, "user retrive successfully."); 
+    }
+    
+    /**
+     * check user is administrator or not
+     *
+     * @return boolean
+     */
+    public function isAdmin($id) {
+        $user = User::find($id);
+        return $this->sendResponse(User::isAdmin($user), 'user is admin or not');
+    }
+    
+    private function getTime($time){
+        $strJsonFileContents = file_get_contents(resource_path("\\json\\time.json"));
+        $times = json_decode($strJsonFileContents, true); 
+        
+        foreach ($times['times'] as $value) {
+            if($time == $value['id']){
+                return $value['data'];
+            }
+        }
     }
 
 }

@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { SpacesService } from '../spaces/spaces.service';
 import { UsersService } from './users.service';
 import { Users } from './users';
+import { LoginuserService } from '../shared/loginuser/loginuser.service';
+import { AuthenticationService } from '../shared/authentication/authentication.service';
 import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
@@ -23,6 +25,8 @@ export class UsersComponent implements OnInit {
   response;
   users: Array<Users> = new Array<Users>();
   userId;
+  isAuthorized: boolean = false;
+  isAdministrator: boolean = false;
 
   constructor(
     private userservice: UsersService,
@@ -31,12 +35,44 @@ export class UsersComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastService:ToastrService,
-  ) { }
+    public loginuserservice: LoginuserService,
+    public AuthService: AuthenticationService
+  ) { 
+        if(localStorage.getItem('userInfo')){
+            this.loginuserservice.sendUserName(JSON.parse(localStorage.getItem('userInfo')).first_name);
+        }
+  }
 
   ngOnInit() {
+        this.checkAuth();
+        this.isAdmin();
         this.getUsers();     
     }
 
+    checkAuth(): void {
+        this.AuthService.isAuthorized().subscribe(
+            (res) => {
+                  this.isAuthorized = res;
+                  setTimeout(() => {
+                        this.loginuserservice.setAuthorized(this.isAuthorized);
+                   },0);
+                }
+        );
+    }
+    
+    isAdmin(): void {
+        if(localStorage.length > 0){
+            this.userservice.isAdmin().subscribe(
+                (res:any) => {
+                    this.isAdministrator = res.data;
+                    setTimeout(() => {
+                        this.loginuserservice.setAdmin(this.isAdministrator);
+                    },0);  
+                }
+            );
+        }
+    }
+    
   getUsers(): void {
         this.userservice.getUsers().subscribe(
         (data: any) => { 

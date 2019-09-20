@@ -99,6 +99,16 @@ export class AuthenticationService implements AuthService {
   }
   
     /**
+     * EXTRA AUTH METHODS
+     */
+
+    public oauthAccessToken(loginData): Observable<any> {
+      var service = this.environmentService.setAuthService('oauth/token')
+      var loginFormData = this.environmentService.setLoginJson(loginData)
+      return this.http.post(service, loginFormData)
+      .do((tokens: AccessData) => this.saveAccessData(tokens));
+    }
+    /**
     * Logout
     */
     public logout(): void {

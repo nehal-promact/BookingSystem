@@ -25,7 +25,9 @@ import { UserBookingsComponent } from './users/user-bookings/user-bookings.compo
 import { MustMatchDirective } from './validator/must-match.directive';
 import { ChangeEmailComponent } from './profile/change-email/change-email.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ScrollingModule } from '@angular/cdk/scrolling'
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
     MustMatchDirective,
     ChangeEmailComponent,
     ProfileComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

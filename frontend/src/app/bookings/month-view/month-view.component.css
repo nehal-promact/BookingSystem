@@ -71,3 +71,7 @@
     z-index: 1000;
     background-color: #fff;
 }
+.top-margin{
+    margin-top: 65px;
+    margin-bottom: 5px;
+}

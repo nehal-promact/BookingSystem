@@ -7,15 +7,20 @@ import { SpacesComponent } from './spaces/spaces.component';
 import { UsersComponent } from './users/users.component';		
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import {ProfileComponent} from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
+    { path: '', redirectTo: '/booking/dayview', pathMatch: 'full' },
     { path: 'booking', component: BookingsComponent },
     { path: 'booking/dayview', component: DayViewComponent },
     { path: 'booking/monthview', component: MonthViewComponent },
     { path: 'space', component: SpacesComponent },
     { path: 'space/:id', component: SpacesComponent },
     { path: 'venueuser', component:UsersComponent},			
-    { path: 'profile', component: ProfileComponent}
+    { path: 'profile', component: ProfileComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'logout', component: LogoutComponent}
 ];
 
 @NgModule({

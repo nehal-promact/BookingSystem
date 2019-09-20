@@ -71,4 +71,13 @@ export class UsersService {
         let url = this.environmentService.setApiService('user')+'/'+id;
         return this.http.delete(url, {headers});
     }
+    
+    public isAdmin(): Observable<Object> {
+        let id = JSON.parse(localStorage.getItem('userInfo')).id;
+        const headers = new HttpHeaders()
+            .set("Content-Type", "application/json")
+            .set('Authorization','Bearer ' +localStorage.getItem('access_token'));
+        var service = this.environmentService.setApiService('isAdmin')+'/'+id
+        return this.http.get<Object>(service, {headers});
+    }
 }

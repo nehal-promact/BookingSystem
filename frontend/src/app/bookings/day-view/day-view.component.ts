@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient,HttpResponse,HttpHeaders  } from '@angular/common/http';
 import {MatDialog, MatDialogRef,MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { DialogboxComponent } from '../../dialogbox/dialogbox.component';
 import { SpacesService } from '../../spaces/spaces.service';
+import { UsersService } from '../../users/users.service';
+import { AuthenticationService } from '../../shared/authentication/authentication.service';
+import { LoginuserService } from '../../shared/loginuser/loginuser.service';
 import { DayViewService } from './day-view.service';
 import { Spaces } from '../../spaces/spaces';
 import { Booking } from '../booking';
@@ -25,13 +28,16 @@ export class SelectedDate {
   selector: 'app-day-view',
   templateUrl: './day-view.component.html',
   styleUrls: ['./day-view.component.css'],
-  providers: [SpacesService,DayViewService,DatePipe]
+  providers: [SpacesService,DayViewService,DatePipe,AuthenticationService,UsersService]
 })
 export class DayViewComponent implements OnInit {
 
     spaces = Array();
     bookingfordayview: DayView;
     selectdate: SelectedDate;
+    isAuthorized: boolean = false;
+    isAdministrator: boolean = false;
+    userinfo;
     
   constructor(
     private http: HttpClient,
@@ -41,19 +47,54 @@ export class DayViewComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private datePipe: DatePipe,
-    ) { }
+    private AuthService: AuthenticationService,
+    private userservice: UsersService,
+    private loginuserservice: LoginuserService,
+    ) { 
+        if(localStorage.getItem('userInfo')){
+            this.loginuserservice.sendUserName(JSON.parse(localStorage.getItem('userInfo')).first_name);
+        }
+    }
 
     ngOnInit() {
+        this.checkAuth();
+        this.isAdmin();
+        this.userinfo = JSON.parse(localStorage.getItem('userInfo'));
         let today = new Date();
         this.selectdate = new SelectedDate();
         this.selectdate.date = new SelectedDateType();
         this.selectdate.date.year = today.getFullYear();
         this.selectdate.date.month = today.getMonth()+1;
-        this.selectdate.date.day = today.getDay()+1;
-
+        this.selectdate.date.day = today.getDate();
+        
         this.getSpaces();
         this.getBookings();
     }
+     
+    checkAuth(): void {
+        this.AuthService.isAuthorized().subscribe(
+            (res) => {
+                  this.isAuthorized = res;
+                  setTimeout(() => {
+                        this.loginuserservice.setAuthorized(this.isAuthorized);
+                   },0);
+                }
+        );
+    }
+    
+    isAdmin(): void {
+        if(localStorage.length > 0){
+            this.userservice.isAdmin().subscribe(
+                (res:any) => {
+                    this.isAdministrator = res.data;
+                    setTimeout(() => {
+                        this.loginuserservice.setAdmin(this.isAdministrator);
+                    },0);  
+                }
+            );
+        }
+    }
+    
     getSpaces(): void {   
         this.spaceservice.getSpaces().subscribe((spaceres:any) => {
                 this.spaces = spaceres.data;  
@@ -92,6 +133,7 @@ export class DayViewComponent implements OnInit {
                         let BookingTitle;
                         let BookingId;
                         let BookingDateTime;
+                        let BookingUser;
                         for (var bookings in this.bookingfordayview) {
                             if(DateTime == this.bookingfordayview[bookings].Time.id){
                                 for(var booking in this.bookingfordayview[bookings].Booking){
@@ -99,6 +141,7 @@ export class DayViewComponent implements OnInit {
                                         BookingTitle = this.bookingfordayview[bookings].Booking[booking].booking_title;
                                         BookingId = this.bookingfordayview[bookings].Booking[booking].id;
                                         BookingDateTime = this.bookingfordayview[bookings].Booking[booking].date_time;
+                                        BookingUser = this.bookingfordayview[bookings].Booking[booking].user_id;
                                         break;
                                     }
                                 }
@@ -118,30 +161,35 @@ export class DayViewComponent implements OnInit {
                         //previous bookings can't edit
                         if(BookingDateTime >= this.datePipe.transform(Date.now(),"yyyy-MM-dd")){
                             //delete icon
-                            let itagd = document.createElement("i");
-                            itagd.style.cssFloat = "right";
-                            itagd.style.cursor = "pointer";
-                            itagd.classList.add("material-icons");
-                            itagd.setAttribute('data-datetime',DateTime);
-                            itagd.setAttribute('data-spaceid',SpaceId);
-                            itagd.innerHTML = "delete";
-                            itagd.addEventListener('click',()=>{
-                                this.openDialog(DateTime,SpaceId,'deleteBooking',BookingId);
-                            });
-                            div.appendChild(itagd);
-                            
+                            if( this.userinfo && (BookingUser == this.userinfo.id || this.isAdministrator)){
+                                let itagd = document.createElement("i");
+                                itagd.style.cssFloat = "right";
+                                itagd.style.cursor = "pointer";
+                                itagd.classList.add("material-icons");
+                                itagd.setAttribute('data-datetime',DateTime);
+                                itagd.setAttribute('data-spaceid',SpaceId);
+                                itagd.innerHTML = "delete";
+                                itagd.addEventListener('click',()=>{
+                                    this.openDialog(DateTime,SpaceId,'deleteBooking',BookingId);
+                                });
+                                div.appendChild(itagd);
+                            }
+                            //console.log(BookingUser);
+                            //console.log(this.userinfo.id);
                             //edit icon
-                            let itage = document.createElement("i");
-                            itage.style.cssFloat = "right";
-                            itage.style.cursor = "pointer";
-                            itage.classList.add("material-icons");
-                            itage.setAttribute('data-datetime',DateTime);
-                            itage.setAttribute('data-spaceid',SpaceId);
-                            itage.innerHTML = "edit";
-                            itage.addEventListener('click',()=>{
-                                this.openDialog(DateTime,SpaceId,'editBooking',BookingId);
-                            });
-                            div.appendChild(itage);
+                            if(this.userinfo && (BookingUser == this.userinfo.id || this.isAdministrator)){
+                                let itage = document.createElement("i");
+                                itage.style.cssFloat = "right";
+                                itage.style.cursor = "pointer";
+                                itage.classList.add("material-icons");
+                                itage.setAttribute('data-datetime',DateTime);
+                                itage.setAttribute('data-spaceid',SpaceId);
+                                itage.innerHTML = "edit";
+                                itage.addEventListener('click',()=>{
+                                    this.openDialog(DateTime,SpaceId,'editBooking',BookingId);
+                                });
+                                div.appendChild(itage);
+                            }
 
                         }
                         table.appendChild(div); 
@@ -203,10 +251,12 @@ export class DayViewComponent implements OnInit {
         });
     }
     
-    booking($event){
-        let time = $event.target.getAttribute('data-time');
-        let space_id = $event.target.getAttribute('data-spaceid');
-        this.openDialog(time,space_id,'createBooking',0);
+    booking($event,check){
+        if(check == 'true'){
+            let time = $event.target.getAttribute('data-time');
+            let space_id = $event.target.getAttribute('data-spaceid');
+            this.openDialog(time,space_id,'createBooking',0);
+        }
     }
     
 }

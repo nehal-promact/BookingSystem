@@ -1,9 +1,9 @@
-<button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
+<i class="material-icons close" (click)="onNoClick()">highlight_off</i>
 <h3 style="text-align: center;">SPACE REGISTERED BY ME</h3>
-  <p body="font-italic text-center" *ngIf="userwisebooking.length==0" [class.text-danger]="!isValid && userwisebooking.length==0">
+  <p body="font-italic text-center" *ngIf="userwisebooking.length==0">
     No bookings done yet.
   </p>
-<ul *ngFor="let userbooking of userwisebooking;let i=index;let j=index;">
-<strong>{{userbooking.date_time | date:'fullDate'}}</strong>
-<li>{{from_time[i]}}-{{to_time[j]}} for <b>{{userbooking.space.space_name}}</b> has booking name as <b>{{userbooking.booking_title}}</b></li>
-</ul>
+<mat-list *ngFor="let userbooking of userwisebooking">
+        <strong>{{userbooking.date_time | date:'fullDate'}}</strong>
+        <mat-list-item>{{userbooking.from}}-{{userbooking.to}} for {{userbooking.space.space_name}} has booking name as {{userbooking.booking_title}}</mat-list-item>
+</mat-list>

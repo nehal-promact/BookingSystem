@@ -6,6 +6,9 @@ import {MatDialog, MatDialogRef,MatDialogConfig, MAT_DIALOG_DATA} from '@angular
 import { DialogboxComponent } from '../../dialogbox/dialogbox.component';
 import { SpacesService } from '../../spaces/spaces.service';
 import { MonthViewService } from './month-view.service';
+import { UsersService } from '../../users/users.service';
+import { AuthenticationService } from '../../shared/authentication/authentication.service';
+import { LoginuserService } from '../../shared/loginuser/loginuser.service';
 import { Spaces } from '../../spaces/spaces';
 import { Booking } from '../booking';
 import { MonthView } from './month-view';
@@ -25,13 +28,15 @@ export class SelectedDate {
   selector: 'app-month-view',
   templateUrl: './month-view.component.html',
   styleUrls: ['./month-view.component.css'],
-  providers: [SpacesService,MonthViewService,DatePipe]
+  providers: [SpacesService,MonthViewService,DatePipe,AuthenticationService,UsersService]
 })
 export class MonthViewComponent implements OnInit {
 
     spaces = Array();
     bookingformonthview: MonthView;
     selectdate: SelectedDate;
+    isAuthorized: boolean = false;
+    isAdministrator: boolean = false;
     
     constructor(
         private http: HttpClient,
@@ -42,9 +47,18 @@ export class MonthViewComponent implements OnInit {
         public dialog: MatDialog,
         private datePipe: DatePipe,
         private elementRef:ElementRef,
-    ) { }
+        public AuthService: AuthenticationService,
+        public userservice: UsersService,
+        public loginuserservice: LoginuserService,
+    ) { 
+        if(localStorage.getItem('userInfo')){
+            this.loginuserservice.sendUserName(JSON.parse(localStorage.getItem('userInfo')).first_name);
+        }
+    }
 
     ngOnInit() {
+        this.checkAuth();
+        this.isAdmin();
         let today = new Date();
         this.selectdate = new SelectedDate();
         this.selectdate.date = new SelectedDateType();
@@ -63,7 +77,31 @@ export class MonthViewComponent implements OnInit {
         let monthAndYear = document.getElementById("monthAndYear");
         this.showCalendar(monthAndYear,today,this.selectdate.date.month-1, this.selectdate.date.year);
     }
-
+    
+    checkAuth(): void {
+        this.AuthService.isAuthorized().subscribe(
+            (res) => {
+                  this.isAuthorized = res;
+                  setTimeout(() => {
+                        this.loginuserservice.setAuthorized(this.isAuthorized);
+                   },0);
+                }
+        );
+    }
+    
+    isAdmin(): void {
+        if(localStorage.length > 0){
+            this.userservice.isAdmin().subscribe(
+                (res:any) => {
+                    this.isAdministrator = res.data;
+                    setTimeout(() => {
+                        this.loginuserservice.setAdmin(this.isAdministrator);
+                    },0);  
+                }
+            );
+        }
+    }
+    
     getSpaces(): void {   
         this.spaceservice.getSpaces().subscribe((spaceres:any) => {
                 this.spaces = spaceres.data;  
@@ -117,8 +155,8 @@ export class MonthViewComponent implements OnInit {
           item.addEventListener('mouseenter', (event) => {
                 let div = document.getElementById("tooltip");
                 div.style.display = 'block';
-                div.style.left = item.offsetLeft+"px";
-                div.style.top = item.offsetTop+"px";
+                div.style.left = event.target.getBoundingClientRect().left+ 50 +"px";
+                div.style.top = event.target.getBoundingClientRect().top + event.target.getBoundingClientRect().height + "px";
                 for (var bookings in this.bookingformonthview) {
                     if(parseInt(bookings) == parseInt(event.target.dataset.day))
                     {

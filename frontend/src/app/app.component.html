@@ -1,10 +1,29 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-    <div class="sidenav">
-        <a href="/booking/dayview"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
-        <a href="/venueuser"><i class="fa fa-users" aria-hidden="true"></i></a>
-        <a href="/profile"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+    <div class="sidenav" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="/booking/dayview" [matTooltip]="user ? 'Schedule' : 'Bookings'"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+        <a routerLink="/venueuser" *ngIf="isAuthorized && isAdministrator" matTooltip="Users"><i class="fa fa-users" aria-hidden="true"></i></a>
+        <a routerLink="/profile" *ngIf="isAuthorized" matTooltip="Profile"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+        <a routerLink="/login" *ngIf="!isAuthorized" matTooltip="Login"><i class="material-icons">exit_to_app</i></a>
     </div>
+    <nav class="navbar navbar-expand-lg fixed-top top-nav">
+        <div>{{this.title}}</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav pull-right">
+                <li class="nav-item" *ngIf = "user">
+                    <a class="nav-link cursor-pointer" routerLink="/profile" style="color: black;">{{user}}</a>
+                </li>
+                <li></li>
+                <li class="nav-item">
+                    <a href="/logout" *ngIf = "isAuthorized"><i class="material-icons">power_settings_new</i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div style="width: calc(100% - 65px);margin-left:65px;">
         <router-outlet></router-outlet>
     </div>

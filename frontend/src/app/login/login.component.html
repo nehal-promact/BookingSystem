@@ -1,0 +1,33 @@
+<br>
+<br>
+<div class="view">
+  <div class="container">
+    <br />
+    <div class="login-form">
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+          <h2 class="text-center">Login</h2>
+          <div class="login">
+              <div *ngIf="errMsgArr.length > 0">
+            <br>
+              <strong>Opps!</strong> <br>
+              <ul>
+                <li *ngFor="let tErr of errMsgArr" class="alert">{{tErr}}</li>
+              </ul>
+          </div>
+          <br>
+          <div class="form-group">
+              User Name
+            <input type="email" name="username" [(ngModel)]="loginData.username" placeholder="Email" class="form-control" required />
+          </div>
+          <div class="form-group">
+              Password 
+            <input type="password" name="password" [(ngModel)]="loginData.password" placeholder="Password" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Log in</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

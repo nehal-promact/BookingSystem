@@ -19,4 +19,11 @@ export class EnvironmentService {
       return this.apiUrl + serviceStr
     }
     
+    setLoginJson(longinData) {
+        let formObject = longinData
+        formObject.client_secret = environment.clientSecret
+        formObject.grant_type = environment.grantType
+        formObject.client_id = environment.clientId
+        return formObject
+    }
 }

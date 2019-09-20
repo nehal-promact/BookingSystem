@@ -16,3 +16,8 @@
 .form-control::placeholder  {
   font-family: FontAwesome;
 }
+.scheduler-header-spaces-wrapper{
+    position: sticky!important;
+    z-index: 995;
+    padding-top:60px;
+}

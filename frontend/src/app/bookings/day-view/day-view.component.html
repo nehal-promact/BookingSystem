@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row bg-g100">
                 <div class="col-12">
-                    <div class="d-flex">
+                    <div class="d-flex top-margin">
                         <div>
                             <div class="btn-group d-none d-xl-inline-flex" role="group" style="z-index: 2;">
                                 <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="flex-grow-1"></div>
                         <div>
-                            <div class="d-inline-block ember-view">
+                            <div class="d-inline-block ember-view" *ngIf = "isAuthorized && isAdministrator">
                                 <div class="dropdown d-inline-block">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -51,7 +51,7 @@
                         <th class="center" *ngFor="let space of spaces">{{space.space_name}}</th>
                         </tr>
                 </table>
-                <table class="day-mode-table ember-view" id="dayviewtable" style="position: relative;margin-top: 11px;" *ngIf="bookingfordayview">
+                <table class="day-mode-table ember-view" id="dayviewtable" style="position: relative;margin-top: 75px;" *ngIf="bookingfordayview">
                     <tbody>
                         <tr class="time-unavailable" *ngFor="let row of bookingfordayview">
                             <td class="scheduler-time-column">
@@ -59,7 +59,7 @@
                                   <small>{{row.Time.data}}</small>
                                 </div>
                             </td>
-                            <td role="button" [ngClass]="{'disabled': row.Time.isDisabled }" *ngFor="let space of row.SpaceType" [attr.data-rows]="space.rows" [attr.data-time]="row.Time.id" [attr.data-spaceid]="space.id" [attr.data-booked]="space.booked" (click)="booking($event)" [style.width.%]="100 / spaces.length"></td>
+                            <td role="button" [ngStyle]="{'cursor': isAuthorized ? 'pointer':'auto'}" [ngClass]="{'disabled': row.Time.isDisabled }" *ngFor="let space of row.SpaceType" [attr.data-rows]="space.rows" [attr.data-time]="row.Time.id" [attr.data-spaceid]="space.id" [attr.data-booked]="space.booked" (click)="isAuthorized? booking($event,'true'):booking($event,'false')" [style.width.%]="100 / spaces.length"></td>
                         </tr>
                     </tbody>
                 </table>

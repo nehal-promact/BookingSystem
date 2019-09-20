@@ -33,6 +33,7 @@ export class BookingCreateComponent implements OnInit {
     deleted = false;
     error:any = {isError:false,errorMessage:''};
     isValidField:any;
+    userinfo;
     
     constructor(
         public dialogRef: MatDialogRef<DialogboxComponent>,
@@ -44,6 +45,7 @@ export class BookingCreateComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.userinfo = JSON.parse(localStorage.getItem('userInfo'));
         let tempTimes = TIMES;
         for (var time in tempTimes) {
             if(tempTimes[time].id>16 && tempTimes[time].id<41){
@@ -78,7 +80,7 @@ export class BookingCreateComponent implements OnInit {
     }
     
     onSubmit() {
-        this.model.user_id = 1;
+        this.model.user_id = this.userinfo.id;
         console.log(this.model);
         this.isValidField = this.validatesField(this.model.from_time, this.model.to_time,this.model.booking_title);
         if(this.DialogType == "createBooking"){

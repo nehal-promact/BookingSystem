@@ -12,7 +12,6 @@
 }
 .day-mode-table td:not(.scheduler-time-column) {
     height: 25px;
-    cursor: pointer;
 }
 .day-mode-table tr td:not(.scheduler-time-column) {
     border-color: #e9ecef;
@@ -57,7 +56,7 @@
 }
 .scheduler-header-nav-container-wrapper{
     position: absolute;
-    top: 0;
+    top: 56px;
     width: calc(100% - 60px);
     background-color: #fff;
     left: 60px;
@@ -65,9 +64,13 @@
 .scheduler-header-spaces-table{
     margin: 0;
     position: fixed;
-    top: 38px;
+    top: 104px;
     left: 65px;
     width: calc(100% - 62px);
     z-index: 1000;
     background-color: #fff;
+}
+.top-margin{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

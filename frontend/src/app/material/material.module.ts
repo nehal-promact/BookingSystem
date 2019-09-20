@@ -4,6 +4,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatNativeDateModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule, MatSelectModule, MatListModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatRadioModule,
     MatSelectModule,
     MatNativeDateModule,
-    MatListModule
+    MatListModule,
+    MatTooltipModule
     ]
 })
 export class MaterialModule { }

@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name','last_name', 'email', 'password','remember_token', 'contact_number', 
-        'role_id'
+        'role_id','api_token'
     ];
 
     /**
@@ -41,6 +41,24 @@ class User extends Authenticatable
 
     public function booking()
     {
-        return $this->hasMany('App\Models\Booking', 'user_id', 'id');
+        return $this->hasMany('App\Models\Booking', 'user_id', 'id')
+                ->whereDate('date_time', '>=', date('Y-m-d'));
+    }
+    
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
+    }
+    
+    public static function isAdmin($user = NULL){
+
+        if($user == NULL){
+            return FALSE;
+        }
+        
+        if($user->role_id == 1){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 }

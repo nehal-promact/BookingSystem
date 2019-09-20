@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row bg-g100">
                 <div class="col-12">
-                    <div class="d-flex">
+                    <div class="d-flex top-margin">
                         <div>
                             <div class="btn-group d-none d-xl-inline-flex" role="group" style="z-index: 2;">
                                 <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="flex-grow-1"></div>
                         <div>
-                            <div class="d-inline-block ember-view">
+                            <div class="d-inline-block ember-view" *ngIf = "isAuthorized && isAdministrator">
                                 <div class="dropdown d-inline-block">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -43,7 +43,7 @@
     </div>
 </div>
 <div class="scheduler-header-spaces-wrapper">
-    <div class="ember-view">
+    <div class="ember-view" style="margin-top: 25px;">
         <div class="bg-white scheduler-spaces-header-padding-top">
             <h3 class="card-header" id="monthAndYear"></h3>
             <div id="tooltip" class="content"></div>
