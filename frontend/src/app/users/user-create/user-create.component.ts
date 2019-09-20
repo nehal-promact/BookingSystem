@@ -6,6 +6,8 @@ import { UsersService } from '../../users/users.service';
 import {Users} from '../users';
 import { ToastrService } from 'ngx-toastr';
 
+//import { exists } from 'fs';
+
 @Component({
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
@@ -15,6 +17,8 @@ export class UserCreateComponent implements OnInit {
   formData:Users = new Users();
   usersList: Users[];
   response;
+  isValidField:any;
+  error:any = {isError:false,errorMessage:''};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -40,16 +44,60 @@ export class UserCreateComponent implements OnInit {
       }
   }
 
-onSubmit(form : NgForm){
-  this.insertUserRecord(form);
-}
+  onSubmit(form : NgForm){
+    //console.log(form.value.first_name,form.value.last_name, form.value.email,form.value.password_confirmation, form.value.contact_number, form.value.password );
+    this.isValidField = this.validatesField(form.value.first_name,form.value.last_name, form.value.email,form.value.password_confirmation, form.value.contact_number, form.value.password );
+    if(this.isValidField){
+      this.insertUserRecord(form);
+    }
+    
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  insertUserRecord(form : NgForm){
+    this.userservice.addUser(form.value).subscribe((res:any) => {
+      this.toastService.success("User Created Successfully");
+      this.resetForm(form);
+      this.userservice.getUsers();
+    });
+  }
 
-insertUserRecord(form : NgForm){
-  this.userservice.addUser(form.value).subscribe((res:any) => {
-    this.toastService.success("User Created Successfully");
-    this.resetForm(form);
-    this.userservice.getUsers();
-  });
-}
-
+  validatesField(first_name: string,last_name: string,email : string,password_confirmation : string, contact_number: number, password: string)
+  {
+    this.isValidField = true;
+    if(first_name == null ){
+      this.error={isError:true,errorMessage:'first name required.'};
+      this.isValidField = false;
+    }
+    if(last_name == null ){
+      this.error={isError:true,errorMessage:'last name required.'};
+      this.isValidField = false;
+    }
+    if(email == null){
+      this.error={isError:true,errorMessage:'email required.'};
+      this.isValidField = false;
+    }
+    if(password == null ){
+      this.error={isError:true,errorMessage:'password required.'};
+      this.isValidField = false;
+    }
+    if(contact_number == null ){
+      this.error={isError:true,errorMessage:'contact number required.'};
+      this.isValidField = false;
+    }
+    if(!Number(contact_number) ){
+      this.error={isError:true,errorMessage:'conatact number is Numeric!'};
+      this.isValidField = false;
+    }
+    if(password_confirmation != password){   
+      this.error={isError:true,errorMessage:'password & password confirmation should match.'};
+      this.isValidField = false;
+    }
+    if(password_confirmation == null){
+      this.error={isError:true,errorMessage:'password confirmation required.'};
+      this.isValidField = false;
+    }  
+    return this.isValidField;
+  }
 }
