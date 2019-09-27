@@ -43,10 +43,10 @@ export class SpacesService {
         );     
     }
     
-    editSpace(space: Spaces, id: number): Observable<HttpResponse<Spaces>>{
+    editSpace(space: Spaces): Observable<HttpResponse<Spaces>>{
         let headers = new HttpHeaders();
         headers = this.authService.createHeader();
-        let url = this.environmentService.setApiService('space')+'/'+id;
+        let url = this.environmentService.setApiService('space')+'/'+space.id;
         return this.http.put<Spaces>(url, space,
             {
               headers: headers,

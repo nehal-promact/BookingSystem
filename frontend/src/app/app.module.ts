@@ -28,6 +28,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { SpacesCreateComponent } from './spaces/spaces-create/spaces-create.component';
+import { SpacesEditComponent } from './spaces/spaces-edit/spaces-edit.component';
+import { SpacesDeleteComponent } from './spaces/spaces-delete/spaces-delete.component';
+import { ResetPasswordComponent } from './profile/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import { LogoutComponent } from './logout/logout.component';
     ProfileComponent,
     LoginComponent,
     LogoutComponent,
+    SpacesCreateComponent,
+    SpacesEditComponent,
+    SpacesDeleteComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +78,9 @@ import { LogoutComponent } from './logout/logout.component';
     UserCreateComponent,
     UserEditComponent,
     UserBookingsComponent,
-    ChangeEmailComponent],
+    ChangeEmailComponent,
+    SpacesCreateComponent,
+    SpacesEditComponent,
+    SpacesDeleteComponent],
 })
 export class AppModule { }

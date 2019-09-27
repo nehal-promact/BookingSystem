@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SpacesService } from '../spaces/spaces.service';
@@ -25,8 +27,11 @@ export class UsersComponent implements OnInit {
   response;
   users: Array<Users> = new Array<Users>();
   userId;
+  search;
   isAuthorized: boolean = false;
   isAdministrator: boolean = false;
+  private searchControl: FormControl;
+  private debounce: number = 400;
 
   constructor(
     private userservice: UsersService,
@@ -46,7 +51,23 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
         this.checkAuth();
         this.isAdmin();
-        this.getUsers();     
+        this.getUsers();   
+        
+        this.searchControl = new FormControl('');
+        this.searchControl.valueChanges
+          .pipe(debounceTime(this.debounce), distinctUntilChanged())
+          .subscribe(query => {
+            console.log(query);
+            setTimeout(() => {
+                if(query != ''){
+                    this.searchUsers(query);
+                }
+                if(query == ''){
+                    this.searchUsers('undefined');
+                }
+               },0);
+        });
+        
     }
 
     checkAuth(): void {
@@ -81,7 +102,7 @@ export class UsersComponent implements OnInit {
         );
     }
 
-    ShowBookings(id:number):void{
+    ShowBookings(id:number):void {
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
@@ -141,6 +162,15 @@ export class UsersComponent implements OnInit {
             } 
         });
     }
+    
+    searchUsers(values): void {
+        console.log(values);
+        this.userservice.searchUsers(values).subscribe(
+        (data: any) => { 
+                this.users = data.data;
+            }
+        );
+    } 
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

@@ -31,3 +31,4 @@ Route::get('getBookingsForMonthView/{SelectedDate}','API\BookingController@getBo
 Route::apiResource('user', 'API\UserController');
 Route::apiResource('space', 'API\SpacesController');
 Route::get('UserWiseBooking/{id}', 'API\UserController@UserWiseBooking');
+Route::get('searchUser/{searchText}', 'API\UserController@searchUser');

@@ -1,14 +1,15 @@
+<app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
 <div class="scheduler-header-spaces-wrapper">
 <div class="container-fluid">
 <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>USERS</label>
 &nbsp;
 <hr>
 <!-- Search form -->
-<a class="btn btn-sm btn-success text-white" (click)="AddUser()"><i class="fa fa-user-plus" aria-hidden="true"></i>  Add User</a>
+<a class="btn btn-sm btn-success text-white" (click)="AddUser()"><i class="fa fa-user-plus" aria-hidden="true"></i>  Add a user</a>
 &nbsp;
-<input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Name">
+<input type="text" id="searchTextId" [formControl]="searchControl" [(ngModel)]="searchText" name="searchText" placeholder="Search By Name">
 &nbsp;
-<table matSort (matSortChange) = "sortName($event)" class="table table-borderless">
+<table matSort (matSortChange) = "sortName($event)" class="table table-borderless top-margin-table">
   <thead class="thead-light">
     <tr>
       <th mat-sort-header = "first_name">First Name</th>
@@ -19,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngIf="users.length==0" [class.text-danger]="!isValid && users.length==0">
+    <tr *ngIf="users?.length==0" [class.text-danger]="!isValid && users.length==0">
         <td body="font-italic text-center" colspan="5">
           No users have registered yet.
         </td>
@@ -30,9 +31,9 @@
       <td>{{user.email}}</td>
       <td>{{user.contact_number}}</td>
       <td>
-         <a class="btn btn-sm btn-warning text-white" (click)="EditUser(user)"><i class="fa fa-pencil"></i>&nbsp;Edit User</a>
-         <a class="btn btn-sm btn-info text-white ml-1" (click)="ShowBookings(user.id)"><i class="fa fa-list-ol"></i>&nbsp;Show Bookings</a>
-         <a class="btn btn-sm btn-danger text-white ml-1" (click)="DeleteUser(user.id)"><i class="fa fa-trash"></i>&nbsp;Remove User</a>
+         <a class="btn btn-sm btn-warning text-white" (click)="EditUser(user)" matTooltip="edit"><i class="material-icons">edit</i></a>
+         <a class="btn btn-sm btn-info text-white ml-1" (click)="ShowBookings(user.id)" matTooltip="show bookings"><i class="material-icons">post_add</i></a>
+         <a class="btn btn-sm btn-danger text-white ml-1" (click)="DeleteUser(user.id)" matTooltip="delete"><i class="material-icons">delete_forever</i></a>
       </td>
     </tr>
   </tbody>

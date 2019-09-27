@@ -9,4 +9,5 @@ export const environment = {
     clientId:4,
     grantType: 'password',
     company: 'Promact',
+    organization: 'PROMACT INFOTECH PVT. LTD.'
 };

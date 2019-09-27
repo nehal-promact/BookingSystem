@@ -48,7 +48,7 @@ class UserController extends APIBaseController
             'first_name'     => 'required',
             'email'          => 'required|string|email|unique:users',
             'password'       => 'required|string|confirmed',
-            'contact_number' => 'required|numeric',
+            'contact_number' => 'required|min:11|numeric',
             //'role_id'        => 'required|numeric'
         ]);
 
@@ -106,6 +106,7 @@ class UserController extends APIBaseController
        $user                 = User::find($id);
        $user->first_name     = Input::get('first_name');
        $user->last_name      = Input::get('last_name');
+       $user->contact_number = Input::get('contact_number');
        $user->save();
        return $this->sendResponse($user, 'Spaces updated successfully.');
     }
@@ -166,12 +167,25 @@ class UserController extends APIBaseController
         return $this->sendResponse($user, "user retrive successfully."); 
     }
     
+    public function searchUser($searchText=''){
+        if($searchText == 'undefined' || $searchText == ''){
+            $user = User::all();
+        }else{
+            $user = User::where('first_name', 'LIKE', "%$searchText%")->get();
+        }
+        return $this->sendResponse($user, 'Users retrieved successfully.');
+    }
+    
+    public function changeEmail(){
+        
+    }
+    
     /**
      * check user is administrator or not
      *
      * @return boolean
      */
-    public function isAdmin($id) {
+    public function isAdmin($id){
         $user = User::find($id);
         return $this->sendResponse(User::isAdmin($user), 'user is admin or not');
     }

@@ -72,7 +72,7 @@ export class UsersService {
         return this.http.delete(url, {headers});
     }
     
-    public isAdmin(): Observable<Object> {
+    isAdmin(): Observable<Object> {
         let id = JSON.parse(localStorage.getItem('userInfo')).id;
         const headers = new HttpHeaders()
             .set("Content-Type", "application/json")
@@ -80,4 +80,12 @@ export class UsersService {
         var service = this.environmentService.setApiService('isAdmin')+'/'+id
         return this.http.get<Object>(service, {headers});
     }
+    
+    searchUsers(values: string): Observable<Array<Users>>{
+          let headers = new HttpHeaders();
+          headers = this.authService.createHeader();
+          
+          let url = this.environmentService.setApiService('searchUser')+'/'+values;
+          return this.http.get<Array<Users>>(url, {headers});
+      }
 }

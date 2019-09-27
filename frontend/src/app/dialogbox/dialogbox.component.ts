@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angula
 import {BookingCreateComponent} from '../bookings/booking-create/booking-create.component';
 export interface DialogData {
   Type: string;
+  to_time: number;
 }
 
 @Component({
@@ -25,7 +26,7 @@ export class DialogboxComponent implements OnInit {
                 this.DialogTitle = 'NEW BOOKING';
                 this.DialogType = data.DialogType;
                 this.from_time = data.from_time;
-                this.to_time = data.to_time;
+                this.to_time = data.from_time+1;
                 this.date_time = data.date_time;
             }
             else if(data.DialogType == 'editBooking') {

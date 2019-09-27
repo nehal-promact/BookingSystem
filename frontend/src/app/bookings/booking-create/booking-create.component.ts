@@ -89,6 +89,7 @@ export class BookingCreateComponent implements OnInit {
                     this.response = res.body;
                     this.submitted = true;
                     this.toastService.show(res.body.message);
+                    this.dialogRef.close();
                     window.location.reload();
                   },
                   err => {

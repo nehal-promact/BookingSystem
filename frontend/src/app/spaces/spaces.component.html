@@ -1,62 +1,29 @@
-<div class="container-fluid px-lg-5-3 pt-4 pt-lg-5-3">
-    <div class="row">
-        <!-- Space List -->
-        <div class="col-12 col-lg-4" *ngIf="spaces">
-            <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
-                <div *cdkVirtualFor="let space of spaces.data" class="list">
-                    <a href="space/{{space.id}}">
-                        <div class="d-flex">
-                            <div class="flex-grow-1">
-                                {{space.space_name}}
-                            </div>
-                        </div>
-                    </a>
-                 </div>
-            </cdk-virtual-scroll-viewport>
-        </div>
-        <!-- Add Space -->
-        <div class="col-12 col-lg-8 pt-5 pt-lg-0" *ngIf="flag == 'add'">
-            <form (ngSubmit)="onSubmit()">
-                <div class="liquid-child ember-view">
-                    <div class="pb-3">
-                        <h5>ADD A SPACE</h5>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6 form-group required">
-                            <mat-form-field>
-                                <mat-label>SPACE NAME</mat-label>
-                                <input matInput placeholder="e.g. Meeting Room" id="space-create-name" class="form-control" type="text" name="space_name" [(ngModel)]="model.space_name">
-                                <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
-                                <div class="ember-view"><!----></div>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <button mat-raised-button color="primary" type="submit">Add space</button>
-                </div>
-            </form>
-        </div>
-        <!-- Edit Space -->
-        <div class="col-12 col-lg-8 pt-5 pt-lg-0" *ngIf="flag == 'edit'">
-            <form (ngSubmit)="onSubmit()">
-                <div class="liquid-child ember-view">
-                    <div class="pb-3">
-                        <h5>EDIT A SPACE</h5>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 col-md-6 form-group required">
-                        <mat-form-field>
-                            <mat-label>SPACE NAME</mat-label>
-                            <input matInput placeholder="e.g. Meeting Room" id="space-create-name" class="form-control" type="text" name="space_name" [(ngModel)]="model.space_name">
-                            <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
-                            <div class="ember-view"><!----></div>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                    <button mat-raised-button color="primary" class="space-item"><div>Edit space</div></button>
-                    <button mat-raised-button color="warn" type="button" (click)="deleteSpace()"><div>Delete space</div></button>
-                </div>
-            </form>
-        </div>
+<app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
+
+<div class="scheduler-header-spaces-wrapper">
+    <div class="container-fluid">
+    <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>SPACES</label>
+    &nbsp;
+    <hr>
+    <!-- Search form -->
+    <a class="btn btn-sm btn-success text-white" (click)="addSpace()"> Create another space</a>
+    &nbsp;
+    <table class="table table-borderless top-margin-table">
+      <thead class="thead-light">
+        <tr>
+          <th>Space Name</th>
+          <th></th>
+        </tr>
+      </thead>
+       <tbody *ngIf="spaces">
+            <tr *ngFor="let space of spaces.data">
+              <td>{{space.space_name}}</td>
+              <td>
+                 <a class="btn btn-warning text-white" (click)="editSpace(space)" matTooltip="edit"><i class="material-icons md-18">edit</i></a>
+                 <a class="btn btn-danger text-white ml-1" (click)="deleteSpace(space.id)" matTooltip="delete"><i class="material-icons md-18">delete_forever</i></a>
+              </td>
+            </tr>
+       </tbody>
+    </table>
     </div>
 </div>
-<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

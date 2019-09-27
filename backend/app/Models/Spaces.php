@@ -14,4 +14,15 @@ class Spaces extends Model
     protected $table = 'spaces';
     
     protected $fillable = ['space_name'];
+    
+    public function booking()
+    {
+        return $this->hasMany('App\Models\Booking', 'space_id', 'id');
+    }
+    
+    public function delete() {
+        $this->booking()->delete();
+        parent::delete();
+    }
+
 }

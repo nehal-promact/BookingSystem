@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
+import {MatDialogRef} from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastService } from '../toast-global/toast.service';
 import { ToastsContainer } from '../toast-global/toast-container.component';
 import { SpacesService } from './spaces.service';
 import { Spaces } from './spaces';
+import {SpacesCreateComponent } from './spaces-create/spaces-create.component';
+import {SpacesEditComponent } from './spaces-edit/spaces-edit.component';
+import {SpacesDeleteComponent } from './spaces-delete/spaces-delete.component';
+import { LoginuserService } from '../shared/loginuser/loginuser.service';
+import { AuthenticationService } from '../shared/authentication/authentication.service';
+import { UsersService } from '../users/users.service';
+
 @Component({
   selector: 'app-spaces',
   templateUrl: './spaces.component.html',
@@ -11,90 +20,97 @@ import { Spaces } from './spaces';
 })
 export class SpacesComponent implements OnInit {
 
-    submitted = false; 
-    model : Spaces;
-    response;
     spaces : Spaces;
     spaceId;
-    flag;
+    isAuthorized: boolean = false;
+    isAdministrator: boolean = false;
     
   constructor(
+    private dialog:MatDialog,
     private spaceservice: SpacesService,
     private route: ActivatedRoute,
     private router: Router,
     public toastService: ToastService,
-  ) { }
+    public loginuserservice: LoginuserService,
+    public AuthService: AuthenticationService,
+    private userservice: UsersService
+  ) { 
+        if(localStorage.getItem('userInfo')){
+            this.loginuserservice.sendUserName(JSON.parse(localStorage.getItem('userInfo')).first_name);
+        }
+  }
 
     ngOnInit() {
-        this.model = new Spaces();
+        this.checkAuth();
+        this.isAdmin();
         this.getSpaces();
-        if(this.route.snapshot.paramMap.get('id')!=null){
-            let id = this.route.snapshot.paramMap.get('id');
-            this.spaceId = parseInt(id);
-            this.flag = 'edit';
-            this.getSpaceById(parseInt(id));
-        }else{
-            this.flag = 'add';
-        }
-        
     }
 
+    checkAuth(): void {
+        this.AuthService.isAuthorized().subscribe(
+            (res) => {
+                  this.isAuthorized = res;
+                  setTimeout(() => {
+                        this.loginuserservice.setAuthorized(this.isAuthorized);
+                   },0);
+                }
+        );
+    }
+    
+    isAdmin(): void {
+        if(localStorage.length > 0){
+            this.userservice.isAdmin().subscribe(
+                (res:any) => {
+                    this.isAdministrator = res.data;
+                    setTimeout(() => {
+                        this.loginuserservice.setAdmin(this.isAdministrator);
+                    },0);  
+                }
+            );
+        }
+    }
+    
     getSpaces(): void {
         this.spaceservice.getSpaces().subscribe(
         data => { 
-                this.spaces = data;
+                this.spaces=data;
                 console.log(data);
             }
         );
     }
     
-    getSpaceById(id:number): void {
-        this.spaceservice.getSpaceById(id).subscribe(
-            (data:any) => { 
-                this.model = data.data;
-            }
-        );
+    addSpace(): void {
+        const dialogConfig =  new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.disableClose = true;
+        dialogConfig.width = "30%";         
+        let MatDialogRef = this.dialog.open(SpacesCreateComponent,dialogConfig);
+        MatDialogRef.afterClosed().subscribe(res =>{
+            this.getSpaces();
+        });
     }
     
-    onSubmit() { 
-        if(this.flag=='add'){
-            console.log(this.model);
-            this.spaceservice.addSpace(this.model).subscribe((res:any) => { 
-                this.response = res.body;
-                this.submitted = true;
-                this.toastService.show(res.body.message);
-                window.location.reload();
-                //this.router.navigateByUrl('space'); 
-              },
-              err => {
-                this.toastService.show("Error");
-              }
-            );
-        }else if(this.flag=='edit'){
-            console.log(this.spaceId);
-            console.log(this.model);
-            this.spaceservice.editSpace(this.model,this.spaceId).subscribe((res:any) => { 
-                console.log(res.body.message);
-                this.response = res.body;
-                this.toastService.show(res.body.message);
-              },
-              err => {
-                this.toastService.show("Error");
-              }
-            );
-        }
-    }
+    editSpace(space): void {
+        const dialogConfig =  new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.disableClose = true;
+        dialogConfig.width = "30%";     
+        dialogConfig.data = {space};    
+        let MatDialogRef = this.dialog.open(SpacesEditComponent,dialogConfig);
+        MatDialogRef.afterClosed().subscribe(res =>{
+            this.getSpaces();
+        });
+    }  
     
-    deleteSpace(): void {
-        console.log(this.spaceId);
-        this.spaceservice.deleteSpace(this.spaceId).subscribe((res:any) => { 
-            console.log(res);
-            this.router.navigateByUrl('space');
-            this.toastService.show(res.body.message);
-            },
-            err => {
-                this.toastService.show("Error");
-            }
-        );
+    deleteSpace(id): void {
+        const dialogConfig =  new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.disableClose = true;
+        dialogConfig.width = "30%";     
+        dialogConfig.data = {id};    
+        let MatDialogRef = this.dialog.open(SpacesDeleteComponent,dialogConfig);
+        MatDialogRef.afterClosed().subscribe(res =>{
+            this.getSpaces();
+        });
     }  
 }

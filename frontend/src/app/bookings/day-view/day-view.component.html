@@ -1,3 +1,4 @@
+<app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
 <div id="scheduler-header-nav">
     <div class="scheduler-header-nav-container-wrapper">
         <div class="container-fluid">
@@ -29,10 +30,7 @@
                         <div>
                             <div class="d-inline-block ember-view" *ngIf = "isAuthorized && isAdministrator">
                                 <div class="dropdown d-inline-block">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SPACES</button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item" href="/space">Create another space</a>
-                                    </div>
+                                    <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false" (click)="gotoSpaces()">SPACES</button>
                                 </div>
                             </div>
                         </div>

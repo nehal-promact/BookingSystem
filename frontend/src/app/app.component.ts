@@ -22,7 +22,7 @@ export class AppComponent {
     navShow: boolean = false;
     //user : string;
     auth: boolean = false;
-     user: string = '';
+    user: string = '';
     subscription: Subscription;
     subscriptionAuth: Subscription;
     subscriptionAdmin: Subscription;

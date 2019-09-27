@@ -220,10 +220,9 @@ export class DayViewComponent implements OnInit {
         if(Type == 'createBooking'){
             console.log(this.selectdate.date.year+"-"+this.selectdate.date.month+"-"+this.selectdate.date.day);
             dialogConfig.data = {
-                width: '400px',
+                width: '600px',
                 height: '600px',
                 from_time: parseInt(time),
-                to_time: parseInt(time)+1,
                 date_time:this.datePipe.transform(new Date(this.selectdate.date.year, this.selectdate.date.month - 1, this.selectdate.date.day), "yyyy-MM-dd"),
                 DialogType: Type
             };
@@ -259,4 +258,7 @@ export class DayViewComponent implements OnInit {
         }
     }
     
+    gotoSpaces(){
+        this.router.navigateByUrl('space'); 
+    }
 }

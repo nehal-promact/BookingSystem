@@ -7,6 +7,7 @@ import { SpacesComponent } from './spaces/spaces.component';
 import { UsersComponent } from './users/users.component';		
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import {ProfileComponent} from './profile/profile.component';
+import {ResetPasswordComponent} from './profile/reset-password/reset-password.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'space/:id', component: SpacesComponent },
     { path: 'venueuser', component:UsersComponent},			
     { path: 'profile', component: ProfileComponent},
+    { path: 'resetpassword', component: ResetPasswordComponent},
     { path: 'login', component: LoginComponent},
     { path: 'logout', component: LogoutComponent}
 ];

@@ -4,7 +4,8 @@ import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { UsersService } from '../../users/users.service';
 import {Users} from '../users';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from '../../toast-global/toast.service';
+import { ToastsContainer } from '../../toast-global/toast-container.component';
 
 //import { exists } from 'fs';
 
@@ -24,7 +25,7 @@ export class UserCreateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
       private dialogRef:MatDialogRef<UserCreateComponent>,
       private userservice:UsersService,
-      private toastService:ToastrService) { }
+      public toastService: ToastService) { }
 
   ngOnInit() {
     this.resetForm();
@@ -57,8 +58,9 @@ export class UserCreateComponent implements OnInit {
   }
   insertUserRecord(form : NgForm){
     this.userservice.addUser(form.value).subscribe((res:any) => {
-      this.toastService.success("User Created Successfully");
+      this.toastService.show("User Created Successfully");
       this.resetForm(form);
+      this.dialogRef.close();
       this.userservice.getUsers();
     });
   }

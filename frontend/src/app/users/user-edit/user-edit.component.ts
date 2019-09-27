@@ -4,7 +4,8 @@ import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { UsersService } from '../../users/users.service';
 import {Users} from '../users';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from '../../toast-global/toast.service';
+import { ToastsContainer } from '../../toast-global/toast-container.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -16,8 +17,9 @@ export class UserEditComponent implements OnInit {
  formData:Users = new Users();
 
   constructor( @Inject(MAT_DIALOG_DATA) public data,
-    private toastService:ToastrService,
-    private userservice: UsersService) {
+    private dialogRef:MatDialogRef<UserEditComponent>,
+    private userservice: UsersService,
+    public toastService: ToastService) {
      this.formData = data.user;
    }
 
@@ -27,7 +29,7 @@ export class UserEditComponent implements OnInit {
 
   updateUserRecord(form : NgForm){
     this.userservice.editUser(form.value).subscribe((res:any) => {
-        this.toastService.info("Updated Successfully");
+        this.toastService.show("Updated Successfully");
       this.userservice.getUsers();
     });
   }
@@ -38,4 +40,7 @@ export class UserEditComponent implements OnInit {
     });
   }
   
+   onNoClick(): void {
+        this.dialogRef.close();
+    }
 }
