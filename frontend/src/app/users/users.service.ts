@@ -4,6 +4,7 @@ import { AuthenticationService } from '../shared/authentication/authentication.s
 import { EnvironmentService } from '../shared/environment/environment.service';
 import { Observable } from 'rxjs/Rx';
 import { Users } from './users';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 @Injectable({
   providedIn: 'root'
@@ -87,5 +88,18 @@ export class UsersService {
           
           let url = this.environmentService.setApiService('searchUser')+'/'+values;
           return this.http.get<Array<Users>>(url, {headers});
-      }
+    }
+
+    changePassword(formData: Users ): Observable<HttpResponse<Users>>{
+        let headers = new HttpHeaders();
+        headers = this.authService.createHeader();
+        let url = this.environmentService.setApiService('changePassword');
+        return this.http.post<Users>(url, formData,
+            {
+              headers: headers,
+              observe: 'response'
+            }
+        );
+
+    }
 }
