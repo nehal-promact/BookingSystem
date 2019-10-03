@@ -1,11 +1,14 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { NG_VALIDATORS,NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material';
 import { UsersService } from '../../users/users.service';
 import {Users} from '../users';
 import { ToastService } from '../../toast-global/toast.service';
+import { MustMatch } from '../must-match.validator';
 import { ToastsContainer } from '../../toast-global/toast-container.component';
+import { ConditionalExpr } from '@angular/compiler';
 
 //import { exists } from 'fs';
 
@@ -17,89 +20,66 @@ import { ToastsContainer } from '../../toast-global/toast-container.component';
 export class UserCreateComponent implements OnInit {
   formData:Users = new Users();
   usersList: Users[];
+  submitted = false;
   response;
   isValidField:any;
+  userRegister: FormGroup;
   error:any = {isError:false,errorMessage:''};
-
+  validatererror = "";
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
       private dialogRef:MatDialogRef<UserCreateComponent>,
       private userservice:UsersService,
-      public toastService: ToastService) { }
+      public toastService: ToastService,
+      private formBuilder: FormBuilder,) { }
 
   ngOnInit() {
-    this.resetForm();
-  }
-
-  resetForm(form? : NgForm){
-    if(form!=null)
-      form.resetForm();
-      this.userservice.formData = {
-        id:null,
-        first_name:'',
-        last_name:'',
-        email:'',
-        contact_number:'',
-        password:'',
-        password_confirmation:''
-      }
-  }
-
-  onSubmit(form : NgForm){
-    //console.log(form.value.first_name,form.value.last_name, form.value.email,form.value.password_confirmation, form.value.contact_number, form.value.password );
-    this.isValidField = this.validatesField(form.value.first_name,form.value.last_name, form.value.email,form.value.password_confirmation, form.value.contact_number, form.value.password );
-    if(this.isValidField){
-      this.insertUserRecord(form);
-    }
-    
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  insertUserRecord(form : NgForm){
-    this.userservice.addUser(form.value).subscribe((res:any) => {
-      this.toastService.show("User Created Successfully");
-      this.resetForm(form);
-      this.dialogRef.close();
-      this.userservice.getUsers();
+    //this.resetForm();
+    this.userRegister = this.formBuilder.group({
+      email:['', [Validators.required, Validators.email]],
+      first_name: ['', [Validators.required, ]],
+      last_name: ['', [Validators.required]],
+      contact_number: ['', [Validators.required, Validators.minLength(10)]],
+      password:['', [Validators.required, Validators.minLength(6)]],
+      password_confirmation:['',[Validators.required]],
+    },{
+      validator: MustMatch('password','password_confirmation')
     });
   }
 
-  validatesField(first_name: string,last_name: string,email : string,password_confirmation : string, contact_number: number, password: string)
-  {
-    this.isValidField = true;
-    if(first_name == null ){
-      this.error={isError:true,errorMessage:'first name required.'};
-      this.isValidField = false;
+  get f() { return this.userRegister.controls; }
+
+  onSubmit(){
+
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.userRegister.invalid) {
+        return;
     }
-    if(last_name == null ){
-      this.error={isError:true,errorMessage:'last name required.'};
-      this.isValidField = false;
-    }
-    if(email == null){
-      this.error={isError:true,errorMessage:'email required.'};
-      this.isValidField = false;
-    }
-    if(password == null ){
-      this.error={isError:true,errorMessage:'password required.'};
-      this.isValidField = false;
-    }
-    if(contact_number == null ){
-      this.error={isError:true,errorMessage:'contact number required.'};
-      this.isValidField = false;
-    }
-    if(!Number(contact_number) ){
-      this.error={isError:true,errorMessage:'conatact number is Numeric!'};
-      this.isValidField = false;
-    }
-    if(password_confirmation != password){   
-      this.error={isError:true,errorMessage:'password & password confirmation should match.'};
-      this.isValidField = false;
-    }
-    if(password_confirmation == null){
-      this.error={isError:true,errorMessage:'password confirmation required.'};
-      this.isValidField = false;
-    }  
-    return this.isValidField;
+    
+    this.userservice.addUser(this.userRegister.value).subscribe((res:any) => {
+      if(res.body.status =="ERROR"){
+        Object.keys(res.body.errors).forEach(prop => {
+          const formControl = this.userRegister.get(prop);
+          if (formControl) {
+            // activate the error message
+            formControl.setErrors({
+              serverError: res.body.errors[prop]
+            });
+          }
+        });
+          //this.validatererror = res.body.response;
+      }
+      else{
+        this.toastService.show("User Created Successfully");
+        //this.resetForm(form); 
+        this.dialogRef.close();
+        this.userservice.getUsers();
+      }
+    }); 
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

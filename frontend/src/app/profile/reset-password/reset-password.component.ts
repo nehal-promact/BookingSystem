@@ -45,9 +45,7 @@ export class ResetPasswordComponent implements OnInit {
             oldPassword:['', [Validators.required]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             confirmPassword: ['', Validators.required],
-            
         }, {
-            //validate: MustDiffer('oldPassword','password'),
             validator: MustMatch('password','confirmPassword', 'oldPassword')
         });
     }
