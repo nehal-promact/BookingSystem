@@ -43,7 +43,7 @@ class UserController extends APIBaseController
     public function store(Request $request)
     {
         $input = $request->all();
-         $validator = Validator::make($input,[
+        $validator = Validator::make($input,[
             'last_name'      => 'required',
             'first_name'     => 'required',
             'email'          => 'required|string|email|unique:users',
@@ -53,7 +53,11 @@ class UserController extends APIBaseController
         ]);
 
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return response()->json([
+                'status'  => 'ERROR',
+                'errors' => $validator->errors(),
+            ], 200);
+            //return $this->sendError('Validation Error.', $validator->errors());       
         }
         $user = new User([
             'first_name'     => $request->first_name,
@@ -103,12 +107,28 @@ class UserController extends APIBaseController
      */
     public function update(Request $request, $id)
     {
+        $input = $request->all();
+        
+        $validator = Validator::make($input,[
+            'last_name'      => 'required',
+            'first_name'     => 'required',
+            'email'          => 'required|email|unique:users,email,'.$id,
+            'contact_number' => 'required|min:11|numeric',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status'  => 'ERROR',
+                'errors' => $validator->errors(),
+            ], 200);
+        } 
        $user                 = User::find($id);
+       $user->email          = Input::get('email');   
        $user->first_name     = Input::get('first_name');
        $user->last_name      = Input::get('last_name');
        $user->contact_number = Input::get('contact_number');
        $user->save();
-       return $this->sendResponse($user, 'Spaces updated successfully.');
+       return $this->sendResponse($user, 'User updated successfully.');
     }
 
     /**
