@@ -23,6 +23,8 @@ Route::group(['middleware' => ['cors','auth:api']], function(){
   Route::get('getUser', 'API\UserController@getUser');
   Route::post('logout','API\UserController@logout');
   Route::get('isAdmin/{id}','API\UserController@isAdmin');
+  Route::get('searchUser/{searchText}', 'API\UserController@searchUser');
+  Route::post('changePassword', 'API\UserController@changePassword');
  });
 
 Route::apiResource('booking', 'API\BookingController');
@@ -31,5 +33,3 @@ Route::get('getBookingsForMonthView/{SelectedDate}','API\BookingController@getBo
 Route::apiResource('user', 'API\UserController');
 Route::apiResource('space', 'API\SpacesController');
 Route::get('UserWiseBooking/{id}', 'API\UserController@UserWiseBooking');
-Route::get('searchUser/{searchText}', 'API\UserController@searchUser');
-Route::post('changePassword', 'API\UserController@changePassword');
