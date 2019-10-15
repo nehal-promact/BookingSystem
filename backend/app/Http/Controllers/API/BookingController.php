@@ -56,7 +56,8 @@ class BookingController extends APIBaseController
         }
 
         $booking                = new Booking;
-        $booking->date_time     = Input::get('date_time');
+        $date                   = date('Y-m-d',strtotime(Input::get('date_time')));
+        $booking->date_time     = $date;//Input::get('date_time');
         $booking->from          = Input::get('from_time');
         $booking->to            = Input::get('to_time');
         $booking->space_id      = Input::get('space_id');
@@ -115,7 +116,8 @@ class BookingController extends APIBaseController
                 return $this->sendResponse($v->errors()->all(), 'error');
             }
             
-            $booking->date_time     = Input::get('date_time');
+            $date                   = date('Y-m-d',strtotime(Input::get('date_time')));
+            $booking->date_time     = $date;
             $booking->from          = Input::get('from_time');
             $booking->to            = Input::get('to_time');
             $booking->space_id      = Input::get('space_id');
@@ -153,8 +155,8 @@ class BookingController extends APIBaseController
     
     public function getBookingsForDayView($SelectedDate) {
         $response = array();
-        $bookings = Booking::where('date_time',$SelectedDate)->get();
-        $spaces = Spaces::all();
+        $bookings = Booking::with('user')->where('date_time',$SelectedDate)->get();
+        $spaces   = Spaces::all();
           
         $strJsonFileContents = file_get_contents(resource_path("\\json\\time.json"));
         $times = json_decode($strJsonFileContents, true); 
