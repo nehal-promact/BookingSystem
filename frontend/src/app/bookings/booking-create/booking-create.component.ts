@@ -34,6 +34,10 @@ export class BookingCreateComponent implements OnInit {
     error:any = {isError:false,errorMessage:''};
     isValidField:any;
     userinfo;
+    minDate = new Date();
+    maxDate =  this.addDays(new Date(), 60);
+
+    
     
     constructor(
         public dialogRef: MatDialogRef<DialogboxComponent>,
@@ -170,7 +174,10 @@ export class BookingCreateComponent implements OnInit {
     onTimeChange(timeValue){
         this.isValidField = true;
         this.error={isError:false,errorMessage:''};
+        //console.log(this.model.from_time); 
+        this.model.from_time
         if(this.model.to_time < this.model.from_time){
+            this.model.to_time = this.model.from_time+1;
             this.error={isError:true,errorMessage:'To time should be grater then from time.'};
             this.isValidField = false;
         }
@@ -191,6 +198,10 @@ export class BookingCreateComponent implements OnInit {
           this.isValidField = false;
         }
         return this.isValidField;
+    }
+
+    addDays(theDate, days) {
+        return new Date(theDate.getTime() + days*24*60*60*1000);
     }
 
 }

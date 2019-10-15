@@ -65,6 +65,7 @@ export class UserEditComponent implements OnInit {
         else{
           this.toastService.show("Updated Successfully");
           this.userservice.getUsers();
+          this.dialogRef.close();
         }
       });
     }

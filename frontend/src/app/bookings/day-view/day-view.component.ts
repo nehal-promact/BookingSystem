@@ -134,6 +134,7 @@ export class DayViewComponent implements OnInit {
                         let BookingId;
                         let BookingDateTime;
                         let BookingUser;
+                        let BookingUserName;
                         for (var bookings in this.bookingfordayview) {
                             if(DateTime == this.bookingfordayview[bookings].Time.id){
                                 for(var booking in this.bookingfordayview[bookings].Booking){
@@ -142,6 +143,7 @@ export class DayViewComponent implements OnInit {
                                         BookingId = this.bookingfordayview[bookings].Booking[booking].id;
                                         BookingDateTime = this.bookingfordayview[bookings].Booking[booking].date_time;
                                         BookingUser = this.bookingfordayview[bookings].Booking[booking].user_id;
+                                        BookingUserName = this.bookingfordayview[bookings].Booking[booking].user.first_name + " " + this.bookingfordayview[bookings].Booking[booking].user.last_name;
                                         break;
                                     }
                                 }
@@ -157,7 +159,7 @@ export class DayViewComponent implements OnInit {
                         div.style.top = tds[n].offsetTop+"px";
                         div.style.position = 'absolute';
                         div.style.backgroundColor = "rgba(" + [37,197,37,0.5] +")";
-                        div.innerHTML = BookingTitle;
+                        div.innerHTML = BookingTitle + "("+BookingUserName+ ")";
                         //previous bookings can't edit
                         if(BookingDateTime >= this.datePipe.transform(Date.now(),"yyyy-MM-dd")){
                             //delete icon
