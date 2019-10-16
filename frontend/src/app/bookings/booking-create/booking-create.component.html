@@ -4,9 +4,10 @@
         <div class="row">
             <mat-form-field class="BookingCreateComponent">
                 <div><mat-label>DATE & TIME </mat-label><span class="required">*</span></div>
-                <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="Choose a date" name="date_time"  [(ngModel)]="model.date_time" disabled>
+                <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="model.date_time" [max]="maxDate" placeholder="Choose a date" name="date_time" (dateChange)="updateDateToString($event)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker disabled="false"></mat-datepicker>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
         <div class="row">

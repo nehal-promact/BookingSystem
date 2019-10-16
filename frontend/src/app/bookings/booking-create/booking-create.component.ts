@@ -9,7 +9,7 @@ import { ToastsContainer } from '../../toast-global/toast-container.component';
 import { Spaces } from '../../spaces/spaces';
 import { Booking } from '../booking';
 import { TIMES } from '../time';
-
+import { MomentModule } from 'angular2-moment';
 @Component({
   selector: 'app-booking-create',
   templateUrl: './booking-create.component.html',
@@ -86,6 +86,7 @@ export class BookingCreateComponent implements OnInit {
     onSubmit() {
         this.model.user_id = this.userinfo.id;
         console.log(this.model);
+        //console.log(this.model.date_time.getfull);
         this.isValidField = this.validatesField(this.model.from_time, this.model.to_time,this.model.booking_title);
         if(this.DialogType == "createBooking"){
             if(this.isValidField){
@@ -204,4 +205,7 @@ export class BookingCreateComponent implements OnInit {
         return new Date(theDate.getTime() + days*24*60*60*1000);
     }
 
+    updateDateToString(event) {
+        this.model.date_time =  this.datePipe.transform(event.value,"yyyy-MM-dd");
+    }
 }
