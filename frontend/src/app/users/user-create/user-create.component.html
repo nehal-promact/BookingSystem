@@ -1,39 +1,39 @@
 <!-- main app container -->
-<div class="container">
-        <div class="container top-margin">
-            <h4 mat-dialog-title> Add A User <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
-        </div>
+    <h4 mat-dialog-title> Add A User <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
     <!--<button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
     <h3 style="text-align: center;">ADD A USER</h3>-->
     
     <form name="form" autocomplete="off" (ngSubmit)="form.valid && onSubmit(form)" #form="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
-        <mat-dialog-content>
           <input type="hidden" name="id" [(ngModel)]="formData.id" #id="ngModel">
-        <div class="row">
-            <mat-form-field class="form-field-width">
-                <div><mat-label>Email</mat-label><span class="required">*</span></div>
-                <input class="form-control ember-text-field ember-view" matInput name="email" type="email" [(ngModel)]="formData.email">
+          <div>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input class="ember-text-field ember-view" matInput name="email" type="email" [(ngModel)]="formData.email" required>
             </mat-form-field>
-        </div>
+          </div>
+
         <!--<div class="text-danger" *ngIf="erroremail.isError">{{erroremail.errorMessage}}</div>-->
-        <div class="row">
-            <mat-form-field class="form-field-width">
-                <div><mat-label>First Name</mat-label><span class="required">*</span></div>
-                <input matInput class="form-control ember-text-field ember-view"  name="first_name" [(ngModel)]="formData.first_name">
+        <div class="d-flex">
+            <mat-form-field class="pr-2">
+                <mat-label>First Name</mat-label>
+                <input matInput class="ember-text-field ember-view"  name="first_name" [(ngModel)]="formData.first_name" required>
                 <!--<mat-hint align="end">Not more then 60 characters long.</mat-hint>
                 <mat-error *ngIf="hasError('first_name', 'required')">Name is required</mat-error>
                 <mat-error *ngIf="hasError('first_name', 'maxlength')">You have more than 60 characters</mat-error>-->
             </mat-form-field>
-        </div>
-        <!--<div class="text-danger" *ngIf="errorfname.isError">{{errorfname.errorMessage}}</div>-->
-        <div class="row">
-            <mat-form-field class="form-field-width">
-                <div><mat-label>Last Name</mat-label><span class="required">*</span></div>
-                <input matInput class="form-control ember-text-field ember-view" name="last_name" [(ngModel)]="formData.last_name">
+            <mat-form-field class="pr-2">
+                <mat-label>Last Name</mat-label>
+                <input matInput class="ember-text-field ember-view" name="last_name" [(ngModel)]="formData.last_name" required>
             </mat-form-field>
         </div>
-        <div class="row">
-            <mat-form-field class="form-field-width">
+        <!--<div class="text-danger" *ngIf="errorfname.isError">{{errorfname.errorMessage}}</div>-->
+        <div>
+            <mat-form-field class="contact-label">
+                <mat-label for="contact_number">Contact Number</mat-label>
+                <span matPrefix>+91</span>
+                <input matInput class="ember-text-field ember-view" name="contact_number" [(ngModel)]="formData.contact_number" required>
+            </mat-form-field>
+            <!-- <mat-form-field>
                 <div><mat-label>Contact Number</mat-label><span class="required">*</span></div>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -41,30 +41,21 @@
                     </div>
                     <input matInput class="form-control ember-text-field ember-view" name="contact_number" [(ngModel)]="formData.contact_number">
                 </div>
-            </mat-form-field>
+            </mat-form-field> -->
         </div>
-        <div class="row">
-            <mat-form-field class="form-field-width">
-                <div><mat-label>Password</mat-label><span class="required">*</span></div>
-                <input matInput type="password" class="form-control ember-text-field ember-view" name="password" [(ngModel)]="formData.password">
+        <div class="d-flex">
+            <mat-form-field class="pr-2">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" class="ember-text-field ember-view" name="password" [(ngModel)]="formData.password" required>
             </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field class="form-field-width">
-                <div><mat-label>Confirm Password</mat-label><span class="required">*</span></div>
-                <input matInput type="password" name="password_confirmation" class="form-control ember-text-field ember-view" [(ngModel)]="formData.password_confirmation">
+            <mat-form-field class="pl-2">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" name="password_confirmation" class="ember-text-field ember-view" [(ngModel)]="formData.password_confirmation" required>
             </mat-form-field>
         </div>
         <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div>
-         </mat-dialog-content>
-        <mat-dialog-actions>
-        <div class="form-group" >
-            <button mat-raised-button color="primary" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Add user</button>
-            <button class="btn btn-input ember-view" style="margin-left: 10px;" (click)="onNoClick()">Cancel</button>
-            <!--<div><button class="btn btn-success">Confirm Booking</button>
-            <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel Booking</button></div>-->
-        </div>
-        </mat-dialog-actions>
+        <button mat-raised-button color="primary" type="submit"><i class="material-icons">person_add</i> Add user</button>
+        <button  mat-raised-button class="ember-view ml-2" (click)="onNoClick()">Cancel</button>
+        <!--<div><button class="btn btn-success">Confirm Booking</button>
+        <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel Booking</button></div>-->
     </form>
-   
-</div>

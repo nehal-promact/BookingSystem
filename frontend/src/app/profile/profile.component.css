@@ -1,6 +1,8 @@
 .scheduler-header-profile-wrapper{
     margin-top: 60px;
 }
-.form-field-width{
+/* .form-field-width{
     width: 60%;
-}
+} */
+.mat-form-field{width: 100%;}
+

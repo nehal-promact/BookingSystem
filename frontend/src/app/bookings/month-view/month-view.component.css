@@ -1,8 +1,9 @@
-.scheduler-header-spaces-wrapper{
+@import '../bookings.component.css';
+/* .scheduler-header-spaces-wrapper{
     position: sticky!important;
     z-index: 995;
     padding-top:60px;
-}
+} */
 .scheduler-spaces-header-padding-top {
     padding-top: 1rem;
 }
@@ -26,7 +27,7 @@
     color: #212529;
 }
 .scheduler-time-column {
-    width: 80px;
+    width: 81px;
 }
 .table-layout-fixed {
     table-layout: fixed;
@@ -43,13 +44,18 @@
 #tooltip{
     position: absolute;
     z-index: 2;
-    box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0px 0px 10px rgba(39, 39, 39, 0.15);
+    transform: translate(-85%, -100%);
+    color: #212529;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 14px;
     background-color: #FFFFFF; 
     height: 100px;
-    width: 200px;
+    width: 190px;
     display: none;
 }
-#scheduler-header-nav {
+/* #scheduler-header-nav {
     left: 0;
     z-index: 998;
     position: fixed!important;
@@ -70,8 +76,12 @@
     width: calc(100% - 62px);
     z-index: 1000;
     background-color: #fff;
-}
-.top-margin{
+} */
+/* .top-margin{
     margin-top: 65px;
     margin-bottom: 5px;
-}
+} */
+:host ::ng-deep td{transition: 0.4s;}
+:host ::ng-deep .booking-wrapper ul{padding-left: 17px;font-size: 14px;}
+#monthviewtable th{border: 0;}
+:host ::ng-deep #monthviewtable td:not(:empty):hover{background-color: #64bded;color: #FFFFFF;}

@@ -1,11 +1,11 @@
 <i class="material-icons close" (click)="onNoClick()">highlight_off</i>
-<h3 style="text-align: center;">SPACE REGISTERED BY ME</h3>
+<h3>Space Registered By Me</h3>
 <mat-dialog-content>
   <p body="font-italic text-center" *ngIf="userwisebooking.length==0">
     No bookings done yet.
   </p>
 <mat-list *ngFor="let userbooking of userwisebooking">
-        <strong>{{userbooking.date_time | date:'fullDate'}}</strong>
-        <mat-list-item>{{userbooking.from}}-{{userbooking.to}} for {{userbooking.space.space_name}} has booking name as {{userbooking.booking_title}}</mat-list-item>
+  <strong>{{userbooking.date_time | date:'fullDate'}}</strong>
+  <mat-list-item>{{userbooking.from}}-{{userbooking.to}} for {{userbooking.space.space_name}} has booking name as {{userbooking.booking_title}}</mat-list-item>
 </mat-list>
 </mat-dialog-content>

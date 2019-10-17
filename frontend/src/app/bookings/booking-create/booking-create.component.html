@@ -1,85 +1,76 @@
-<div class="container" *ngIf="DialogType == 'createBooking' || DialogType == 'editBooking'">
-    <form (ngSubmit)="onSubmit()">
-        <mat-dialog-content>
-        <div class="row">
+<div *ngIf="DialogType == 'createBooking' || DialogType == 'editBooking'">
+    <form (ngSubmit)="onSubmit()">        
+        <mat-dialog-content>      
+        <div class="form-group mb-0">
             <mat-form-field>
-                <div><mat-label>DATE & TIME </mat-label><span class="required">*</span></div>
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date_time" [(ngModel)]="model.date_time">
+                <mat-label>Date & Time </mat-label>
+                <input matInput [matDatepicker]="picker" name="date_time" [(ngModel)]="model.date_time" placeholder="Choose a date" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field>
-            <div><mat-label>FROM</mat-label><span class="required">*</span></div>
-            <div class="col-12 form-group">
-                <mat-select [(ngModel)]="model.from_time" name="from_time" (ngModelChange)="onTimeChange($event)">
-                  <mat-option *ngFor="let time of fromTimes" [value]="time.id">
-                    {{time.data}}
-                  </mat-option>
+        </div>      
+        <div class="form-group mb-0 d-flex">
+            <mat-form-field class="pr-2">
+                <mat-label>From</mat-label>
+                <mat-select [(ngModel)]="model.from_time" name="from_time" (ngModelChange)="onTimeChange($event)" required>                        
+                    <mat-option *ngFor="let time of fromTimes" [value]="time.id">
+                        {{time.data}}
+                    </mat-option>
                 </mat-select>
-            </div>
             </mat-form-field>
-            <mat-form-field>
-            <div><mat-label>TO</mat-label><span class="required">*</span></div>
-            <div class="col-12 form-group">
-                <mat-select [(ngModel)]="model.to_time" name="to_time" (ngModelChange)="onTimeChange($event)">
-                  <mat-option *ngFor="let time of toTimes" [value]="time.id">
-                    {{time.data}}
-                  </mat-option>
+            <mat-form-field class="pl-2">
+                <mat-label>To</mat-label>
+                <mat-select [(ngModel)]="model.to_time" name="to_time" (ngModelChange)="onTimeChange($event)" required>
+                    <mat-option *ngFor="let time of toTimes" [value]="time.id">
+                        {{time.data}}
+                    </mat-option>
                 </mat-select>
-            </div>
             </mat-form-field>
         </div>
-        <div class="ember-view">
-            <div class="row">
-                <mat-form-field *ngIf="spaces">
-                <div class="col-12 form-group">
-                    <mat-label class="input-label" for="booking-modal-space">SPACE(S)</mat-label><span class="required">*</span>
-                    <mat-select class="form-control ember-view" [(ngModel)]="model.space_id" name="space_id">
-                        <mat-option *ngFor="let space of spaces.data" [value]="space.id">{{space.space_name}}</mat-option>
-                    </mat-select>
-                    <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
-                </div>
-                </mat-form-field>
-            </div>
+        <div class="form-group mb-0">
+            <mat-form-field *ngIf="spaces">
+                <mat-label  for="booking-modal-space">SPACE(S)</mat-label>
+                <mat-select class="ember-view" [(ngModel)]="model.space_id" name="space_id" required>
+                    <mat-option *ngFor="let space of spaces.data" [value]="space.id">{{space.space_name}}</mat-option>
+                </mat-select>
+                <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
+            </mat-form-field>
         </div>
-        <div class="ember-view">
-            <div class="row">
-                <mat-form-field>
-                    <div class="col-12 form-group">
-                      <mat-label class="input-label" for="booking-modal-title">BOOKING TITLE</mat-label><span class="required">*</span>
-                      <input matInput placeholder="booking title" maxlength="255" id="booking_title" name="booking_title" class="form-control ember-text-field ember-view" type="text" [(ngModel)]="model.booking_title">
-                      <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
-                    </div>
-                </mat-form-field>
-            </div>
-            <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div>
+        <div class="form-group mb-0">
+            <mat-form-field>
+                <mat-label class="input-label" for="booking-modal-title">Booking Title</mat-label>
+                <input matInput placeholder="Booking title" maxlength="255" id="booking_title" name="booking_title" class="ember-text-field ember-view" type="text" [(ngModel)]="model.booking_title" required>
+                <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
+                <mat-error *ngIf="error.isError">
+                    {{error.errorMessage}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="ember-view">            
+            <!-- <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div> -->
             <div class="ember-view"><div class="liquid-container ember-view"><!----></div></div>
         </div>
         </mat-dialog-content>
-        <mat-dialog-actions>
-        <div class="form-group" *ngIf="DialogType == 'createBooking'">
-            <div><button class="btn btn-success">Confirm Booking</button>
-            <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel Booking</button></div>
-        </div>
-        <div class="form-group" *ngIf="DialogType == 'editBooking'">
-            <div><button class="btn btn-success">Edit Booking</button>
-            <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel</button></div>
-        </div>
+        <mat-dialog-actions class="mb-0">
+            <div *ngIf="DialogType == 'createBooking'">
+                <button mat-raised-button color="primary">Confirm Booking</button> 
+                <button mat-raised-button (click)="onCancelBooking()">Cancel Booking</button> 
+                <!-- <div><button class="btn btn-success">Confirm Booking</button> -->
+                <!-- <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel Booking</button></div> -->
+            </div>
+            <div *ngIf="DialogType == 'editBooking'">                
+                <button mat-raised-button color="primary">Edit Booking</button>
+                <button mat-raised-button (click)="onCancelBooking()">Cancel</button>
+            </div>
         </mat-dialog-actions>
     </form>
 </div>
-<div class="container" *ngIf="DialogType == 'deleteBooking'">
+<div *ngIf="DialogType == 'deleteBooking'">
     <form (ngSubmit)="onDeleteSubmit()" #bookingForm="ngForm">
-    <mat-dialog-content>
-        <div>Do you want to delete this booking</div>  
-    </mat-dialog-content>
-        <mat-dialog-actions>
-            <div class="form-group">
-                <button type="submit" mat-raised-button color="primary">YES</button>
-                <button type="button" mat-raised-button class="btn btn-input ember-view" (click)="onNoClick()">NO</button>
-            </div>
+        <p class="text-center">Do you want to delete this booking</p> 
+        <mat-dialog-actions class="mb-0 justify-content-center">
+            <button type="submit" mat-raised-button color="primary">YES</button>
+            <button type="button" mat-raised-button class="btn btn-input ember-view" (click)="onNoClick()">NO</button>
         </mat-dialog-actions>
    </form>
 </div>

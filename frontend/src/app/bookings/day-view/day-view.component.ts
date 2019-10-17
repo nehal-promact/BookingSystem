@@ -156,7 +156,7 @@ export class DayViewComponent implements OnInit {
                         div.style.right = tds[n].getBoundingClientRect().right+"px";
                         div.style.top = tds[n].offsetTop+"px";
                         div.style.position = 'absolute';
-                        div.style.backgroundColor = "rgba(" + [37,197,37,0.5] +")";
+                        div.style.backgroundColor = "rgba(" + [100, 189, 237] +")";
                         div.innerHTML = BookingTitle;
                         //previous bookings can't edit
                         if(BookingDateTime >= this.datePipe.transform(Date.now(),"yyyy-MM-dd")){

@@ -1,42 +1,50 @@
 <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
 <div class="scheduler-header-spaces-wrapper">
 <div class="container-fluid">
-<i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>USERS</label>
-&nbsp;
-<hr>
+<!-- <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>USERS</label> -->
+
 <!-- Search form -->
-<a class="btn btn-sm btn-success text-white" (click)="AddUser()"><i class="fa fa-user-plus" aria-hidden="true"></i>  Add a user</a>
-&nbsp;
-<input type="text" id="searchTextId" [formControl]="searchControl" [(ngModel)]="searchText" name="searchText" placeholder="Search By Name">
-&nbsp;
-<table matSort (matSortChange) = "sortName($event)" class="table table-borderless top-margin-table">
-  <thead class="thead-light">
-    <tr>
-      <th mat-sort-header = "first_name">First Name</th>
-      <th mat-sort-header = "last_name">Last Name</th>
-      <th mat-sort-header = "email">Email</th>
-      <th>Telephone</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngIf="users?.length==0" [class.text-danger]="!isValid && users.length==0">
-        <td body="font-italic text-center" colspan="5">
-          No users have registered yet.
+
+<mat-card style="margin-top: 15px;">
+  <div class="d-flex">
+      <button color="primary" mat-raised-button (click)="AddUser()"><i class="material-icons">person_add</i> Add a user</button>
+      <div class="d-flex align-items-center ml-auto position-relative">
+        <input type="text" id="searchTextId" class="search-control" [formControl]="searchControl" [(ngModel)]="searchText" name="searchText" placeholder="Search By Name">
+        <i class="material-icons search-icon">search</i>
+      </div>
+  </div>
+  <table matSort (matSortChange) = "sortName($event)" class="table table-borderless border-table mt-3">
+    <thead class="thead-light">
+      <tr>
+        <th mat-sort-header = "first_name">First Name</th>
+        <th mat-sort-header = "last_name">Last Name</th>
+        <th mat-sort-header = "email">Email</th>
+        <th>Telephone</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="users?.length==0" [class.text-danger]="!isValid && users.length==0">
+          <td body="font-italic text-center" colspan="5">
+            No users have registered yet.
+          </td>
+        </tr>
+      <tr *ngFor="let user of users;let i=index;">
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.contact_number}}</td>
+        <td class="text-right">
+          <a mat-mini-fab (click)="EditUser(user)" class="mr-2" matTooltip="edit"><i class="material-icons">edit</i></a>
+          <a mat-mini-fab (click)="ShowBookings(user.id)" class="mr-2" matTooltip="show bookings"><i class="material-icons">post_add</i></a>
+          <a mat-mini-fab (click)="DeleteUser(user.id)" matTooltip="delete"><i class="material-icons">delete_forever</i></a>
         </td>
       </tr>
-    <tr *ngFor="let user of users;let i=index;">
-      <td>{{user.first_name}}</td>
-      <td>{{user.last_name}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.contact_number}}</td>
-      <td>
-         <a class="btn btn-sm btn-warning text-white" (click)="EditUser(user)" matTooltip="edit"><i class="material-icons">edit</i></a>
-         <a class="btn btn-sm btn-info text-white ml-1" (click)="ShowBookings(user.id)" matTooltip="show bookings"><i class="material-icons">post_add</i></a>
-         <a class="btn btn-sm btn-danger text-white ml-1" (click)="DeleteUser(user.id)" matTooltip="delete"><i class="material-icons">delete_forever</i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</mat-card>
+
+
+
 </div>
 </div>

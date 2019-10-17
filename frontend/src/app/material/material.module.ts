@@ -5,6 +5,11 @@ import { MatNativeDateModule, MatFormFieldModule, MatButtonModule, MatInputModul
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatCardModule} from '@angular/material/card';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [],
@@ -26,7 +31,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSelectModule,
     MatNativeDateModule,
     MatListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatTableModule
     ]
 })
 export class MaterialModule { }
