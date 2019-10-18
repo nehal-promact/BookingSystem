@@ -1,74 +1,68 @@
 <!-- main app container -->
-<div class="container">
-        <div class="container top-margin">
-            <h4 mat-dialog-title> Add A User <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
-        </div>
-    <!--<button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
-    <h3 style="text-align: center;">ADD A USER</h3>-->
-    <form [formGroup]="userRegister" (ngSubmit)="onSubmit()" class="login-form px-md-4" >     
-    <!--<form name="form" autocomplete="off" (ngSubmit)="form.valid && onSubmit(form)" #form="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>-->
-        <mat-dialog-content>
-          <div class="form-group">
-                <label>Email</label>
-                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">email is required</div>
-                    <div *ngIf="f.email.errors.email">email should be in proper format</div>               
-                    <div *ngIf="f.email.errors.serverError">{{ f.email.errors.serverError }}</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" formControlName="first_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"  />
-                <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
-                    <div *ngIf="f.first_name.errors.required">Firstname is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" formControlName="last_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"  />
-                <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
-                    <div *ngIf="f.last_name.errors.required">Lastname is required</div>
-                </div>
-            </div>
-            <div>
-                <label>Contact Number</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">+91</div>
-                    </div>
-                    <input formControlName="contact_number" maxlength="10" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contact_number.errors }"  />
-                    <div *ngIf="submitted && f.contact_number.errors" class="invalid-feedback">
-                        <div *ngIf="f.contact_number.errors.required">Contact Number is required</div>
-                        <div *ngIf="f.contact_number.errors.minlength">Contact Number must be at least 10 characters</div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />                
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password"  class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.password_confirmation.errors }" formControlName="password_confirmation">
-                <div *ngIf="submitted && f.password_confirmation.errors" class="invalid-feedback">
-                    <div *ngIf="f.password_confirmation.errors.required">Confirm Password is required</div>
-                    <div *ngIf="f.password_confirmation.errors.mustMatch">Confirm passworsd must match with password</div>
-                </div>
-            </div>
-         </mat-dialog-content>
-        <mat-dialog-actions>
-        <div class="form-group" >
-            <button mat-raised-button color="primary" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Add user</button>
-            <button class="btn btn-input ember-view" style="margin-left: 10px;" (click)="onNoClick()">Cancel</button>
-            <!--<div><button class="btn btn-success">Confirm Booking</button>
-            <button class="btn btn-input ml-2" (click)="onCancelBooking()">Cancel Booking</button></div>-->
-        </div>
-        </mat-dialog-actions>
-    </form>
-   
-</div>
+<h4 mat-dialog-title> Add User <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
+<!--<button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
+<h3 style="text-align: center;">ADD A USER</h3>-->
+<form [formGroup]="userRegister" (ngSubmit)="onSubmit()" class="login-form " >     
+<!--<form name="form" autocomplete="off" (ngSubmit)="form.valid && onSubmit(form)" #form="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>-->
+    <div>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput name="email" formControlName="email" type="email" required>
+            <mat-error *ngIf="submitted && f.email.errors">
+                <div *ngIf="f.email.errors.required">email is required</div>
+                <div *ngIf="f.email.errors.email">email should be in proper format</div>               
+                <div *ngIf="f.email.errors.serverError">{{ f.email.errors.serverError }}</div>
+            </mat-error>
+        </mat-form-field>
+    </div>    
+    <div class="d-flex">
+        <mat-form-field class="pr-2">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" formControlName="first_name" required />                
+            <mat-error *ngIf="submitted && f.first_name.errors">
+                <div *ngIf="f.first_name.errors.required">Firstname is required</div>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="pr-2">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" formControlName="last_name" required />
+            <mat-error *ngIf="submitted && f.last_name.errors">
+                <div *ngIf="f.last_name.errors.required">Lastname is required</div>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="contact-label">
+            <mat-label for="contact_number">Contact Number</mat-label>
+            <span matPrefix>+91</span>                
+            <input matInput formControlName="contact_number" maxlength="10" required />
+            <mat-error *ngIf="submitted && f.contact_number.errors">
+                <div *ngIf="f.contact_number.errors.required">Contact Number is required</div>
+                <div *ngIf="f.contact_number.errors.minlength">Contact Number must be at least 10 characters</div>
+            </mat-error>
+        </mat-form-field>
+    </div> 
+    <div class="d-flex">
+        <mat-form-field class="pr-2">
+            <mat-label>Password</mat-label>                
+            <input matInput type="password" formControlName="password" required/>
+            <mat-error *ngIf="submitted && f.password.errors">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="pl-2">
+            <mat-label>Confirm Password</mat-label>                
+            <input matInput type="password" formControlName="password_confirmation" required>
+            <mat-error *ngIf="submitted && f.password_confirmation.errors">
+                <div *ngIf="f.password_confirmation.errors.required">Confirm Password is required</div>
+                <div *ngIf="f.password_confirmation.errors.mustMatch">Confirm passworsd must match with password</div>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="mt-2">
+        <button mat-raised-button color="primary" type="submit"><i class="material-icons">person_add</i> Add user</button>
+        <button  mat-raised-button class="ember-view ml-2" (click)="onNoClick()">Cancel</button>
+    </div>        
+</form>
+

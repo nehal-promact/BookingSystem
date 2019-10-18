@@ -1,29 +1,29 @@
-<app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
-
-<div class="scheduler-header-spaces-wrapper">
-    <div class="container-fluid">
-    <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>SPACES</label>
+<div class="container-fluid">
+  <mat-card class="mt-3">
+    <!-- <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;<label>SPACES</label>
     &nbsp;
-    <hr>
+    <hr> -->
     <!-- Search form -->
-    <a class="btn btn-sm btn-success text-white" (click)="addSpace()"> Create another space</a>
-    &nbsp;
-    <table class="table table-borderless top-margin-table">
+    <button color="primary" mat-raised-button (click)="addSpace()">Create another space</button>
+    <!-- <a class="btn btn-sm btn-success text-white" (click)="addSpace()"> Create another space</a> -->
+    
+    <table class="table table-borderless border-table mt-3">
       <thead class="thead-light">
         <tr>
           <th>Space Name</th>
           <th></th>
         </tr>
       </thead>
-       <tbody *ngIf="spaces">
-            <tr *ngFor="let space of spaces.data">
-              <td>{{space.space_name}}</td>
-              <td>
-                 <a class="btn btn-warning text-white" (click)="editSpace(space)" matTooltip="edit"><i class="material-icons md-18">edit</i></a>
-                 <a class="btn btn-danger text-white ml-1" (click)="deleteSpace(space.id)" matTooltip="delete"><i class="material-icons md-18">delete_forever</i></a>
-              </td>
-            </tr>
-       </tbody>
+      <tbody *ngIf="spaces">
+        <tr *ngFor="let space of spaces.data">
+          <td>{{space.space_name}}</td>
+          <td class="text-right">                
+            <a mat-mini-fab (click)="editSpace(space)" class="mr-2" matTooltip="edit"><i class="material-icons md-18">edit</i></a>
+            <a mat-mini-fab (click)="deleteSpace(space.id)" matTooltip="delete"><i class="material-icons md-18">delete_forever</i></a>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    </div>
+  </mat-card>
+  <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
 </div>

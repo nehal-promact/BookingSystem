@@ -19,8 +19,20 @@
 .scheduler-header-spaces-wrapper{
     position: sticky!important;
     z-index: 995;
-    padding-top:60px;
+    /* padding-top:60px; */
 }
 .top-margin-table{
     margin-top: 10px;
 }
+.search-control{    
+  border: 0;
+  box-shadow: 0 0 8px #dee2ea;
+  border-radius: 30px;
+  font-size: 14px;
+  padding: 6px 40px 6px 15px;
+  height: 36px;
+  width: 300px;
+}
+.search-icon{position: absolute;right: 10px;color: #c1c1c1;}
+/* .search-control:focus {border-color: #64bded;} */
+

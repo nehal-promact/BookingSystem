@@ -1,33 +1,39 @@
-<br>
-<br>
 <div class="view">
   <div class="container">
-    <br />
-    <div class="login-form">
-      <form (ngSubmit)="login()" #loginForm="ngForm">
-          <h2 class="text-center">Login</h2>
-          <div class="login">
+    <div class="row">
+      <div class="col-12 col-sm-6 mx-auto">
+        <h3 class="text-center mt-5 mb-3">Login</h3>
+        <mat-card class="login-form">
+          <form (ngSubmit)="login()" #loginForm="ngForm">                  
+            <div class="login">
               <div *ngIf="errMsgArr.length > 0">
-            <br>
-              <strong>Opps!</strong> <br>
-              <ul>
-                <li *ngFor="let tErr of errMsgArr" class="alert">{{tErr}}</li>
-              </ul>
-          </div>
-          <br>
-          <div class="form-group">
-              User Name
-            <input type="email" name="username" [(ngModel)]="loginData.username" placeholder="Email" class="form-control" required />
-          </div>
-          <div class="form-group">
-              Password 
-            <input type="password" name="password" [(ngModel)]="loginData.password" placeholder="Password" class="form-control" required />
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Log in</button>
-          </div>
-        </div>
-      </form>
+                <div class="alert alert-danger" role="alert">
+                  <strong>Opps!</strong>
+                  <ul class="list-unstyled mt-2 mb-0">
+                      <li *ngFor="let tErr of errMsgArr" class="">{{tErr}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <mat-form-field>
+                  <mat-label>User Name</mat-label>
+                  <input matInput type="email" name="username" [(ngModel)]="loginData.username" placeholder="Email" required>
+                </mat-form-field>
+              </div>
+              <div>                
+                <mat-form-field>
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" name="password" [(ngModel)]="loginData.password"  placeholder="Enter your password" [type]="hide ? 'text' : 'password'" required>
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <i class="material-icons">{{hide ? 'visibility' : 'visibility_off'}}</i>
+                  </button>
+                </mat-form-field>
+              </div>
+              <button color="primary" class="w-100" mat-raised-button type="submit" [disabled]="!loginForm.form.valid">Log in</button>
+            </div>
+          </form>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>

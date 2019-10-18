@@ -9,7 +9,7 @@ import { ToastsContainer } from '../../toast-global/toast-container.component';
 import { Spaces } from '../../spaces/spaces';
 import { Booking } from '../booking';
 import { TIMES } from '../time';
-import { MomentModule } from 'angular2-moment';
+// import { MomentModule } from 'angular2-moment';
 @Component({
   selector: 'app-booking-create',
   templateUrl: './booking-create.component.html',

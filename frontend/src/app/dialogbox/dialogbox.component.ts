@@ -23,21 +23,21 @@ export class DialogboxComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogboxComponent>,
         @Inject(MAT_DIALOG_DATA) data) {
             if(data.DialogType == 'createBooking') {
-                this.DialogTitle = 'NEW BOOKING';
+                this.DialogTitle = 'New Booking';
                 this.DialogType = data.DialogType;
                 this.from_time = data.from_time;
                 this.to_time = data.from_time+1;
                 this.date_time = data.date_time;
             }
             else if(data.DialogType == 'editBooking') {
-                this.DialogTitle = 'EDIT USER BOOKING';
+                this.DialogTitle = 'Edit User Booking';
                 this.DialogType = data.DialogType;
                 this.from_time = data.from_time;
                 this.to_time = data.to_time;
                 this.booking_id = data.booking_id;
             }
             else if(data.DialogType == 'deleteBooking') {
-                this.DialogTitle = 'DELETE BOOKING';
+                this.DialogTitle = 'Delete Booking';
                 this.DialogType = data.DialogType;
                 this.booking_id = data.booking_id;
             }

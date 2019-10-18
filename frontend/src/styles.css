@@ -1,28 +1,80 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~font-awesome/css/font-awesome.css';
-
+body{font-family: 'Roboto', sans-serif;color: #212529;}
 .sidenav {
   height: 100%;
-  width: 60px;
+  width: 70px;
   position: fixed;
-  z-index: 1;
-  top: 50px;
-  left: 0;
-  background-color: #6495ed;
+  z-index: 999;
+  top: 56px;
+  left: 7px;
+  background-color: #ffffff;
+  box-shadow: 4px 0 8px rgba(16, 16, 16, 0.08);
   overflow-x: hidden;
-  padding-top: 20px;
+  padding: 15px 0;
+  text-align: center;
+}
+button:focus,
+input:focus {outline: none;}
+.btn:focus,
+.btn.focus{box-shadow: none !important;}
+
+/* Global Primary color and Background Color */
+button.mat-primary,
+.mat-tab-group.mat-primary .mat-ink-bar, 
+.mat-tab-nav-bar.mat-primary .mat-ink-bar,
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.mat-mini-fab.mat-primary{background-color: #64bded !important}
+/* .btn-primary,.btn-primary:disabled {background-color: #64bded;border-color: #64bded;} */
+
+/* .btn-primary:not(:disabled):hover,.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active
+{background-color: #4cb0e6;border-color: #4cb0e6;} */
+
+.mat-form-field.mat-focused .mat-form-field-label,
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled),
+.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover,
+.mat-datepicker-toggle-active,
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {color: #4cb0e6;}
+
+/* Mat Accent Color */
+.mat-mini-fab.mat-accent{background-color: #fff;color: #64bded;}
+
+/* Mat Tab */
+.mat-tab-body-wrapper{padding-top: 15px;}
+
+/* Form Control */
+input{transition: 0.4s;}
+.form-control:focus,input:focus {border-color: #64bded;box-shadow: none;}
+.mat-form-field{width: 100%;}
+
+/* Mat Prefix contact number +91 */
+.contact-label .mat-form-field-prefix {position: absolute;top: 32%;z-index: 1;}
+.contact-label input.mat-input-element,.contact-label .mat-form-field-empty.mat-form-field-label{padding-left: 32px;}
+.contact-label.mat-form-field-should-float .mat-form-field-empty.mat-form-field-label{  padding-left: 0;  }
+
+/* Mat Datepicker */
+.mat-calendar-body-selected {background-color: #64bded;}
+
+/* Users and Booking Create Table*/
+.border-table{border:1px solid #f3f3f3;}
+.border-table td{border-bottom: 1px solid #f3f3f3;vertical-align: middle;}
+.border-table tr{transition: 0.4s;}
+.border-table tr:hover{background: #f5f9fb;}
+
+
+.ngb-toasts {
+  top: 2% !important;
+  right: 1.3% !important;
+  text-align: center;
+  width: 232px;
+  z-index: 1 !important;
 }
 
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #483D8B;
-  display: block;
+.toast-body {
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.22);
+  transition: 0.4s ease-in-out;
 }
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-

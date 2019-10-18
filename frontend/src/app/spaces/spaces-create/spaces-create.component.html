@@ -1,23 +1,12 @@
-<div class="container">
-    <div class="container">
-        <h5 mat-dialog-title>ADD A SPACE <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h5>
-    </div>
+<h5 mat-dialog-title>Add Space <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h5>
 <form (ngSubmit)="onSubmit()">
-    <mat-dialog-content>
-        <div class="liquid-child ember-view">
-            <div class="row">
-                <div class="col-12 col-md-6 form-group required">
-                    <mat-form-field>
-                        <div><mat-label>Space Name</mat-label></div>
-                        <input matInput placeholder="e.g. Meeting Room" id="space-create-name" class="form-control" type="text" name="space_name" [(ngModel)]="model.space_name">
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-    </mat-dialog-content>
-    <mat-dialog-actions>
+        <mat-form-field>
+            <mat-label>Space Name</mat-label>
+            <input matInput placeholder="e.g. Meeting Room" id="space-create-name" type="text" name="space_name" [(ngModel)]="model.space_name" required>
+        </mat-form-field>
+    <div>
         <button mat-raised-button color="primary" type="submit">Add space</button>
-        <button mat-raised-button style="margin-left: 10px;" (click)="onNoClick()">Cancel</button>
-    </mat-dialog-actions>
+        <button mat-raised-button type="button" class="ml-2" (click)="onNoClick()">Cancel</button>
+    </div>
 </form>
-</div>
+
