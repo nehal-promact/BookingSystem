@@ -4,9 +4,9 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:8000/',
-    clientSecret: 'XrYAACRPxgyJQ8zMXDVVtGidEzpsPeKcQyqdLYVe',
-    clientId:4,
+    apiUrl: 'http://10.1.81.35:8000/',
+    clientSecret: '8WizxPp7lsyewpo3CMHttKpbpeNLp3hDfnAVSylj',
+    clientId:12,
     grantType: 'password',
     company: 'Promact',
     organization: 'PROMACT INFOTECH PVT. LTD.'
