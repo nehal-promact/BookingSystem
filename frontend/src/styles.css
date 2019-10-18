@@ -35,7 +35,8 @@ button.mat-primary,
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled),
 .close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover,
 .mat-datepicker-toggle-active,
-.mat-form-field.mat-focused.mat-primary .mat-select-arrow {color: #4cb0e6;}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow,
+.mat-raised-button {color: #4cb0e6;}
 
 /* Mat Accent Color */
 .mat-mini-fab.mat-accent{background-color: #fff;color: #64bded;}
@@ -62,7 +63,10 @@ input{transition: 0.4s;}
 .border-table tr{transition: 0.4s;}
 .border-table tr:hover{background: #f5f9fb;}
 
+/* Dropdown Menu */
+.dropdown-menu{left: auto;right: 0;box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);}
 
+/* Toast */
 .ngb-toasts {
   top: 2% !important;
   right: 1.3% !important;
@@ -78,3 +82,4 @@ input{transition: 0.4s;}
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.22);
   transition: 0.4s ease-in-out;
 }
+

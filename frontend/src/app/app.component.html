@@ -13,7 +13,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav align-items-center">
+            <!-- <ul class="navbar-nav align-items-center">
                 <li class="nav-item" *ngIf = "user">
                     <a class="nav-link text-white" routerLink="/profile">{{user}}</a>
                 </li>
@@ -21,8 +21,18 @@
                 <li class="nav-item">                    
                     <a mat-mini-fab routerLink="/logout" *ngIf = "isAuthorized" matTooltip="Log out"><i class="material-icons">power_settings_new</i></a>
                 </li>
-            </ul>
+            </ul> -->
+            <div class="dropdown ml-auto" *ngIf = "user">
+                <a href="#" class="dropdown-toggle text-white d-flex align-items-center" data-toggle="dropdown">
+                    <i class="material-icons mr-1">account_circle</i> {{user}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button routerLink="/profile" mat-button class="w-100 text-left"><i class="material-icons">mood</i> Profile</button>
+                    <button routerLink="/logout" *ngIf = "isAuthorized" mat-button class="w-100 text-left"><i class="material-icons">power_settings_new</i> Log Out</button>                                
+                </div>
+            </div>
         </div>
+        
     </nav>
     <div style="width: calc(100% - 77px);margin-left:77px;padding-top: 56px;">
         <router-outlet></router-outlet>

@@ -19,3 +19,8 @@ and open the template in the editor.
 /* Sidenav Buttons */
 
 .mat-mini-fab.mat-accent:not(:first-child){margin-top: 15px;}
+
+/* Dropdown menu */
+.dropdown-menu .mat-button:hover{color: #64bded;}
+a.dropdown-toggle{text-decoration: none;}
+.dropdown-toggle::after{margin-left: 12px;}
