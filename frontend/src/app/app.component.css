@@ -17,9 +17,10 @@ and open the template in the editor.
 }
 .site-title{color: #fff;font-size: 20px;}
 /* Sidenav Buttons */
-
-.mat-mini-fab.mat-accent:not(:first-child){margin-top: 15px;}
-
+.sidenav .mat-button{padding: 0;line-height: normal;text-decoration: none;min-width: 100%;border-radius: 0;color: #64bded;}
+:host ::ng-deep .sidenav .mat-button-wrapper{display: flex;flex-direction: column;padding: 10px 0;}
+:host ::ng-deep .mat-button-wrapper i{margin-bottom: 5px;}
+.sidenav .mat-button.active-link{background-color: #64bded;color: #fff;}
 /* Dropdown menu */
 .dropdown-menu .mat-button:hover{color: #64bded;}
 a.dropdown-toggle{text-decoration: none;}

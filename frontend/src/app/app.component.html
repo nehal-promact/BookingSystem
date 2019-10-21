@@ -1,10 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-    <div class="sidenav" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-        <a mat-mini-fab routerLink="/booking/dayview" [matTooltip]="user ? 'Schedule' : 'Bookings'" matTooltipPosition="after" ><i class="material-icons">list_alt</i></a>
-        <a mat-mini-fab routerLink="/venueuser" *ngIf="isAuthorized && isAdministrator" matTooltipPosition="after" matTooltip="Users"><i class="material-icons">group</i></a>
-        <a mat-mini-fab routerLink="/profile" *ngIf="isAuthorized" matTooltipPosition="after" matTooltip="Profile"><i class="material-icons">mood</i></a>
-        <a mat-mini-fab routerLink="/login" *ngIf="!isAuthorized" matTooltipPosition="after" matTooltip="Login"><i class="material-icons">exit_to_app</i></a>
+    <div class="sidenav" >
+        <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/booking/dayview" [matTooltip]="user ? 'Schedule' : 'Bookings'" matTooltipPosition="after" ><i class="material-icons">list_alt</i> Bookings</a>
+        <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/venueuser" *ngIf="isAuthorized && isAdministrator" ><i class="material-icons">group</i> Users</a>
+        <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/profile" *ngIf="isAuthorized" ><i class="material-icons">person</i> Profile</a>
+        <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/login" *ngIf="!isAuthorized" ><i class="material-icons">exit_to_app</i> Login</a>
     </div>
     <nav class="navbar navbar-expand-lg fixed-top top-nav">
         <div class="site-title">{{this.title}}</div>
@@ -27,7 +27,6 @@
                     <i class="material-icons mr-1">account_circle</i> {{user}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button routerLink="/profile" mat-button class="w-100 text-left"><i class="material-icons">mood</i> Profile</button>
                     <button routerLink="/logout" *ngIf = "isAuthorized" mat-button class="w-100 text-left"><i class="material-icons">power_settings_new</i> Log Out</button>                                
                 </div>
             </div>
