@@ -83,7 +83,7 @@ export class SpacesComponent implements OnInit {
         const dialogConfig =  new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
-        dialogConfig.width = "400px";         
+        dialogConfig.width = "430px";         
         let MatDialogRef = this.dialog.open(SpacesCreateComponent,dialogConfig);
         MatDialogRef.afterClosed().subscribe(res =>{
             this.getSpaces();
@@ -94,7 +94,7 @@ export class SpacesComponent implements OnInit {
         const dialogConfig =  new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
-        dialogConfig.width = "400px";     
+        dialogConfig.width = "430px";     
         dialogConfig.data = {space};    
         let MatDialogRef = this.dialog.open(SpacesEditComponent,dialogConfig);
         MatDialogRef.afterClosed().subscribe(res =>{
@@ -106,7 +106,7 @@ export class SpacesComponent implements OnInit {
         const dialogConfig =  new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
-        dialogConfig.width = "290px";     
+        dialogConfig.width = "430px";     
         dialogConfig.data = {id};    
         let MatDialogRef = this.dialog.open(SpacesDeleteComponent,dialogConfig);
         MatDialogRef.afterClosed().subscribe(res =>{

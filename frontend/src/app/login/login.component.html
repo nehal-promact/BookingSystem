@@ -1,9 +1,12 @@
 <div class="view">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-sm-6 mx-auto">
-        <h3 class="text-center mt-5 mb-3">Login</h3>
-        <mat-card class="login-form">
+      <div class="col-xl-6 col-md-8 mx-auto">
+        
+        <mat-card class="login-form mt-30 overflow-hidden">
+          <div class="form-header">
+            <h4 mat-dialog-title class="mb-0">Login</h4>
+          </div> 
           <form (ngSubmit)="login()" #loginForm="ngForm">                  
             <div class="login">
               <div *ngIf="errMsgArr.length > 0">

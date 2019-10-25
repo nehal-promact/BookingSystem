@@ -1,43 +1,44 @@
 <app-toasts aria-live="polite" aria-atomic="true" style="margin-top: 60px;"></app-toasts>
 
-    <div class="scheduler-header-spaces-wrapper">
-        <div id="scheduler-header-nav">
-            <div class="scheduler-header-nav-container-wrapper">
-                <div class="container-fluid">
-                    <div class="row bg-g100">
-                        <div class="col-12">
-                            <div class="d-flex py-3">
-                                <div class="tabs-btn mr-3">
-                                    <mat-card class="btn-group d-none d-xl-inline-flex p-0" role="group" style="z-index: 2;">
-                                        <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
-                                        <a href="/booking/monthview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
-                                    </mat-card>
+<div class="scheduler-header-spaces-wrapper">
+    <div id="scheduler-header-nav">
+        <div class="scheduler-header-nav-container-wrapper">
+            <div class="container-fluid">
+                <div class="bg-g100">
+                    <div class="col-12">
+                        <div class="d-flex">
+                            <div class="tabs-btn mr-3">
+                                <div class="btn-group d-none d-xl-inline-flex p-0" role="group" style="z-index: 2;">
+                                    <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">DAY</a>
+                                    <a href="/booking/monthview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold">MONTH</a>
                                 </div>
-                                <div>
-                                    <div class="btn-group d-inline-flex">
-                                        <div class="viewdate-picker dropdown-date scheduler-header-nav-button-bold text-truncate text-uppercase">
-                                            <span class="d-flex ember-view">
-                                                <span class="flex-grow-1 text-truncate">
-                                                </span>
-                                                <span class="d-flex align-items-center">
-                                                    <input class="form-control select-date"
-                                                    name="selectdate" [(ngModel)]="selectdate.date" ngbDatepicker #d="ngbDatepicker" style="display:inline;pointer-events:none;" (ngModelChange)="dateValueChange($event)" (ngModelChange)="selectdate.date = $event">
-                                                    <i style="display: inline;cursor: pointer;" class="material-icons" (click)="d.toggle()" >expand_more</i>
-                                                </span>
+                            </div>
+                            <div>
+                                <div class="btn-group d-inline-flex">
+                                    <div class="viewdate-picker dropdown-date scheduler-header-nav-button-bold text-truncate text-uppercase">
+                                        <span class="d-flex ember-view">
+                                            <span class="flex-grow-1 text-truncate">
                                             </span>
-                                        </div>
+                                            <span class="d-flex align-items-center">
+                                                <input class="form-control select-date"
+                                                name="selectdate" [(ngModel)]="selectdate.date" ngbDatepicker #d="ngbDatepicker" style="display:inline;pointer-events:none;" (ngModelChange)="dateValueChange($event)" (ngModelChange)="selectdate.date = $event">
+                                                <i style="display: inline;cursor: pointer;" class="material-icons" (click)="d.toggle()" >expand_more</i>
+                                            </span>
+                                        </span>
                                     </div>
-                                </div>                        
-                                <div class="flex-grow-1"></div>
-                                <div class="d-inline-block ember-view" *ngIf = "isAuthorized && isAdministrator">
-                                    <button mat-raised-button routerLink="/resetpassword" color="primary" (click)="gotoSpaces()">SPACES</button>
                                 </div>
+                            </div>                        
+                            <div class="flex-grow-1"></div>
+                            <div class="d-inline-block ember-view" *ngIf = "isAuthorized && isAdministrator">
+                                <button mat-raised-button routerLink="/booking/space" color="primary" >SPACES</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div class="ember-view col-12">
             <div class="bg-white">
                 <table class="table table-layout-fixed table-bordered scheduler-header-spaces-table mb-0" *ngIf="spaces">
@@ -46,12 +47,12 @@
                         <th class="center" *ngFor="let space of spaces">{{space.space_name}}</th>
                     </tr>
                 </table>
-                <table class="day-mode-table ember-view" id="dayviewtable" style="position: relative;margin-top: -1px;" *ngIf="bookingfordayview">
+                <table class="day-mode-table ember-view mb-4" id="dayviewtable" style="position: relative;margin-top: -1px;" *ngIf="bookingfordayview">
                     <tbody>
                         <tr class="time-unavailable" *ngFor="let row of bookingfordayview">
                             <td class="scheduler-time-column">
                                 <div class="text-truncate">
-                                  <small>{{row.Time.data}}</small>
+                                <small>{{row.Time.data}}</small>
                                 </div>
                             </td>
                             <td role="button" [ngStyle]="{'cursor': isAuthorized ? 'pointer':'auto'}" [ngClass]="{'disabled': row.Time.isDisabled }" *ngFor="let space of row.SpaceType" [attr.data-rows]="space.rows" [attr.data-time]="row.Time.id" [attr.data-spaceid]="space.id" [attr.data-booked]="space.booked" (click)="isAuthorized? booking($event,'true'):booking($event,'false')" [style.width.%]="100 / spaces.length"></td>
@@ -62,4 +63,5 @@
         </div>        
         <button class="add-icon" mat-mini-fab (click)="openDialog(17,18,'createBooking')"><i class="material-icons" >add</i></button>
     </div>
+</div>
     

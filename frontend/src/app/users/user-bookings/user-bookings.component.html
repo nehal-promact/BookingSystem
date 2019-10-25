@@ -1,11 +1,29 @@
-<i class="material-icons close" (click)="onNoClick()">highlight_off</i>
-<h3>Space Registered By Me</h3>
+<div class="form-header">
+  <h4 mat-dialog-title class="mb-0">Space Registered By Me</h4>
+  <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">close</i>
+</div>
 <mat-dialog-content>
-  <p class="mb-0" *ngIf="userwisebooking.length==0">
-    No bookings done yet.
-  </p>
-<mat-list *ngFor="let userbooking of userwisebooking">
+  
+  <div *ngIf="userwisebooking.length==0" class="alert alert-secondary mb-0" role="alert">
+      No bookings done yet.
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let userbooking of userwisebooking">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{userbooking.date_time | date:'fullDate'}}
+        </mat-panel-title>        
+      </mat-expansion-panel-header>
+        <div><h6 class="mb-0 d-inline-flex">Time:</h6> {{userbooking.from}}-{{userbooking.to}}</div>
+        <div><h6 class="mb-0 d-inline-flex">Space:</h6> {{userbooking.space.space_name}}</div>
+        <div><h6 class="mb-0 d-inline-flex">Title:</h6> {{userbooking.booking_title}}</div>
+         <!-- for {{userbooking.space.space_name}} has booking name as {{userbooking.booking_title}}       -->
+    </mat-expansion-panel>
+  </mat-accordion>
+
+<!-- <mat-list *ngFor="let userbooking of userwisebooking">
   <strong>{{userbooking.date_time | date:'fullDate'}}</strong>
   <mat-list-item>{{userbooking.from}}-{{userbooking.to}} for {{userbooking.space.space_name}} has booking name as {{userbooking.booking_title}}</mat-list-item>
-</mat-list>
+</mat-list> -->
 </mat-dialog-content>

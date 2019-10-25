@@ -13,10 +13,10 @@ import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/booking/dayview', pathMatch: 'full' },
-    { path: 'booking', component: BookingsComponent },
+    { path: 'booking', component: DayViewComponent },
     { path: 'booking/dayview', component: DayViewComponent },
     { path: 'booking/monthview', component: MonthViewComponent },
-    { path: 'space', component: SpacesComponent },
+    { path: 'booking/space', component: SpacesComponent },
     { path: 'space/:id', component: SpacesComponent },
     { path: 'venueuser', component:UsersComponent},			
     { path: 'profile', component: ProfileComponent},

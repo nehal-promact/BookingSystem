@@ -1,14 +1,14 @@
 <div id="scheduler-header-nav">
     <div class="scheduler-header-nav-container-wrapper">
         <div class="container-fluid">
-            <div class="row bg-g100">
+            <div class="bg-g100">
                 <div class="col-12">
-                    <div class="d-flex py-3">
+                    <div class="d-flex">
                         <div class="tabs-btn mr-3">
-                            <mat-card class="btn-group d-none d-xl-inline-flex p-0" role="group" style="z-index: 2;">
+                            <div class="btn-group d-none d-xl-inline-flex p-0" role="group" style="z-index: 2;">
                                 <a href="/booking/dayview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold ">DAY</a>
                                 <a href="/booking/monthview" class="btn btn-g300 px-3 scheduler-header-nav-button-bold active">MONTH</a>
-                            </mat-card>
+                            </div>
                         </div>
                         <div>
                             <div class="btn-group d-inline-flex">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="flex-grow-1"></div>
                         <div class="d-inline-block ember-view" *ngIf = "isAuthorized && isAdministrator">
-                            <button mat-raised-button routerLink="/resetpassword" color="primary" routerLink="/space">SPACES</button>
+                            <button mat-raised-button routerLink="/booking/space" color="primary" >SPACES</button>
                         </div>
                     </div>
                 </div>
@@ -36,27 +36,29 @@
     </div>
 </div>
 <div class="scheduler-header-spaces-wrapper">
-    <div class="ember-view col-12" >
-        <mat-card>
-            <div class="bg-white">
-                <h3 class="" id="monthAndYear"></h3>
-                <div id="tooltip" class="content"></div>
-                <table class="table table-bordered table-responsive-sm" id="monthviewtable">
-                    <thead>
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                    </thead>
-                    <tbody id="calendar-body">
-                    </tbody>
-                </table>
-            </div>
-        </mat-card>
+    <div class="container-fluid">
+        <div class="ember-view col-12" style="padding-top: 1px;">
+            <mat-card>
+                <div class="bg-white">
+                    <h3 class="" id="monthAndYear"></h3>
+                    <div id="tooltip" class="content"></div>
+                    <table class="table table-bordered table-responsive-sm mb-0" id="monthviewtable">
+                        <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                        </thead>
+                        <tbody id="calendar-body">
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
     </div>
 </div>

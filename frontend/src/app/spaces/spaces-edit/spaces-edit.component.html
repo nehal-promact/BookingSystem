@@ -1,4 +1,7 @@
-<h5 mat-dialog-title>Edit Space <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h5>
+<div class="form-header">
+    <h4 mat-dialog-title class="mb-0">Edit Space</h4>
+    <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">close</i>
+</div>
 <form name="form">
     <input type="hidden" name="id" [(ngModel)]="model.id" #id="ngModel">
     <mat-form-field>

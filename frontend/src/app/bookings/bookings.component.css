@@ -9,11 +9,13 @@
     position: sticky !important;
     width: 100%!important;
     top: 56px;    
+    padding: 30px 0;
+    background: #fff;
 }
 .scheduler-header-spaces-table{
     margin: 0;
     position: sticky;
-    top: 126px;
+    top: 154px;
     left: auto;
     width: 100%;
     z-index: 1;
@@ -25,6 +27,7 @@
 
 /*Nav Tabs Button */
 .tabs-btn .btn{border:0;color: #212529;}
+.tabs-btn .btn-group{border: 1px solid #eee;border-radius: 6px;}
 .viewdate-picker .material-icons{position: absolute;right: 5px;}
 .tabs-btn .btn.active{background-color: #64bded;color: #fff;border-color: #64bded;}
 .tabs-btn .btn:focus{box-shadow: none;}

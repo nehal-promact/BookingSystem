@@ -1,7 +1,10 @@
-<form #Form="ngForm">
-    <h4 class="mat-dialog-title" >Delete Space <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
-    <div class="text-center">
-        <p>Do you want to delete this space</p>  
+<div class="form-header">
+    <h4 mat-dialog-title class="mb-0">Delete Space</h4>
+    <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">close</i>
+</div>
+<form #Form="ngForm">    
+    <div>
+        <p>Do you want to delete this space?</p>  
         <button type="submit" mat-raised-button color="primary" (click) = "deleteSpace()" >Yes</button>
         <button type="button" mat-raised-button class="ml-2" (click)="onNoClick()">No</button>
     </div>

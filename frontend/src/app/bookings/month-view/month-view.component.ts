@@ -155,7 +155,7 @@ export class MonthViewComponent implements OnInit {
           item.addEventListener('mouseenter', (event) => {
                 let div = document.getElementById("tooltip");
                 div.style.display = 'block';
-                div.style.left = event.target.getBoundingClientRect().left+ 50 +"px";
+                div.style.left = event.target.getBoundingClientRect().left +"px";
                 div.style.top = event.target.getBoundingClientRect().top + event.target.getBoundingClientRect().height + "px";
                 for (var bookings in this.bookingformonthview) {
                     if(parseInt(bookings) == parseInt(event.target.dataset.day))

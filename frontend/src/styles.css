@@ -17,11 +17,10 @@ button:focus,
 input:focus {outline: none;}
 .btn:focus,
 .btn.focus{box-shadow: none !important;}
-
+.mt-30{margin-top: 30px;}
+.overflow-hidden{overflow: hidden;}
 /* Global Primary color and Background Color */
 button.mat-primary,
-.mat-tab-group.mat-primary .mat-ink-bar, 
-.mat-tab-nav-bar.mat-primary .mat-ink-bar,
 .mat-form-field.mat-focused .mat-form-field-ripple,
 .mat-mini-fab.mat-primary{background-color: #64bded !important}
 /* .btn-primary,.btn-primary:disabled {background-color: #64bded;border-color: #64bded;} */
@@ -32,16 +31,12 @@ button.mat-primary,
 
 .mat-form-field.mat-focused .mat-form-field-label,
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled),
-.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover,
 .mat-datepicker-toggle-active,
 .mat-form-field.mat-focused.mat-primary .mat-select-arrow,
 .mat-raised-button {color: #4cb0e6;}
 
 /* Mat Accent Color */
 .mat-mini-fab.mat-accent{background-color: #fff;color: #64bded;}
-
-/* Mat Tab */
-.mat-tab-body-wrapper{padding-top: 15px;}
 
 /* Form Control */
 input{transition: 0.4s;}
@@ -81,4 +76,12 @@ input{transition: 0.4s;}
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.22);
   transition: 0.4s ease-in-out;
 }
+
+/* Common Form Header */
+.close {font-weight: normal;text-shadow: none;opacity: 1;}
+.close,.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover{color: #fff;}
+.form-header{background-color: #64bded;color: #ffffff;display: flex;align-items: center;justify-content: space-between;padding: 10px 24px;margin: -24px -24px 24px !important;}
+
+/* Global Mat-card padding */
+.mat-card{padding: 24px !important;}
 

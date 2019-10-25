@@ -1,7 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
     <div class="sidenav" >
-        <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/booking/dayview" [matTooltip]="user ? 'Schedule' : 'Bookings'" matTooltipPosition="after" ><i class="material-icons">list_alt</i> Bookings</a>
+        <!-- <a mat-button routerLinkActive="active-link" routerLink="/booking" [matTooltip]="user ? 'Schedule' : 'Bookings'" matTooltipPosition="after" ><i class="material-icons">list_alt</i> Bookings</a> -->
+        <a mat-button routerLinkActive="active-link" routerLink="/booking" ><i class="material-icons">list_alt</i> 
+            <span *ngIf="user">Schedule</span>
+            <span *ngIf="!user">Bookings</span>
+        </a>
         <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/venueuser" *ngIf="isAuthorized && isAdministrator" ><i class="material-icons">group</i> Users</a>
         <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/profile" *ngIf="isAuthorized" ><i class="material-icons">person</i> Profile</a>
         <a mat-button routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/login" *ngIf="!isAuthorized" ><i class="material-icons">exit_to_app</i> Login</a>

@@ -19,6 +19,7 @@
 .scheduler-header-spaces-wrapper{
     position: sticky!important;
     z-index: 995;
+    padding-top: 30px;
     /* padding-top:60px; */
 }
 .top-margin-table{

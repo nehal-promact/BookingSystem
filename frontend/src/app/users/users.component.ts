@@ -106,7 +106,7 @@ export class UsersComponent implements OnInit {
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
-      dialogConfig.width = "50%";
+      dialogConfig.width = "430px";
       dialogConfig.data = id;
       let MatDialogRef = this.dialog.open(UserBookingsComponent,dialogConfig);
       MatDialogRef.afterClosed().subscribe(res =>{
@@ -118,7 +118,7 @@ export class UsersComponent implements OnInit {
       const dialogConfig =  new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.disableClose = true;
-      dialogConfig.width = "50%";         
+      dialogConfig.width = "430px";         
       let MatDialogRef = this.dialog.open(UserCreateComponent,dialogConfig);
       MatDialogRef.afterClosed().subscribe(res =>{
           this.getUsers();
@@ -129,7 +129,7 @@ export class UsersComponent implements OnInit {
         const dialogConfig =  new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.disableClose = true;
-        dialogConfig.width = "50%";
+        dialogConfig.width = "430px";
         dialogConfig.data = {user};
         let MatDialogRef = this.dialog.open(UserEditComponent,dialogConfig);
         MatDialogRef.afterClosed().subscribe(res =>{

@@ -219,8 +219,9 @@ export class DayViewComponent implements OnInit {
 
     openDialog(time, space_id, Type, booking_id): void {
         const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = "430px";
         if(Type == 'createBooking'){
-            console.log(this.selectdate.date.year+"-"+this.selectdate.date.month+"-"+this.selectdate.date.day);
+            console.log(this.selectdate.date.year+"-"+this.selectdate.date.month+"-"+this.selectdate.date.day);            
             dialogConfig.data = {
                 width: '600px',
                 height: '600px',

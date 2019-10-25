@@ -1,6 +1,9 @@
 <!-- main app container -->
-<div>
-    <h4 mat-dialog-title>Edit User Details <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
+<div>    
+    <div class="form-header">
+        <h4 mat-dialog-title class="mb-0">Edit User Details</h4>
+        <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">close</i>
+    </div>
     <form [formGroup]="userRegister" (ngSubmit)="onSubmit()" class="login-form" >     
         <div>
             <mat-form-field>
@@ -30,7 +33,7 @@
             </mat-form-field>
         </div>
         <div>
-            <mat-form-field class="contact-label">
+            <mat-form-field class="contact-label col-6 pl-0 pr-2">
                 <mat-label for="contact_number">Contact Number</mat-label>
                 <span matPrefix>+91</span>                    
                 <input matInput formControlName="contact_number" maxlength="10" required/>
@@ -41,7 +44,7 @@
             </mat-form-field>
         </div>
         <div class="my-1">
-            <button mat-raised-button color="primary" type="submit"><i class="material-icons">person_add</i> Update user</button>
+            <button mat-raised-button color="primary" type="submit">Update user</button>
             <button mat-raised-button class="ml-2" (click)="onNoClick()">Cancel</button>
         </div>
     </form>

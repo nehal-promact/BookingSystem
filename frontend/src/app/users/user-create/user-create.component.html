@@ -1,5 +1,8 @@
 <!-- main app container -->
-<h4 mat-dialog-title> Add User <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">highlight_off</i></h4>
+<div class="form-header">
+    <h4 mat-dialog-title class="mb-0">Add User</h4>
+    <i class="material-icons close" style="cursor:pointer;" (click)="onNoClick()">close</i>
+</div>
 <!--<button type="button" class="ml-1 float-right" [mat-dialog-close]><i class="fa fa-times"></i></button>
 <h3 style="text-align: center;">ADD A USER</h3>-->
 <form [formGroup]="userRegister" (ngSubmit)="onSubmit()" class="login-form " >     
@@ -23,7 +26,7 @@
                 <div *ngIf="f.first_name.errors.required">Firstname is required</div>
             </mat-error>
         </mat-form-field>
-        <mat-form-field class="pr-2">
+        <mat-form-field class="pl-2">
             <mat-label>Last Name</mat-label>
             <input matInput type="text" formControlName="last_name" required />
             <mat-error *ngIf="submitted && f.last_name.errors">
@@ -32,7 +35,7 @@
         </mat-form-field>
     </div>
     <div>
-        <mat-form-field class="contact-label">
+        <mat-form-field class="contact-label col-6 pl-0 pr-2">
             <mat-label for="contact_number">Contact Number</mat-label>
             <span matPrefix>+91</span>                
             <input matInput formControlName="contact_number" maxlength="10" required />
@@ -61,7 +64,7 @@
         </mat-form-field>
     </div>
     <div class="mt-2">
-        <button mat-raised-button color="primary" type="submit"><i class="material-icons">person_add</i> Add user</button>
+        <button mat-raised-button color="primary" type="submit">Add user</button>
         <button  mat-raised-button class="ember-view ml-2" (click)="onNoClick()">Cancel</button>
     </div>        
 </form>
